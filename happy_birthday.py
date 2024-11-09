@@ -11,12 +11,12 @@ today = datetime.today()
 age = today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
 
 # Show a birthday message
-st.markdown(f"<div class='block'><h3 style='text-align: center; color: red;'>🎂🦚✨🚩 Happy Birthday, {name}! 🦚✨🚩🎂</h2></div>", unsafe_allow_html=True)
+st.markdown(f"<div class='block'><h3 style='text-align: center; color: red;'>🎂🌹🦚✨ Happy Birthday, {name}! 🦚✨🌹🎂</h2></div>", unsafe_allow_html=True)
 st.markdown("")
 
 st.markdown("")
 st.markdown("")
-st.markdown(f"<div class='block'><h5 style='text-align: center; color: dark pink;'>🥳 {age} years young today! 🥳</h3></div>", unsafe_allow_html=True)
+st.markdown(f"<div class='block'><h5 style='text-align: center; color:#FF1493 ;'>🥳 {age} years young today! 🥳</h3></div>", unsafe_allow_html=True)
 st.markdown("")
 st.markdown("")
 
