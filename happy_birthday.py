@@ -29,7 +29,6 @@ st.markdown(
     f"""
     <div class='block'>
         <img src="https://st2.depositphotos.com/3102403/11122/i/950/depositphotos_111225728-stock-photo-happy-birthday-lettering-over-abstract.jpg" 
-             class="left-img" 
              alt="Happy Birthday Image" 
              style="float: left; width: 200px; margin-right: 20px;">
         <p style='text-align: center; font-size: 1.2em;'>
