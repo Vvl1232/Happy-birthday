@@ -32,7 +32,7 @@ st.markdown(
         <p style='text-align: center; font-size: 1.2em; color: #FF1493;'> 
             🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟 
         </p>
-        <p style='text-align: center; font-size: 1.2em; color: #FFF0F5;'> 
+        <p style='text-align: center; font-size: 1.2em; color:#FF69B4;'> 
             “Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires. Happy Birthday!” 
         </p>
         <p style='text-align: center; font-size: 1.2em; color: #DA70D6;'> 
