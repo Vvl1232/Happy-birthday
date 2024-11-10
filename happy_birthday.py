@@ -28,7 +28,7 @@ st.markdown(
     <div class='block'>
         <img src="https://st2.depositphotos.com/3102403/11122/i/950/depositphotos_111225728-stock-photo-happy-birthday-lettering-over-abstract.jpg" 
              alt="Happy Birthday Image" 
-             style="width: 200px; margin-right: 20px;">
+             style="width: 200px;">
         <p style='text-align: center; font-size: 1.2em; color: #FF1493;'> 
             🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟 
         </p>
