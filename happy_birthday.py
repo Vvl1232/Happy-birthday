@@ -1,7 +1,6 @@
 import streamlit as st
 from datetime import datetime
 
-
 # Predefined name, birth year, and birthday date
 name = 'xyz'
 birthday = datetime.strptime('13/11/2005', '%d/%m/%Y')
@@ -28,11 +27,11 @@ st.markdown(
     <div class='block'>
         <img src="https://st2.depositphotos.com/3102403/11122/i/950/depositphotos_111225728-stock-photo-happy-birthday-lettering-over-abstract.jpg" 
              alt="Happy Birthday Image" 
-             style="width: 200px;">
+             style="width: 200px; margin: 0 auto; display: block;">
         <p style='text-align: center; font-size: 1.2em; color: #FF1493;'> 
             🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟 
         </p>
-        <p style='text-align: center; font-size: 1.2em; color:#FF69B4;'> 
+        <p style='text-align: center; font-size: 1.2em; color: #FF69B4;'> 
             “Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires. Happy Birthday!” 
         </p>
         <p style='text-align: center; font-size: 1.2em; color: #DA70D6;'> 
