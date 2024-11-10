@@ -13,14 +13,12 @@ age = today.year - birthday.year - ((today.month, today.day) < (birthday.month, 
 # Show a birthday message
 st.markdown(f"<div class='block'><h3 style='text-align: center; color: red;'>🎂🌹🦚✨ Happy Birthday, {name}! 🦚✨🌹🎂</h2></div>", unsafe_allow_html=True)
 st.markdown("")
-
 st.markdown("")
 st.markdown("")
 st.markdown(f"<div class='block'><h5 style='text-align: center; color:#FF1493 ;'>🥳 {age} years young today! 🥳</h3></div>", unsafe_allow_html=True)
 st.markdown("")
 st.markdown("")
 
-st.markdown("")
 st.balloons()
 st.snow()
 
@@ -30,10 +28,16 @@ st.markdown(
     <div class='block'>
         <img src="https://st2.depositphotos.com/3102403/11122/i/950/depositphotos_111225728-stock-photo-happy-birthday-lettering-over-abstract.jpg" 
              alt="Happy Birthday Image" 
-             width: 200px; margin-right: 20px;">
-        <p color: #FFF0F5; style='text-align: center; font-size: 1.2em;'> 🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟 </p>
-        <p color: #FF1493; style='text-align: center; font-size: 1.2em;'> “Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires. Happy Birthday!” </p>
-        <p color: #DA70D6; style='text-align: center; font-size: 1.2em;'> “May your Birthday be filled with the magic of love, joy, and all the things that make you happy. Happy Birthday!” </p>   
+             style="width: 200px; margin-right: 20px;">
+        <p style='text-align: center; font-size: 1.2em; color: #FF1493;'> 
+            🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟 
+        </p>
+        <p style='text-align: center; font-size: 1.2em; color: #FFF0F5;'> 
+            “Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires. Happy Birthday!” 
+        </p>
+        <p style='text-align: center; font-size: 1.2em; color: #DA70D6;'> 
+            “May your Birthday be filled with the magic of love, joy, and all the things that make you happy. Happy Birthday!” 
+        </p>   
     </div>
     """,
     unsafe_allow_html=True
