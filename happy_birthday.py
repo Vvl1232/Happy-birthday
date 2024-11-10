@@ -31,9 +31,9 @@ st.markdown(
         <img src="https://st2.depositphotos.com/3102403/11122/i/950/depositphotos_111225728-stock-photo-happy-birthday-lettering-over-abstract.jpg" 
              alt="Happy Birthday Image" 
              width: 200px; margin-right: 20px;">
-        <p class='deep-pink' style='text-align: center; font-size: 1.2em;'> 🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟 </p>
-        <p class='lavender-blush' style='text-align: center; font-size: 1.2em;'> “Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires. Happy Birthday!” </p>
-        <p class='orchid' style='text-align: center; font-size: 1.2em;'> “May your Birthday be filled with the magic of love, joy, and all the things that make you happy. Happy Birthday!” </p>   
+        <p color:'deep-pink' style='text-align: center; font-size: 1.2em;'> 🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟 </p>
+        <p color:'lavender-blush' style='text-align: center; font-size: 1.2em;'> “Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires. Happy Birthday!” </p>
+        <p color:'orchid' style='text-align: center; font-size: 1.2em;'> “May your Birthday be filled with the magic of love, joy, and all the things that make you happy. Happy Birthday!” </p>   
     </div>
     """,
     unsafe_allow_html=True
