@@ -2,12 +2,12 @@ import streamlit as st
 from datetime import datetime
 
 # Predefined name, birth year, and birthday date
-name = 'xyz'
+name = 'Sanchali'
 birthday = datetime.strptime('13/11/2005', '%d/%m/%Y')
 
 # Calculate age based on the predefined birth year and birthday date
 today = datetime.today()
-age = today.year - birthday.year - ((today.month, today.day) < (birthday.month, birthday.day))
+age = today.year - birthday.year - ((today.month, today.day) <= (birthday.month, birthday.day))
 
 # Show a birthday message
 st.markdown(f"<div class='block'><h3 style='text-align: center; color: red;'>🎂🌹🦚✨ Happy Birthday, {name}! 🦚✨🌹🎂</h2></div>", unsafe_allow_html=True)
