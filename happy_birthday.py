@@ -14,7 +14,7 @@ st.markdown(f"<div class='block'><h3 style='text-align: center; color: red;'>�
 st.markdown("")
 st.markdown("")
 st.markdown("")
-st.markdown(f"<div class='block'><h5 style='text-align: center; color:#FF1493 ;'>🥳 {age} years young today! 🥳</h3></div>", unsafe_allow_html=True)
+#st.markdown(f"<div class='block'><h5 style='text-align: center; color:#FF1493 ;'>🥳 {age} years young today! 🥳</h3></div>", unsafe_allow_html=True)
 st.markdown("")
 st.markdown("")
 
