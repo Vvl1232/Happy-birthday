@@ -3,7 +3,7 @@ from datetime import datetime
 
 # Predefined name, birth year, and birthday date
 name = 'Suraj dada'
-# birthday = datetime.strptime('13/11/2005', '%d/%m/%Y')
+birthday = datetime.strptime('13/11/2005', '%d/%m/%Y')
 
 # Calculate age based on the predefined birth year and birthday date
 today = datetime.today()
