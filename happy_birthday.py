@@ -33,25 +33,19 @@ st.snow()
 # Add an image for extra energy (replace with a valid image URL)
 st.markdown(
    st.markdown(
-    """
-    <div class='block'>
-        <img src="https://st2.depositphotos.com/3102403/11122/i/950/depositphotos_111225728-stock-photo-happy-birthday-lettering-over-abstract.jpg" 
-             alt="Happy Birthday Image" 
-             style="width: 200px; margin: 0 auto; display: block;">
-             
-        <p style='text-align: center; font-size: 1.2em; color: #FF1493;'> 
-            🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟 
-        </p>
-        
-        <p style='text-align: center; font-size: 1.2em; color: #FF69B4;'> 
-            “Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires. Happy Birthday!” 
-        </p>
-        
-        <p style='text-align: center; font-size: 1.2em; color: #DA70D6;'> 
-            “May your Birthday be filled with the magic of love, joy, and all the things that make you happy. Happy Birthday!” 
-        </p>   
-    </div>
-    """,
-    unsafe_allow_html=True
-)
+    st.markdown("""
+<div style='text-align:center;'>
+    <p style='font-size:1.2em; color:#FF1493;'>
+        🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟
+    </p>
+
+    <p style='font-size:1.2em; color:#FF69B4;'>
+        “Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires. Happy Birthday!”
+    </p>
+
+    <p style='font-size:1.2em; color:#DA70D6;'>
+        “May your Birthday be filled with the magic of love, joy, and all the things that make you happy. Happy Birthday!”
+    </p>
+</div>
+""", unsafe_allow_html=True)
 )
