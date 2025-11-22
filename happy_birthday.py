@@ -211,15 +211,43 @@ html_code = """
         .peacock {
             font-size: 20em;
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
-            animation: peacockFly 9.5s linear forwards;
+            animation: peacockFlyStop 9.5s linear forwards;
         }
         
-        @keyframes peacockFly {
+        @keyframes peacockFlyStop {
             0% { transform: translateX(0) scale(1.5); opacity: 0; }
             63% { transform: translateX(0) scale(1.5); opacity: 0; }
             64% { transform: translateX(-150%) scale(1.5); opacity: 1; }
-            94% { transform: translateX(150%) scale(1.5); opacity: 1; }
-            100% { transform: translateX(150%) scale(1.5); opacity: 0; }
+            85% { transform: translateX(30%) scale(1.5); opacity: 1; }
+            94% { transform: translateX(30%) scale(1.5); opacity: 1; }
+            100% { transform: translateX(30%) scale(1.5); opacity: 0; }
+        }
+        
+        /* Countdown Timer */
+        .countdown {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 15em;
+            font-weight: bold;
+            color: #ff6b6b;
+            text-shadow: 0 0 30px rgba(255, 107, 107, 0.8), 0 0 60px rgba(255, 107, 107, 0.6);
+            z-index: 10001;
+            animation: countdownSequence 9.5s linear forwards;
+        }
+        
+        @keyframes countdownSequence {
+            0% { opacity: 0; visibility: hidden; content: ''; }
+            84% { opacity: 0; visibility: hidden; content: ''; }
+            85% { opacity: 1; visibility: visible; content: '3'; transform: translate(-50%, -50%) scale(0.5); }
+            88% { opacity: 1; visibility: visible; content: '3'; transform: translate(-50%, -50%) scale(1.2); }
+            89% { opacity: 1; visibility: visible; content: '2'; transform: translate(-50%, -50%) scale(0.5); }
+            92% { opacity: 1; visibility: visible; content: '2'; transform: translate(-50%, -50%) scale(1.2); }
+            93% { opacity: 1; visibility: visible; content: '1'; transform: translate(-50%, -50%) scale(0.5); }
+            96% { opacity: 1; visibility: visible; content: '1'; transform: translate(-50%, -50%) scale(1.2); }
+            97% { opacity: 0; visibility: hidden; }
+            100% { opacity: 0; visibility: hidden; }
         }
         
         /* Main content */
@@ -244,8 +272,38 @@ html_code = """
         
         @keyframes contentSequence {
             0% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
-            94% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
+            96% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
             100% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+        }
+        
+        /* Celebration burst effects */
+        .celebration-burst {
+            position: fixed;
+            width: 100vw;
+            height: 100vh;
+            top: 0;
+            left: 0;
+            z-index: 9999;
+            pointer-events: none;
+            animation: burstSequence 9.5s linear forwards;
+        }
+        
+        @keyframes burstSequence {
+            0% { opacity: 0; }
+            96% { opacity: 0; }
+            97% { opacity: 1; }
+            100% { opacity: 1; }
+        }
+        
+        .burst-confetti, .burst-balloon, .burst-snow, .burst-firework {
+            position: absolute;
+            animation: burstEffect 1s ease-out;
+        }
+        
+        @keyframes burstEffect {
+            0% { transform: scale(0) translateY(0); opacity: 0; }
+            50% { transform: scale(1.5) translateY(-20px); opacity: 1; }
+            100% { transform: scale(1) translateY(0); opacity: 1; }
         }
         
         .birthday-content h1 {
@@ -307,7 +365,7 @@ html_code = """
     <!-- Welcome Screen -->
     <div class="welcome-screen">
         <div class="welcome-banner">
-            <h1>🎉 WELCOME! 🎉</h1>
+            <h1>✨ SOMETHING MAGICAL AWAITS! ✨</h1>
         </div>
         <div class="welcome-pets">
             <div class="pet">🐱</div>
@@ -319,6 +377,66 @@ html_code = """
     <div class="peacock-container">
         <div class="peacock">🦚</div>
     </div>
+    
+    <!-- Countdown Timer -->
+    <div class="countdown" id="countdown"></div>
+    
+    <!-- Celebration Burst Effects -->
+    <div class="celebration-burst">
+        <!-- Extra confetti burst -->
+        <div class="burst-confetti" style="top: 20%; left: 15%; font-size: 3em; animation-delay: 0s;">🎊</div>
+        <div class="burst-confetti" style="top: 25%; right: 20%; font-size: 3em; animation-delay: 0.1s;">🎉</div>
+        <div class="burst-confetti" style="top: 30%; left: 30%; font-size: 3em; animation-delay: 0.2s;">🎊</div>
+        <div class="burst-confetti" style="top: 35%; right: 35%; font-size: 3em; animation-delay: 0.3s;">🎉</div>
+        <div class="burst-confetti" style="bottom: 30%; left: 25%; font-size: 3em; animation-delay: 0.4s;">🎊</div>
+        <div class="burst-confetti" style="bottom: 35%; right: 30%; font-size: 3em; animation-delay: 0.5s;">🎉</div>
+        
+        <!-- Balloons burst -->
+        <div class="burst-balloon" style="top: 40%; left: 20%; font-size: 3em; animation-delay: 0.2s;">🎈</div>
+        <div class="burst-balloon" style="top: 45%; right: 25%; font-size: 3em; animation-delay: 0.3s;">🎈</div>
+        <div class="burst-balloon" style="bottom: 40%; left: 30%; font-size: 3em; animation-delay: 0.4s;">🎈</div>
+        <div class="burst-balloon" style="bottom: 45%; right: 28%; font-size: 3em; animation-delay: 0.5s;">🎈</div>
+        
+        <!-- Fireworks burst -->
+        <div class="burst-firework" style="top: 15%; left: 40%; font-size: 4em; animation-delay: 0.1s;">💥</div>
+        <div class="burst-firework" style="top: 20%; right: 40%; font-size: 4em; animation-delay: 0.3s;">🎆</div>
+        <div class="burst-firework" style="bottom: 20%; left: 35%; font-size: 4em; animation-delay: 0.5s;">✨</div>
+        <div class="burst-firework" style="bottom: 25%; right: 38%; font-size: 4em; animation-delay: 0.6s;">💫</div>
+        
+        <!-- Snowflakes burst -->
+        <div class="burst-snow" style="top: 10%; left: 50%; font-size: 2.5em; animation-delay: 0.2s;">❄️</div>
+        <div class="burst-snow" style="top: 18%; right: 50%; font-size: 2.5em; animation-delay: 0.4s;">❄️</div>
+        <div class="burst-snow" style="top: 28%; left: 45%; font-size: 2.5em; animation-delay: 0.6s;">❄️</div>
+    </div>
+    
+    <!-- Audio for firecracker sound -->
+    <audio id="firecracker" preload="auto">
+        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foKGio6SlpqeoqaqrrK2ur7CxsrO0tba3uLm6u7y9vr/AwcLDxMXGx8jJysvMzc7P0NHS09TV1tfY2drb3N3e3+Dh4uPk5ebn6Onq6+zt7u/w8fLz9PX29/j5+vv8/f7/AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUmJygpKissLS4vMDEyMzQ1Njc4OTo7PD0+P0BBQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZWltcXV5fYGFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6e3x9fn+AgYKDhIWGh4iJiouMjY6PkJGSk5SVlpeYmZqbnJ2en6ChoqOkpaanqKmqq6ytrq+wsbKztLW2t7i5uru8vb6/wMHCw8TFxsfIycrLzM3Oz9DR0tPU1dbX2Nna29zd3t/g4eLj5OXm5+jp6uvs7e7v8PHy8/T19vf4+fr7/P3+/" type="audio/wav">
+    </audio>
+    
+    <script>
+        // Countdown animation with numbers
+        const countdown = document.getElementById('countdown');
+        const firecracker = document.getElementById('firecracker');
+        
+        setTimeout(() => {
+            // 3
+            countdown.textContent = '3';
+            setTimeout(() => {
+                // 2
+                countdown.textContent = '2';
+                setTimeout(() => {
+                    // 1
+                    countdown.textContent = '1';
+                    setTimeout(() => {
+                        // Play firecracker sound
+                        firecracker.play().catch(e => console.log('Audio play failed:', e));
+                        countdown.textContent = '';
+                    }, 1000);
+                }, 1000);
+            }, 1000);
+        }, 8100); // Start at 8.1 seconds (85% of 9.5s)
+    </script>
     
     <!-- Main Birthday Content -->
     <div class="birthday-content">
