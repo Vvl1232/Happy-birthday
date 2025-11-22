@@ -14,39 +14,26 @@ st.markdown(
     f"<div class='block'><h3 style='text-align: center; color: red;'>🎂🌹🦚✨ Happy Birthday, {name}! 🦚✨🌹🎂</h3></div>",
     unsafe_allow_html=True
 )
-
 st.markdown("")
 st.markdown("")
 st.markdown("")
 
-# st.markdown(
-#     f"<div class='block'><h5 style='text-align: center; color:#FF1493 ;'>🥳 {age} years young today! 🥳</h5></div>",
-#     unsafe_allow_html=True
-# )
-
 st.markdown("")
 st.markdown("")
-
 st.balloons()
 st.snow()
 
-# Add an image for extra energy (replace with a valid image URL)
+# Birthday wishes
 st.markdown("""
 <div style='text-align:center;'>
     <p style='font-size:1.2em; color:#FF1493;'>
         🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟
     </p>
-
     <p style='font-size:1.2em; color:#FF69B4;'>
-        “Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires. Happy Birthday!”
+        Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires. Happy Birthday!
     </p>
-
     <p style='font-size:1.2em; color:#DA70D6;'>
-        “May your Birthday be filled with the magic of love, joy, and all the things that make you happy. Happy Birthday!”
+        May your Birthday be filled with the magic of love, joy, and all the things that make you happy. Happy Birthday!
     </p>
 </div>
-""",
-    unsafe_allow_html=True
-)
-
-
+""", unsafe_allow_html=True)
