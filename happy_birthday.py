@@ -247,34 +247,6 @@ html_code = """
             100% { transform: translateX(35%) scale(1.5); opacity: 0; }
         }
         
-        /* Krishna image container */
-        .krishna-container {
-            position: fixed;
-            top: 20%;
-            left: 5%;
-            z-index: 10002;
-            animation: krishnaSequence 17s linear forwards;
-        }
-        
-        @keyframes krishnaSequence {
-            0% { opacity: 0; visibility: hidden; transform: scale(0.5); }
-            76% { opacity: 0; visibility: hidden; transform: scale(0.5); }
-            77% { opacity: 1; visibility: visible; transform: scale(1); }
-            94% { opacity: 1; visibility: visible; transform: scale(1); }
-            95% { opacity: 0; visibility: hidden; transform: scale(0.5); }
-            100% { opacity: 0; visibility: hidden; }
-        }
-        
-        .krishna-image {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            border: 4px solid #ffd700;
-            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
-            animation: glow 2s ease-in-out infinite, flutePlay 3s ease-in-out infinite;
-            object-fit: cover;
-        }
-        
         /* Countdown Timer */
         .countdown {
             position: fixed;
@@ -292,19 +264,24 @@ html_code = """
         @keyframes countdownSequence {
             0% { opacity: 0; visibility: hidden; }
             76% { opacity: 0; visibility: hidden; }
-            77% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(0.3); }
-            78% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.3); }
+            77% { opacity: 0; visibility: visible; transform: translate(-50%, -50%) scale(0.5); }
+            78% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.2); }
             79% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-            82% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-            83% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(0.3); }
-            84% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.3); }
+            82.5% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+            83% { opacity: 0.8; visibility: visible; transform: translate(-50%, -50%) scale(0.9); }
+            83.5% { opacity: 0; visibility: visible; transform: translate(-50%, -50%) scale(0.5); }
+            84% { opacity: 0; visibility: visible; transform: translate(-50%, -50%) scale(0.5); }
+            84.5% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.2); }
             85% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-            88% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-            89% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(0.3); }
-            90% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.3); }
+            88.5% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+            89% { opacity: 0.8; visibility: visible; transform: translate(-50%, -50%) scale(0.9); }
+            89.5% { opacity: 0; visibility: visible; transform: translate(-50%, -50%) scale(0.5); }
+            90% { opacity: 0; visibility: visible; transform: translate(-50%, -50%) scale(0.5); }
+            90.5% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.2); }
             91% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-            94% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-            95% { opacity: 0; visibility: hidden; }
+            94.5% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+            95% { opacity: 0.8; visibility: visible; transform: translate(-50%, -50%) scale(0.9); }
+            95.5% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
             100% { opacity: 0; visibility: hidden; }
         }
         
@@ -434,14 +411,6 @@ html_code = """
     <!-- Peacock Animation -->
     <div class="peacock-container">
         <div class="peacock">🦚</div>
-    </div>
-    
-    <!-- Krishna Image -->
-    <div class="krishna-container">
-        <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=400&h=400&fit=crop" 
-             alt="Krishna with Flute" 
-             class="krishna-image"
-             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Ccircle cx=%22100%22 cy=%22100%22 r=%2280%22 fill=%22%234A90E2%22/%3E%3Ctext x=%22100%22 y=%22110%22 font-size=%2260%22 text-anchor=%22middle%22 fill=%22white%22%3E🎵%3C/text%3E%3C/svg%3E'">
     </div>
     
     <!-- Countdown Timer -->
