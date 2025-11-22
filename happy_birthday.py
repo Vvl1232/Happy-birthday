@@ -524,9 +524,9 @@ html_code = """
                         // Play celebration sound and clear countdown
                         playBirthdaySound();
                         countdown.textContent = '';
-                    }, 3000); // 3 seconds for "1"
-                }, 3000); // 3 seconds for "2"
-            }, 3000); // 3 seconds for "3"
+                    }, 3500); // 3.5 seconds for "1"
+                }, 3500); // 3.5 seconds for "2"
+            }, 3500); // 3.5 seconds for "3"
         }, 13000); // Start at 13 seconds (77% of 17s)
     </script>
     
