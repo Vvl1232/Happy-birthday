@@ -50,14 +50,16 @@ html_code = """
                 font-size: 12em !important;
             }
             .birthday-content {
-                padding: 30px 40px !important;
+                padding: 25px 30px !important;
                 width: 90% !important;
+                max-width: 90% !important;
             }
             .birthday-content h1 {
-                font-size: 2.5em !important;
+                font-size: 2em !important;
             }
             .birthday-content p {
-                font-size: 1.1em !important;
+                font-size: 1em !important;
+                margin: 10px 0 !important;
             }
             .floating-animal {
                 font-size: 2.5em !important;
@@ -83,11 +85,15 @@ html_code = """
             .peacock {
                 font-size: 8em !important;
             }
+            .birthday-content {
+                padding: 20px 25px !important;
+            }
             .birthday-content h1 {
-                font-size: 1.8em !important;
+                font-size: 1.5em !important;
             }
             .birthday-content p {
-                font-size: 0.9em !important;
+                font-size: 0.85em !important;
+                margin: 8px 0 !important;
             }
         }
         
@@ -226,12 +232,14 @@ html_code = """
             z-index: 10000;
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(15px);
-            padding: 60px 80px;
-            border-radius: 40px;
+            padding: 40px 50px;
+            border-radius: 30px;
             box-shadow: 0 25px 100px rgba(0,0,0,0.4);
             border: 2px solid rgba(255,255,255,0.3);
             animation: contentSequence 9.5s ease-in forwards;
-            max-width: 90%;
+            max-width: 85%;
+            max-height: 85vh;
+            overflow-y: auto;
         }
         
         @keyframes contentSequence {
@@ -241,22 +249,22 @@ html_code = """
         }
         
         .birthday-content h1 {
-            font-size: 4.5em;
+            font-size: 3em;
             background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             animation: bounce 3s ease-in-out infinite;
             font-weight: bold;
         }
         
         .birthday-content p {
-            font-size: 1.6em;
+            font-size: 1.3em;
             color: white;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-            margin: 25px 0;
-            line-height: 1.8;
+            margin: 15px 0;
+            line-height: 1.6;
             font-weight: 500;
         }
         
