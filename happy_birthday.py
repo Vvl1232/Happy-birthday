@@ -8,15 +8,30 @@ st.set_page_config(page_title="Happy Birthday!", page_icon="🎂", layout="wide"
 # Custom CSS for animations
 st.markdown("""
 <style>
-    /* Hide Streamlit default elements */
+    /* Hide ALL Streamlit elements */
     #MainMenu {visibility: hidden;}
     footer {visibility: hidden;}
     header {visibility: hidden;}
+    .stApp > header {visibility: hidden;}
+    [data-testid="stHeader"] {display: none;}
+    [data-testid="stToolbar"] {display: none;}
+    .stDeployButton {display: none;}
     
-    /* Full page background */
+    /* Remove all default padding and margins */
+    .block-container {
+        padding: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    /* Full page background - cover everything */
     .stApp {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-        overflow: hidden;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%) !important;
+        overflow: hidden !important;
+    }
+    
+    /* Hide the main content area */
+    .main .block-container {
+        padding-top: 0 !important;
     }
     
     /* Animations */
@@ -26,8 +41,8 @@ st.markdown("""
     }
     
     @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-40px); }
+        0%, 100% { transform: translateY(0) scale(1); }
+        50% { transform: translateY(-40px) scale(1.05); }
     }
     
     @keyframes slideIn {
@@ -36,19 +51,24 @@ st.markdown("""
     }
     
     @keyframes fadeIn {
-        from { opacity: 0; transform: scale(0.5); }
+        from { opacity: 0; transform: scale(0.8); }
         to { opacity: 1; transform: scale(1); }
     }
     
+    @keyframes fadeOut {
+        from { opacity: 1; transform: scale(1); }
+        to { opacity: 0; transform: scale(0.8); }
+    }
+    
     @keyframes peacockEnter {
-        0% { transform: translateX(150%) scale(0.5); opacity: 0; }
-        50% { transform: translateX(50%) scale(1.5); opacity: 1; }
-        100% { transform: translateX(50%) scale(1); opacity: 1; }
+        0% { transform: translateX(150%) scale(0.3) rotate(0deg); opacity: 0; }
+        50% { transform: translateX(50%) scale(1.8) rotate(10deg); opacity: 1; }
+        100% { transform: translateX(50%) scale(1.5) rotate(0deg); opacity: 1; }
     }
     
     @keyframes peacockExit {
-        0% { transform: translateX(50%) scale(1); opacity: 1; }
-        100% { transform: translateX(150%) scale(0.5); opacity: 0; }
+        0% { transform: translateX(50%) scale(1.5) rotate(0deg); opacity: 1; }
+        100% { transform: translateX(-150%) scale(0.3) rotate(-20deg); opacity: 0; }
     }
     
     @keyframes sparkle {
@@ -63,8 +83,19 @@ st.markdown("""
     
     @keyframes firework {
         0% { transform: scale(0); opacity: 1; }
-        50% { transform: scale(1); opacity: 1; }
-        100% { transform: scale(1.5); opacity: 0; }
+        50% { transform: scale(1.2); opacity: 1; }
+        100% { transform: scale(2); opacity: 0; }
+    }
+    
+    /* Full screen container */
+    .fullscreen-container {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        z-index: 9999;
+        pointer-events: none;
     }
     
     /* Welcome screen */
@@ -78,36 +109,43 @@ st.markdown("""
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        z-index: 1000;
+        z-index: 10000;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
         animation: fadeIn 1s ease-in;
+    }
+    
+    .welcome-screen.hide {
+        animation: fadeOut 1s ease-out forwards;
     }
     
     .welcome-banner {
         background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
-        padding: 30px 60px;
+        padding: 40px 80px;
         border-radius: 50px;
-        box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        box-shadow: 0 20px 60px rgba(0,0,0,0.4);
         animation: bounce 2s ease-in-out infinite;
-        margin-bottom: 40px;
+        margin-bottom: 50px;
     }
     
     .welcome-banner h1 {
         color: white;
-        font-size: 4em;
+        font-size: 5em;
         text-align: center;
         margin: 0;
-        text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+        text-shadow: 4px 4px 8px rgba(0,0,0,0.4);
+        font-weight: bold;
     }
     
     .welcome-pets {
         display: flex;
-        gap: 100px;
+        gap: 120px;
         animation: slideIn 1.5s ease-out;
     }
     
     .pet {
-        font-size: 8em;
+        font-size: 10em;
         animation: bounce 1.5s ease-in-out infinite;
+        filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
     }
     
     .pet:nth-child(2) {
@@ -117,24 +155,29 @@ st.markdown("""
     /* Peacock animation */
     .peacock-container {
         position: fixed;
-        top: 50%;
+        top: 0;
         left: 0;
         width: 100vw;
-        height: auto;
-        display: flex;
+        height: 100vh;
+        display: none;
         justify-content: center;
         align-items: center;
-        z-index: 999;
-        pointer-events: none;
+        z-index: 10000;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    }
+    
+    .peacock-container.show {
+        display: flex;
     }
     
     .peacock {
-        font-size: 15em;
-        animation: peacockEnter 3s ease-out forwards;
+        font-size: 20em;
+        filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
+        animation: peacockEnter 4s ease-out forwards;
     }
     
     .peacock.exit {
-        animation: peacockExit 2s ease-in forwards;
+        animation: peacockExit 3s ease-in forwards;
     }
     
     /* Main content */
@@ -144,78 +187,87 @@ st.markdown("""
         left: 50%;
         transform: translate(-50%, -50%);
         text-align: center;
-        z-index: 100;
+        z-index: 9999;
+        display: none;
+        background: rgba(255, 255, 255, 0.15);
+        backdrop-filter: blur(15px);
+        padding: 60px 80px;
+        border-radius: 40px;
+        box-shadow: 0 25px 100px rgba(0,0,0,0.4);
+        border: 2px solid rgba(255,255,255,0.3);
         animation: fadeIn 2s ease-in;
-        background: rgba(255, 255, 255, 0.1);
-        backdrop-filter: blur(10px);
-        padding: 50px;
-        border-radius: 30px;
-        box-shadow: 0 20px 80px rgba(0,0,0,0.3);
+    }
+    
+    .birthday-content.show {
+        display: block;
     }
     
     .birthday-content h1 {
-        font-size: 5em;
-        color: #ff6b6b;
-        text-shadow: 3px 3px 6px rgba(0,0,0,0.3);
+        font-size: 4.5em;
+        background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        text-shadow: none;
         margin-bottom: 30px;
         animation: bounce 3s ease-in-out infinite;
+        font-weight: bold;
     }
     
     .birthday-content p {
-        font-size: 1.8em;
+        font-size: 1.6em;
         color: white;
         text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        margin: 20px 0;
-        line-height: 1.6;
+        margin: 25px 0;
+        line-height: 1.8;
+        font-weight: 500;
     }
     
     /* Floating animals */
     .floating-animal {
         position: fixed;
         font-size: 4em;
-        animation: float 3s ease-in-out infinite;
-        z-index: 50;
+        animation: float 4s ease-in-out infinite;
+        z-index: 9998;
+        filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
     }
     
-    /* Snowflakes */
+    /* Effects */
     .snowflake {
         position: fixed;
         color: white;
         font-size: 2em;
         animation: fall linear infinite;
-        z-index: 10;
+        z-index: 9997;
     }
     
-    /* Confetti */
     .confetti {
         position: fixed;
         font-size: 2em;
         animation: fall linear infinite;
-        z-index: 10;
+        z-index: 9997;
     }
     
-    /* Fireworks */
     .firework {
         position: fixed;
         font-size: 4em;
         animation: firework 2s ease-out infinite;
-        z-index: 10;
+        z-index: 9997;
     }
     
-    /* Sparkles */
     .sparkle {
         position: fixed;
-        font-size: 2em;
+        font-size: 2.5em;
         animation: sparkle 2s ease-in-out infinite;
-        z-index: 10;
+        z-index: 9997;
     }
 </style>
 """, unsafe_allow_html=True)
 
 # Create the animated HTML
 st.markdown("""
-<div id="app">
-    <!-- Welcome Screen (shows first) -->
+<div class="fullscreen-container">
+    <!-- Welcome Screen (shows first for 5 seconds) -->
     <div class="welcome-screen" id="welcomeScreen">
         <div class="welcome-banner">
             <h1>🎉 WELCOME! 🎉</h1>
@@ -226,13 +278,13 @@ st.markdown("""
         </div>
     </div>
     
-    <!-- Peacock Animation -->
-    <div class="peacock-container" id="peacockContainer" style="display: none;">
+    <!-- Peacock Animation (shows after welcome) -->
+    <div class="peacock-container" id="peacockContainer">
         <div class="peacock" id="peacock">🦚</div>
     </div>
     
     <!-- Main Birthday Content (shows after peacock) -->
-    <div class="birthday-content" id="birthdayContent" style="display: none;">
+    <div class="birthday-content" id="birthdayContent">
         <h1>🎂🌹✨ Happy Birthday! ✨🌹🎂</h1>
         <p>🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟</p>
         <p>💖 Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires! 🧁</p>
@@ -240,20 +292,20 @@ st.markdown("""
     </div>
     
     <!-- Floating Animals scattered everywhere -->
-    <div class="floating-animal" style="top: 5%; left: 5%; animation-delay: 0s;">🐶</div>
-    <div class="floating-animal" style="top: 10%; right: 8%; animation-delay: 0.5s;">🐱</div>
-    <div class="floating-animal" style="top: 20%; left: 15%; animation-delay: 1s;">🐕</div>
-    <div class="floating-animal" style="top: 25%; right: 20%; animation-delay: 1.5s;">🐈</div>
-    <div class="floating-animal" style="top: 40%; left: 3%; animation-delay: 2s;">🐩</div>
-    <div class="floating-animal" style="top: 45%; right: 5%; animation-delay: 2.5s;">🐈‍⬛</div>
-    <div class="floating-animal" style="bottom: 20%; left: 10%; animation-delay: 0.3s;">🦮</div>
-    <div class="floating-animal" style="bottom: 25%; right: 12%; animation-delay: 0.8s;">🐕‍🦺</div>
-    <div class="floating-animal" style="bottom: 10%; left: 20%; animation-delay: 1.3s;">🐾</div>
-    <div class="floating-animal" style="bottom: 15%; right: 18%; animation-delay: 1.8s;">🐾</div>
-    <div class="floating-animal" style="top: 30%; left: 45%; animation-delay: 2.2s;">🐶</div>
-    <div class="floating-animal" style="top: 60%; right: 30%; animation-delay: 2.7s;">🐱</div>
-    <div class="floating-animal" style="top: 70%; left: 35%; animation-delay: 3s;">🐕</div>
-    <div class="floating-animal" style="bottom: 40%; right: 40%; animation-delay: 0.6s;">🐈</div>
+    <div class="floating-animal" style="top: 8%; left: 5%; animation-delay: 0s; animation-duration: 3s;">🐶</div>
+    <div class="floating-animal" style="top: 12%; right: 8%; animation-delay: 0.5s; animation-duration: 3.5s;">🐱</div>
+    <div class="floating-animal" style="top: 22%; left: 15%; animation-delay: 1s; animation-duration: 4s;">🐕</div>
+    <div class="floating-animal" style="top: 28%; right: 20%; animation-delay: 1.5s; animation-duration: 3.2s;">🐈</div>
+    <div class="floating-animal" style="top: 42%; left: 3%; animation-delay: 2s; animation-duration: 3.8s;">🐩</div>
+    <div class="floating-animal" style="top: 48%; right: 5%; animation-delay: 2.5s; animation-duration: 4.2s;">🐈‍⬛</div>
+    <div class="floating-animal" style="bottom: 22%; left: 10%; animation-delay: 0.3s; animation-duration: 3.3s;">🦮</div>
+    <div class="floating-animal" style="bottom: 28%; right: 12%; animation-delay: 0.8s; animation-duration: 3.7s;">🐕‍🦺</div>
+    <div class="floating-animal" style="bottom: 12%; left: 20%; animation-delay: 1.3s; animation-duration: 4.1s;">🐾</div>
+    <div class="floating-animal" style="bottom: 18%; right: 18%; animation-delay: 1.8s; animation-duration: 3.4s;">🐾</div>
+    <div class="floating-animal" style="top: 35%; left: 45%; animation-delay: 2.2s; animation-duration: 3.9s;">🐶</div>
+    <div class="floating-animal" style="top: 65%; right: 30%; animation-delay: 2.7s; animation-duration: 3.6s;">🐱</div>
+    <div class="floating-animal" style="top: 75%; left: 35%; animation-delay: 3s; animation-duration: 4.3s;">🐕</div>
+    <div class="floating-animal" style="bottom: 45%; right: 40%; animation-delay: 0.6s; animation-duration: 3.5s;">🐈</div>
     
     <!-- Snowflakes -->
     <div class="snowflake" style="left: 10%; animation-duration: 8s; animation-delay: 0s;">❄️</div>
@@ -280,42 +332,49 @@ st.markdown("""
     
     <!-- Fireworks -->
     <div class="firework" style="top: 15%; left: 20%; animation-delay: 0s;">💥</div>
-    <div class="firework" style="top: 20%; right: 25%; animation-delay: 0.5s;">✨</div>
-    <div class="firework" style="top: 30%; left: 30%; animation-delay: 1s;">🎆</div>
-    <div class="firework" style="top: 35%; right: 35%; animation-delay: 1.5s;">💫</div>
-    <div class="firework" style="bottom: 30%; left: 25%; animation-delay: 0.3s;">🎇</div>
-    <div class="firework" style="bottom: 35%; right: 30%; animation-delay: 0.8s;">💥</div>
-    <div class="firework" style="top: 50%; left: 15%; animation-delay: 2s;">✨</div>
-    <div class="firework" style="top: 55%; right: 20%; animation-delay: 2.5s;">🎆</div>
+    <div class="firework" style="top: 20%; right: 25%; animation-delay: 0.6s;">✨</div>
+    <div class="firework" style="top: 30%; left: 30%; animation-delay: 1.2s;">🎆</div>
+    <div class="firework" style="top: 35%; right: 35%; animation-delay: 1.8s;">💫</div>
+    <div class="firework" style="bottom: 30%; left: 25%; animation-delay: 0.4s;">🎇</div>
+    <div class="firework" style="bottom: 35%; right: 30%; animation-delay: 1s;">💥</div>
+    <div class="firework" style="top: 50%; left: 15%; animation-delay: 2.2s;">✨</div>
+    <div class="firework" style="top: 55%; right: 20%; animation-delay: 2.8s;">🎆</div>
     
     <!-- Sparkles -->
     <div class="sparkle" style="top: 12%; left: 40%; animation-delay: 0s;">⭐</div>
-    <div class="sparkle" style="top: 18%; right: 45%; animation-delay: 0.4s;">✨</div>
-    <div class="sparkle" style="top: 80%; left: 25%; animation-delay: 0.8s;">🌟</div>
-    <div class="sparkle" style="top: 85%; right: 28%; animation-delay: 1.2s;">💫</div>
-    <div class="sparkle" style="top: 45%; left: 8%; animation-delay: 1.6s;">⭐</div>
-    <div class="sparkle" style="top: 50%; right: 10%; animation-delay: 2s;">✨</div>
+    <div class="sparkle" style="top: 18%; right: 45%; animation-delay: 0.5s;">✨</div>
+    <div class="sparkle" style="top: 80%; left: 25%; animation-delay: 1s;">🌟</div>
+    <div class="sparkle" style="top: 85%; right: 28%; animation-delay: 1.5s;">💫</div>
+    <div class="sparkle" style="top: 45%; left: 8%; animation-delay: 2s;">⭐</div>
+    <div class="sparkle" style="top: 50%; right: 10%; animation-delay: 2.5s;">✨</div>
 </div>
 
 <script>
-    // Animation sequence
+    // Animation sequence with correct timing
+    
+    // Step 1: Welcome screen shows for 5 seconds
     setTimeout(() => {
-        // Hide welcome screen
-        document.getElementById('welcomeScreen').style.display = 'none';
+        // Add hide class to welcome screen
+        document.getElementById('welcomeScreen').classList.add('hide');
         
-        // Show peacock
-        document.getElementById('peacockContainer').style.display = 'flex';
-        
-        // After 3 seconds, peacock exits and content shows
+        // After fade out (1 second), show peacock
         setTimeout(() => {
-            document.getElementById('peacock').classList.add('exit');
+            document.getElementById('welcomeScreen').style.display = 'none';
+            document.getElementById('peacockContainer').classList.add('show');
             
+            // Step 2: Peacock displays feather animation for 4 seconds
             setTimeout(() => {
-                document.getElementById('peacockContainer').style.display = 'none';
-                document.getElementById('birthdayContent').style.display = 'block';
-            }, 2000);
-        }, 3000);
-    }, 3000);
+                // Make peacock exit
+                document.getElementById('peacock').classList.add('exit');
+                
+                // Step 3: After peacock exits (3 seconds), show birthday content
+                setTimeout(() => {
+                    document.getElementById('peacockContainer').style.display = 'none';
+                    document.getElementById('birthdayContent').classList.add('show');
+                }, 3000);
+            }, 4000);
+        }, 1000);
+    }, 5000);
 </script>
 """, unsafe_allow_html=True)
 
