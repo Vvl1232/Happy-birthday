@@ -191,27 +191,29 @@ html_code = """
             align-items: center;
             z-index: 9999;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            animation: peacockSequence 9s ease-in-out forwards;
+            animation: peacockSequence 9.5s ease-in-out forwards;
         }
         
         @keyframes peacockSequence {
             0% { opacity: 0; visibility: hidden; pointer-events: none; }
-            66% { opacity: 0; visibility: hidden; pointer-events: none; }
-            67% { opacity: 1; visibility: visible; }
-            100% { opacity: 1; visibility: visible; }
+            63% { opacity: 0; visibility: hidden; pointer-events: none; }
+            64% { opacity: 1; visibility: visible; }
+            94% { opacity: 1; visibility: visible; }
+            100% { opacity: 0; visibility: hidden; pointer-events: none; }
         }
         
         .peacock {
             font-size: 20em;
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
-            animation: peacockFly 9s ease-out forwards;
+            animation: peacockFly 9.5s linear forwards;
         }
         
         @keyframes peacockFly {
             0% { transform: translateX(0) scale(1.5); opacity: 0; }
-            66% { transform: translateX(0) scale(1.5); opacity: 0; }
-            67% { transform: translateX(-150%) scale(1.5); opacity: 1; }
-            100% { transform: translateX(150%) scale(1.5); opacity: 1; }
+            63% { transform: translateX(0) scale(1.5); opacity: 0; }
+            64% { transform: translateX(-150%) scale(1.5); opacity: 1; }
+            94% { transform: translateX(150%) scale(1.5); opacity: 1; }
+            100% { transform: translateX(150%) scale(1.5); opacity: 0; }
         }
         
         /* Main content */
@@ -221,20 +223,20 @@ html_code = """
             left: 50%;
             transform: translate(-50%, -50%);
             text-align: center;
-            z-index: 9998;
+            z-index: 10000;
             background: rgba(255, 255, 255, 0.15);
             backdrop-filter: blur(15px);
             padding: 60px 80px;
             border-radius: 40px;
             box-shadow: 0 25px 100px rgba(0,0,0,0.4);
             border: 2px solid rgba(255,255,255,0.3);
-            animation: contentSequence 10s ease-in forwards;
+            animation: contentSequence 9.5s ease-in forwards;
             max-width: 90%;
         }
         
         @keyframes contentSequence {
             0% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
-            89% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
+            94% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
             100% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
         }
         
