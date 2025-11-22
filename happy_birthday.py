@@ -262,7 +262,7 @@ html_code = """
         }
         
         .countdown.show {
-            animation: countdownNumber 2s ease-in-out;
+            animation: countdownNumber 1s ease-in-out;
         }
         
         @keyframes countdownSequence {
@@ -457,16 +457,16 @@ html_code = """
         
         // Start countdown at 13 seconds after peacock animation
         showNumber('3', 13000); // Show 3 at 13s
-        showNumber('2', 15000); // Show 2 at 15s (2s later)
-        showNumber('1', 17000); // Show 1 at 17s (2s later)
+        showNumber('2', 14000); // Show 2 at 14s (1s later)
+        showNumber('1', 15000); // Show 1 at 15s (1s later)
         
-        // Clear countdown at 19s (after 1 finishes showing)
+        // Clear countdown at 16s (after 1 finishes showing)
         setTimeout(() => {
             countdown.style.opacity = '0';
             setTimeout(() => {
                 countdown.textContent = '';
             }, 500); // Wait for fade out
-        }, 19000);
+        }, 16000);
     </script>
     </script>
     
