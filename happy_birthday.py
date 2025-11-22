@@ -258,18 +258,24 @@ html_code = """
             color: #ff6b6b;
             text-shadow: 0 0 30px rgba(255, 107, 107, 0.8), 0 0 60px rgba(255, 107, 107, 0.6);
             z-index: 10001;
-            animation: countdownSequence 17s ease-in-out forwards;
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+        
+        .countdown.show {
+            animation: countdownNumber 2s ease-in-out;
         }
         
         @keyframes countdownSequence {
-            0% { opacity: 0; visibility: hidden; }
-            76% { opacity: 0; visibility: hidden; }
-            77% { opacity: 0; visibility: visible; transform: translate(-50%, -50%) scale(0.5); }
-            78% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.2); }
-            79% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-            96% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-            97% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
-            100% { opacity: 0; visibility: hidden; }
+            0% { opacity: 1; visibility: visible; }
+            100% { opacity: 1; visibility: visible; }
+        }
+        
+        @keyframes countdownNumber {
+            0% { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
+            15% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+            25% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+            100% { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
         }
         
         /* Main content */
@@ -294,7 +300,7 @@ html_code = """
         
         @keyframes contentSequence {
             0% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
-            94% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
+            90% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
             100% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
         }
         
@@ -312,8 +318,8 @@ html_code = """
         
         @keyframes burstSequence {
             0% { opacity: 0; }
-            94% { opacity: 0; }
-            95% { opacity: 1; }
+            90% { opacity: 0; }
+            91% { opacity: 1; }
             100% { opacity: 1; }
         }
         
@@ -437,84 +443,30 @@ html_code = """
     </audio>
     
     <script>
-        // Create celebration sound using Web Audio API
-        const AudioContext = window.AudioContext || window.webkitAudioContext;
-        let audioContext;
-        
-        function playBirthdaySound() {
-            try {
-                audioContext = new AudioContext();
-                
-                // Create a more pleasant celebration sound
-                const now = audioContext.currentTime;
-                
-                // Create multiple oscillators for a richer sound
-                for (let i = 0; i < 3; i++) {
-                    const oscillator = audioContext.createOscillator();
-                    const gainNode = audioContext.createGain();
-                    
-                    oscillator.connect(gainNode);
-                    gainNode.connect(audioContext.destination);
-                    
-                    // Different frequencies for harmony
-                    oscillator.frequency.setValueAtTime(523.25 * (i + 1), now); // C5, C6, C7
-                    oscillator.type = 'sine';
-                    
-                    // Envelope for natural sound
-                    gainNode.gain.setValueAtTime(0, now);
-                    gainNode.gain.linearRampToValueAtTime(0.3, now + 0.01);
-                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 1);
-                    
-                    oscillator.start(now + i * 0.1);
-                    oscillator.stop(now + 1 + i * 0.1);
-                }
-                
-                // Add white noise for "firework" effect
-                const bufferSize = audioContext.sampleRate * 0.5;
-                const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
-                const data = buffer.getChannelData(0);
-                
-                for (let i = 0; i < bufferSize; i++) {
-                    data[i] = Math.random() * 2 - 1;
-                }
-                
-                const noise = audioContext.createBufferSource();
-                const noiseGain = audioContext.createGain();
-                noise.buffer = buffer;
-                noise.connect(noiseGain);
-                noiseGain.connect(audioContext.destination);
-                
-                noiseGain.gain.setValueAtTime(0.1, now);
-                noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
-                
-                noise.start(now);
-                
-            } catch (e) {
-                console.log('Audio context error:', e);
-            }
-        }
-        
-        // Countdown animation with numbers
+        // Countdown animation with smooth transitions
         const countdown = document.getElementById('countdown');
         
-        // Start countdown at 13 seconds (77% of 17s)
-        setTimeout(() => {
-            countdown.textContent = '3';
-        }, 13000);
+        function showNumber(number, delay) {
+            setTimeout(() => {
+                countdown.textContent = number;
+                countdown.classList.remove('show');
+                // Force reflow to restart animation
+                void countdown.offsetWidth;
+                countdown.classList.add('show');
+            }, delay);
+        }
         
-        setTimeout(() => {
-            countdown.textContent = '2';
-        }, 15000); // 13s + 2s = 15s
+        // Start countdown at 13 seconds after peacock animation
+        showNumber('3', 13000); // Show 3 at 13s
+        showNumber('2', 15000); // Show 2 at 15s (2s later)
+        showNumber('1', 17000); // Show 1 at 17s (2s later)
         
+        // Clear countdown and show birthday content at 19s
         setTimeout(() => {
-            countdown.textContent = '1';
-        }, 17000); // 15s + 2s = 17s
-        
-        setTimeout(() => {
-            // Play celebration sound and clear countdown
-            playBirthdaySound();
+            countdown.style.opacity = '0';
             countdown.textContent = '';
-        }, 19000); // 17s + 2s = 19s (but animation ends at 17s, so content appears)
+        }, 19000);
+    </script>
     </script>
     
     <!-- Main Birthday Content -->
