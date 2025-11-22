@@ -32,7 +32,8 @@ st.snow()
 
 # Add an image for extra energy (replace with a valid image URL)
 st.markdown(
-    f"""
+   st.markdown(
+    """
     <div class='block'>
         <img src="https://st2.depositphotos.com/3102403/11122/i/950/depositphotos_111225728-stock-photo-happy-birthday-lettering-over-abstract.jpg" 
              alt="Happy Birthday Image" 
@@ -53,3 +54,4 @@ st.markdown(
     """,
     unsafe_allow_html=True
 )
+
