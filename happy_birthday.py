@@ -267,21 +267,8 @@ html_code = """
             77% { opacity: 0; visibility: visible; transform: translate(-50%, -50%) scale(0.5); }
             78% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.2); }
             79% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-            82.5% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-            83% { opacity: 0.8; visibility: visible; transform: translate(-50%, -50%) scale(0.9); }
-            83.5% { opacity: 0; visibility: visible; transform: translate(-50%, -50%) scale(0.5); }
-            84% { opacity: 0; visibility: visible; transform: translate(-50%, -50%) scale(0.5); }
-            84.5% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.2); }
-            85% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-            88.5% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-            89% { opacity: 0.8; visibility: visible; transform: translate(-50%, -50%) scale(0.9); }
-            89.5% { opacity: 0; visibility: visible; transform: translate(-50%, -50%) scale(0.5); }
-            90% { opacity: 0; visibility: visible; transform: translate(-50%, -50%) scale(0.5); }
-            90.5% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.2); }
-            91% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-            94.5% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-            95% { opacity: 0.8; visibility: visible; transform: translate(-50%, -50%) scale(0.9); }
-            95.5% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
+            96% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+            97% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
             100% { opacity: 0; visibility: hidden; }
         }
         
@@ -507,27 +494,27 @@ html_code = """
             }
         }
         
-        // Countdown animation with numbers - shows 3, 2, 1 each for 3 seconds
+        // Countdown animation with numbers
         const countdown = document.getElementById('countdown');
         
         // Start countdown at 13 seconds (77% of 17s)
         setTimeout(() => {
-            // Show 3
             countdown.textContent = '3';
-            setTimeout(() => {
-                // Show 2
-                countdown.textContent = '2';
-                setTimeout(() => {
-                    // Show 1
-                    countdown.textContent = '1';
-                    setTimeout(() => {
-                        // Play celebration sound and clear countdown
-                        playBirthdaySound();
-                        countdown.textContent = '';
-                    }, 3500); // 3.5 seconds for "1"
-                }, 3500); // 3.5 seconds for "2"
-            }, 3500); // 3.5 seconds for "3"
-        }, 13000); // Start at 13 seconds (77% of 17s)
+        }, 13000);
+        
+        setTimeout(() => {
+            countdown.textContent = '2';
+        }, 15000); // 13s + 2s = 15s
+        
+        setTimeout(() => {
+            countdown.textContent = '1';
+        }, 17000); // 15s + 2s = 17s
+        
+        setTimeout(() => {
+            // Play celebration sound and clear countdown
+            playBirthdaySound();
+            countdown.textContent = '';
+        }, 19000); // 17s + 2s = 19s (but animation ends at 17s, so content appears)
     </script>
     
     <!-- Main Birthday Content -->
