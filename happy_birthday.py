@@ -111,11 +111,13 @@ st.markdown("""
         justify-content: center;
         z-index: 10000;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-        animation: fadeIn 1s ease-in;
+        animation: welcomeSequence 6s ease-in-out forwards;
     }
     
-    .welcome-screen.hide {
-        animation: fadeOut 1s ease-out forwards;
+    @keyframes welcomeSequence {
+        0% { opacity: 1; visibility: visible; }
+        83% { opacity: 1; visibility: visible; }
+        100% { opacity: 0; visibility: hidden; }
     }
     
     .welcome-banner {
@@ -164,24 +166,30 @@ st.markdown("""
         align-items: center;
         z-index: 10000;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 0.5s ease, visibility 0.5s ease;
+        animation: peacockSequence 13s ease-in-out forwards;
     }
     
-    .peacock-container.show {
-        opacity: 1;
-        visibility: visible;
+    @keyframes peacockSequence {
+        0% { opacity: 0; visibility: hidden; }
+        46% { opacity: 0; visibility: hidden; }
+        50% { opacity: 1; visibility: visible; }
+        92% { opacity: 1; visibility: visible; }
+        100% { opacity: 0; visibility: hidden; }
     }
     
     .peacock {
         font-size: 20em;
         filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
-        animation: peacockEnter 4s ease-out forwards;
+        animation: peacockFly 13s ease-out forwards;
     }
     
-    .peacock.exit {
-        animation: peacockExit 3s ease-in forwards;
+    @keyframes peacockFly {
+        0% { transform: translateX(150%) scale(0.3) rotate(0deg); }
+        46% { transform: translateX(150%) scale(0.3) rotate(0deg); }
+        54% { transform: translateX(50%) scale(1.8) rotate(10deg); }
+        69% { transform: translateX(50%) scale(1.5) rotate(0deg); }
+        92% { transform: translateX(50%) scale(1.5) rotate(0deg); }
+        100% { transform: translateX(-150%) scale(0.3) rotate(-20deg); }
     }
     
     /* Main content */
@@ -198,15 +206,13 @@ st.markdown("""
         border-radius: 40px;
         box-shadow: 0 25px 100px rgba(0,0,0,0.4);
         border: 2px solid rgba(255,255,255,0.3);
-        opacity: 0;
-        visibility: hidden;
-        transition: opacity 1s ease, visibility 1s ease;
+        animation: contentSequence 15s ease-in forwards;
     }
     
-    .birthday-content.show {
-        opacity: 1;
-        visibility: visible;
-        animation: fadeIn 2s ease-in;
+    @keyframes contentSequence {
+        0% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
+        86% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
+        100% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
     }
     
     .birthday-content h1 {
@@ -355,52 +361,6 @@ st.markdown("""
     <div class="sparkle" style="top: 45%; left: 8%; animation-delay: 2s;">⭐</div>
     <div class="sparkle" style="top: 50%; right: 10%; animation-delay: 2.5s;">✨</div>
 </div>
-
-<script>
-    console.log('Animation script starting...');
-    
-    // Make sure everything starts correctly
-    window.addEventListener('load', function() {
-        console.log('Page loaded, starting animations...');
-        
-        // Ensure welcome screen is visible
-        const welcomeScreen = document.getElementById('welcomeScreen');
-        const peacockContainer = document.getElementById('peacockContainer');
-        const peacock = document.getElementById('peacock');
-        const birthdayContent = document.getElementById('birthdayContent');
-        
-        console.log('Welcome screen:', welcomeScreen);
-        console.log('Peacock container:', peacockContainer);
-        
-        // Step 1: Welcome screen shows for 5 seconds
-        setTimeout(function() {
-            console.log('Hiding welcome screen...');
-            welcomeScreen.classList.add('hide');
-            
-            // After fade out (1 second), show peacock
-            setTimeout(function() {
-                console.log('Showing peacock...');
-                welcomeScreen.style.display = 'none';
-                peacockContainer.classList.add('show');
-                peacockContainer.style.display = 'flex';
-                
-                // Step 2: Peacock displays feather animation for 4 seconds
-                setTimeout(function() {
-                    console.log('Peacock exiting...');
-                    peacock.classList.add('exit');
-                    
-                    // Step 3: After peacock exits (3 seconds), show birthday content
-                    setTimeout(function() {
-                        console.log('Showing birthday content...');
-                        peacockContainer.style.display = 'none';
-                        birthdayContent.classList.add('show');
-                        birthdayContent.style.display = 'block';
-                    }, 3000);
-                }, 4000);
-            }, 1000);
-        }, 5000);
-    });
-</script>
 """, unsafe_allow_html=True)
 
 # Add Streamlit balloons and snow effects
