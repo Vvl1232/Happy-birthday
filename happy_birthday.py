@@ -300,7 +300,7 @@ html_code = """
         
         @keyframes contentSequence {
             0% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
-            90% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
+            99% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
             100% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
         }
         
@@ -318,8 +318,7 @@ html_code = """
         
         @keyframes burstSequence {
             0% { opacity: 0; }
-            90% { opacity: 0; }
-            91% { opacity: 1; }
+            99% { opacity: 0; }
             100% { opacity: 1; }
         }
         
@@ -461,10 +460,12 @@ html_code = """
         showNumber('2', 15000); // Show 2 at 15s (2s later)
         showNumber('1', 17000); // Show 1 at 17s (2s later)
         
-        // Clear countdown and show birthday content at 19s
+        // Clear countdown at 19s (after 1 finishes showing)
         setTimeout(() => {
             countdown.style.opacity = '0';
-            countdown.textContent = '';
+            setTimeout(() => {
+                countdown.textContent = '';
+            }, 500); // Wait for fade out
         }, 19000);
     </script>
     </script>
