@@ -19,9 +19,8 @@ st.markdown("")
 st.markdown("")
 st.markdown("")
 
-# Age message (commented)
 # st.markdown(
-#     f"<div class='block'><h5 style='text-align: center; color:#FF1493;'>🥳 {age} years young today! 🥳</h5></div>",
+#     f"<div class='block'><h5 style='text-align: center; color:#FF1493 ;'>🥳 {age} years young today! 🥳</h5></div>",
 #     unsafe_allow_html=True
 # )
 
@@ -31,9 +30,9 @@ st.markdown("")
 st.balloons()
 st.snow()
 
-# Add an image for extra energy
+# Add an image for extra energy (replace with a valid image URL)
 st.markdown(
-    """
+    f"""
     <div class='block'>
         <img src="https://st2.depositphotos.com/3102403/11122/i/950/depositphotos_111225728-stock-photo-happy-birthday-lettering-over-abstract.jpg" 
              alt="Happy Birthday Image" 
