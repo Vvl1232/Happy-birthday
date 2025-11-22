@@ -159,15 +159,19 @@ st.markdown("""
         left: 0;
         width: 100vw;
         height: 100vh;
-        display: none;
+        display: flex;
         justify-content: center;
         align-items: center;
         z-index: 10000;
         background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.5s ease, visibility 0.5s ease;
     }
     
     .peacock-container.show {
-        display: flex;
+        opacity: 1;
+        visibility: visible;
     }
     
     .peacock {
@@ -188,18 +192,21 @@ st.markdown("""
         transform: translate(-50%, -50%);
         text-align: center;
         z-index: 9999;
-        display: none;
         background: rgba(255, 255, 255, 0.15);
         backdrop-filter: blur(15px);
         padding: 60px 80px;
         border-radius: 40px;
         box-shadow: 0 25px 100px rgba(0,0,0,0.4);
         border: 2px solid rgba(255,255,255,0.3);
-        animation: fadeIn 2s ease-in;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 1s ease, visibility 1s ease;
     }
     
     .birthday-content.show {
-        display: block;
+        opacity: 1;
+        visibility: visible;
+        animation: fadeIn 2s ease-in;
     }
     
     .birthday-content h1 {
@@ -350,31 +357,49 @@ st.markdown("""
 </div>
 
 <script>
-    // Animation sequence with correct timing
+    console.log('Animation script starting...');
     
-    // Step 1: Welcome screen shows for 5 seconds
-    setTimeout(() => {
-        // Add hide class to welcome screen
-        document.getElementById('welcomeScreen').classList.add('hide');
+    // Make sure everything starts correctly
+    window.addEventListener('load', function() {
+        console.log('Page loaded, starting animations...');
         
-        // After fade out (1 second), show peacock
-        setTimeout(() => {
-            document.getElementById('welcomeScreen').style.display = 'none';
-            document.getElementById('peacockContainer').classList.add('show');
+        // Ensure welcome screen is visible
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const peacockContainer = document.getElementById('peacockContainer');
+        const peacock = document.getElementById('peacock');
+        const birthdayContent = document.getElementById('birthdayContent');
+        
+        console.log('Welcome screen:', welcomeScreen);
+        console.log('Peacock container:', peacockContainer);
+        
+        // Step 1: Welcome screen shows for 5 seconds
+        setTimeout(function() {
+            console.log('Hiding welcome screen...');
+            welcomeScreen.classList.add('hide');
             
-            // Step 2: Peacock displays feather animation for 4 seconds
-            setTimeout(() => {
-                // Make peacock exit
-                document.getElementById('peacock').classList.add('exit');
+            // After fade out (1 second), show peacock
+            setTimeout(function() {
+                console.log('Showing peacock...');
+                welcomeScreen.style.display = 'none';
+                peacockContainer.classList.add('show');
+                peacockContainer.style.display = 'flex';
                 
-                // Step 3: After peacock exits (3 seconds), show birthday content
-                setTimeout(() => {
-                    document.getElementById('peacockContainer').style.display = 'none';
-                    document.getElementById('birthdayContent').classList.add('show');
-                }, 3000);
-            }, 4000);
-        }, 1000);
-    }, 5000);
+                // Step 2: Peacock displays feather animation for 4 seconds
+                setTimeout(function() {
+                    console.log('Peacock exiting...');
+                    peacock.classList.add('exit');
+                    
+                    // Step 3: After peacock exits (3 seconds), show birthday content
+                    setTimeout(function() {
+                        console.log('Showing birthday content...');
+                        peacockContainer.style.display = 'none';
+                        birthdayContent.classList.add('show');
+                        birthdayContent.style.display = 'block';
+                    }, 3000);
+                }, 4000);
+            }, 1000);
+        }, 5000);
+    });
 </script>
 """, unsafe_allow_html=True)
 
