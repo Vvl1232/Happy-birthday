@@ -32,7 +32,7 @@ st.snow()
 
 # Add an image for extra energy (replace with a valid image URL)
 st.markdown(
-    st.markdown("""
+    """
 <div style='text-align:center;'>
     <p style='font-size:1.2em; color:#FF1493;'>
         🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟
@@ -46,6 +46,6 @@ st.markdown(
         “May your Birthday be filled with the magic of love, joy, and all the things that make you happy. Happy Birthday!”
     </p>
 </div>
-""", unsafe_allow_html=True)
+""",
+    unsafe_allow_html=True
 )
-
