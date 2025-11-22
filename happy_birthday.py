@@ -49,9 +49,9 @@ html_code = """
             .peacock {
                 font-size: 12em !important;
             }
-            .divine-message {
-                font-size: 1.5em !important;
-                top: 30% !important;
+            .krishna-image {
+                width: 150px !important;
+                height: 150px !important;
             }
             .countdown {
                 font-size: 10em !important;
@@ -92,9 +92,9 @@ html_code = """
             .peacock {
                 font-size: 8em !important;
             }
-            .divine-message {
-                font-size: 1.2em !important;
-                top: 28% !important;
+            .krishna-image {
+                width: 120px !important;
+                height: 120px !important;
             }
             .countdown {
                 font-size: 8em !important;
@@ -141,6 +141,16 @@ html_code = """
             0% { transform: scale(0); opacity: 1; }
             50% { transform: scale(1.2); opacity: 1; }
             100% { transform: scale(2); opacity: 0; }
+        }
+        
+        @keyframes flutePlay {
+            0%, 100% { transform: rotate(-5deg); }
+            50% { transform: rotate(5deg); }
+        }
+        
+        @keyframes glow {
+            0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); }
+            50% { filter: drop-shadow(0 0 40px rgba(255, 215, 0, 1)); }
         }
         
         /* Welcome screen */
@@ -237,32 +247,32 @@ html_code = """
             100% { transform: translateX(35%) scale(1.5); opacity: 0; }
         }
         
-        /* Divine message above countdown */
-        .divine-message {
+        /* Krishna image container */
+        .krishna-container {
             position: fixed;
-            top: 35%;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2.5em;
-            font-weight: 600;
-            color: #ffd700;
-            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.6),
-                         2px 2px 4px rgba(0,0,0,0.5);
+            top: 20%;
+            left: 5%;
             z-index: 10002;
-            text-align: center;
-            max-width: 90%;
-            animation: divineMessageSequence 17s linear forwards;
-            font-style: italic;
+            animation: krishnaSequence 17s linear forwards;
         }
         
-        @keyframes divineMessageSequence {
-            0% { opacity: 0; visibility: hidden; }
-            76% { opacity: 0; visibility: hidden; }
-            77% { opacity: 1; visibility: visible; transform: translateX(-50%) scale(0.8); }
-            80% { opacity: 1; visibility: visible; transform: translateX(-50%) scale(1); }
-            94% { opacity: 1; visibility: visible; }
-            95% { opacity: 0; visibility: hidden; }
+        @keyframes krishnaSequence {
+            0% { opacity: 0; visibility: hidden; transform: scale(0.5); }
+            76% { opacity: 0; visibility: hidden; transform: scale(0.5); }
+            77% { opacity: 1; visibility: visible; transform: scale(1); }
+            94% { opacity: 1; visibility: visible; transform: scale(1); }
+            95% { opacity: 0; visibility: hidden; transform: scale(0.5); }
             100% { opacity: 0; visibility: hidden; }
+        }
+        
+        .krishna-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 4px solid #ffd700;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.8);
+            animation: glow 2s ease-in-out infinite, flutePlay 3s ease-in-out infinite;
+            object-fit: cover;
         }
         
         /* Countdown Timer */
@@ -283,12 +293,17 @@ html_code = """
             0% { opacity: 0; visibility: hidden; }
             76% { opacity: 0; visibility: hidden; }
             77% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(0.3); }
-            82% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.3); }
-            82.5% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+            78% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.3); }
+            79% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+            82% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+            83% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(0.3); }
+            84% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.3); }
+            85% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
             88% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-            88.5% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(0.3); }
-            94% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.3); }
-            94.5% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+            89% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(0.3); }
+            90% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.3); }
+            91% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+            94% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
             95% { opacity: 0; visibility: hidden; }
             100% { opacity: 0; visibility: hidden; }
         }
@@ -421,9 +436,12 @@ html_code = """
         <div class="peacock">🦚</div>
     </div>
     
-    <!-- Divine Message -->
-    <div class="divine-message">
-        🙏 Shri Krishna is waiting to bless you 🙏
+    <!-- Krishna Image -->
+    <div class="krishna-container">
+        <img src="https://images.unsplash.com/photo-1582735689369-4fe89db7114c?w=400&h=400&fit=crop" 
+             alt="Krishna with Flute" 
+             class="krishna-image"
+             onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 width=%22200%22 height=%22200%22%3E%3Ccircle cx=%22100%22 cy=%22100%22 r=%2280%22 fill=%22%234A90E2%22/%3E%3Ctext x=%22100%22 y=%22110%22 font-size=%2260%22 text-anchor=%22middle%22 fill=%22white%22%3E🎵%3C/text%3E%3C/svg%3E'">
     </div>
     
     <!-- Countdown Timer -->
@@ -520,27 +538,27 @@ html_code = """
             }
         }
         
-        // Countdown animation with numbers
+        // Countdown animation with numbers - shows 3, 2, 1 each for 3 seconds
         const countdown = document.getElementById('countdown');
         
-        // Start countdown at 13 seconds (77% of 17s) - after peacock reaches end
+        // Start countdown at 13 seconds (77% of 17s)
         setTimeout(() => {
-            // 3 - show slowly
+            // Show 3
             countdown.textContent = '3';
             setTimeout(() => {
-                // 2 - show slowly
+                // Show 2
                 countdown.textContent = '2';
                 setTimeout(() => {
-                    // 1 - show slowly
+                    // Show 1
                     countdown.textContent = '1';
                     setTimeout(() => {
                         // Play celebration sound and clear countdown
                         playBirthdaySound();
                         countdown.textContent = '';
-                    }, 2000); // 2 seconds for "1"
-                }, 2000); // 2 seconds for "2"
-            }, 2000); // 2 seconds for "3"
-        }, 13000); // Start at 13 seconds
+                    }, 3000); // 3 seconds for "1"
+                }, 3000); // 3 seconds for "2"
+            }, 3000); // 3 seconds for "3"
+        }, 13000); // Start at 13 seconds (77% of 17s)
     </script>
     
     <!-- Main Birthday Content -->
