@@ -35,10 +35,10 @@ html_code = """
         /* Mobile responsive */
         @media (max-width: 768px) {
             .welcome-banner h1 {
-                font-size: 3em !important;
+                font-size: 2.5em !important;
             }
             .welcome-banner {
-                padding: 30px 50px !important;
+                padding: 25px 40px !important;
             }
             .pet {
                 font-size: 6em !important;
@@ -48,6 +48,13 @@ html_code = """
             }
             .peacock {
                 font-size: 12em !important;
+            }
+            .divine-message {
+                font-size: 1.5em !important;
+                top: 30% !important;
+            }
+            .countdown {
+                font-size: 10em !important;
             }
             .birthday-content {
                 padding: 25px 30px !important;
@@ -74,7 +81,7 @@ html_code = """
         
         @media (max-width: 480px) {
             .welcome-banner h1 {
-                font-size: 2em !important;
+                font-size: 1.8em !important;
             }
             .welcome-banner {
                 padding: 20px 30px !important;
@@ -83,6 +90,13 @@ html_code = """
                 font-size: 4em !important;
             }
             .peacock {
+                font-size: 8em !important;
+            }
+            .divine-message {
+                font-size: 1.2em !important;
+                top: 28% !important;
+            }
+            .countdown {
                 font-size: 8em !important;
             }
             .birthday-content {
@@ -197,30 +211,58 @@ html_code = """
             align-items: center;
             z-index: 9999;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            animation: peacockSequence 9.5s ease-in-out forwards;
+            animation: peacockSequence 17s ease-in-out forwards;
         }
         
         @keyframes peacockSequence {
             0% { opacity: 0; visibility: hidden; pointer-events: none; }
-            63% { opacity: 0; visibility: hidden; pointer-events: none; }
-            64% { opacity: 1; visibility: visible; }
-            94% { opacity: 1; visibility: visible; }
+            35% { opacity: 0; visibility: hidden; pointer-events: none; }
+            36% { opacity: 1; visibility: visible; }
+            88% { opacity: 1; visibility: visible; }
             100% { opacity: 0; visibility: hidden; pointer-events: none; }
         }
         
         .peacock {
             font-size: 20em;
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
-            animation: peacockFlyStop 9.5s linear forwards;
+            animation: peacockFlyStop 17s ease-out forwards;
         }
         
         @keyframes peacockFlyStop {
             0% { transform: translateX(0) scale(1.5); opacity: 0; }
-            63% { transform: translateX(0) scale(1.5); opacity: 0; }
-            64% { transform: translateX(-150%) scale(1.5); opacity: 1; }
-            85% { transform: translateX(30%) scale(1.5); opacity: 1; }
-            94% { transform: translateX(30%) scale(1.5); opacity: 1; }
-            100% { transform: translateX(30%) scale(1.5); opacity: 0; }
+            35% { transform: translateX(0) scale(1.5); opacity: 0; }
+            36% { transform: translateX(-150%) scale(1.5); opacity: 1; }
+            76% { transform: translateX(35%) scale(1.5) rotate(5deg); opacity: 1; }
+            88% { transform: translateX(35%) scale(1.5) rotate(0deg); opacity: 1; }
+            100% { transform: translateX(35%) scale(1.5); opacity: 0; }
+        }
+        
+        /* Divine message above countdown */
+        .divine-message {
+            position: fixed;
+            top: 35%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 2.5em;
+            font-weight: 600;
+            color: #ffd700;
+            text-shadow: 0 0 20px rgba(255, 215, 0, 0.8), 0 0 40px rgba(255, 215, 0, 0.6),
+                         2px 2px 4px rgba(0,0,0,0.5);
+            z-index: 10002;
+            text-align: center;
+            max-width: 90%;
+            animation: divineMessageSequence 17s linear forwards;
+            font-style: italic;
+        }
+        
+        @keyframes divineMessageSequence {
+            0% { opacity: 0; visibility: hidden; }
+            76% { opacity: 0; visibility: hidden; }
+            77% { opacity: 1; visibility: visible; transform: translateX(-50%) scale(0.8); }
+            80% { opacity: 1; visibility: visible; transform: translateX(-50%) scale(1); }
+            94% { opacity: 1; visibility: visible; }
+            95% { opacity: 0; visibility: hidden; }
+            100% { opacity: 0; visibility: hidden; }
         }
         
         /* Countdown Timer */
@@ -234,19 +276,20 @@ html_code = """
             color: #ff6b6b;
             text-shadow: 0 0 30px rgba(255, 107, 107, 0.8), 0 0 60px rgba(255, 107, 107, 0.6);
             z-index: 10001;
-            animation: countdownSequence 9.5s linear forwards;
+            animation: countdownSequence 17s ease-in-out forwards;
         }
         
         @keyframes countdownSequence {
-            0% { opacity: 0; visibility: hidden; content: ''; }
-            84% { opacity: 0; visibility: hidden; content: ''; }
-            85% { opacity: 1; visibility: visible; content: '3'; transform: translate(-50%, -50%) scale(0.5); }
-            88% { opacity: 1; visibility: visible; content: '3'; transform: translate(-50%, -50%) scale(1.2); }
-            89% { opacity: 1; visibility: visible; content: '2'; transform: translate(-50%, -50%) scale(0.5); }
-            92% { opacity: 1; visibility: visible; content: '2'; transform: translate(-50%, -50%) scale(1.2); }
-            93% { opacity: 1; visibility: visible; content: '1'; transform: translate(-50%, -50%) scale(0.5); }
-            96% { opacity: 1; visibility: visible; content: '1'; transform: translate(-50%, -50%) scale(1.2); }
-            97% { opacity: 0; visibility: hidden; }
+            0% { opacity: 0; visibility: hidden; }
+            76% { opacity: 0; visibility: hidden; }
+            77% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(0.3); }
+            82% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.3); }
+            82.5% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+            88% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+            88.5% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(0.3); }
+            94% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1.3); }
+            94.5% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
+            95% { opacity: 0; visibility: hidden; }
             100% { opacity: 0; visibility: hidden; }
         }
         
@@ -264,7 +307,7 @@ html_code = """
             border-radius: 30px;
             box-shadow: 0 25px 100px rgba(0,0,0,0.4);
             border: 2px solid rgba(255,255,255,0.3);
-            animation: contentSequence 9.5s ease-in forwards;
+            animation: contentSequence 17s ease-in forwards;
             max-width: 85%;
             max-height: 85vh;
             overflow-y: auto;
@@ -272,7 +315,7 @@ html_code = """
         
         @keyframes contentSequence {
             0% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
-            96% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
+            94% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
             100% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
         }
         
@@ -285,13 +328,13 @@ html_code = """
             left: 0;
             z-index: 9999;
             pointer-events: none;
-            animation: burstSequence 9.5s linear forwards;
+            animation: burstSequence 17s linear forwards;
         }
         
         @keyframes burstSequence {
             0% { opacity: 0; }
-            96% { opacity: 0; }
-            97% { opacity: 1; }
+            94% { opacity: 0; }
+            95% { opacity: 1; }
             100% { opacity: 1; }
         }
         
@@ -378,6 +421,11 @@ html_code = """
         <div class="peacock">🦚</div>
     </div>
     
+    <!-- Divine Message -->
+    <div class="divine-message">
+        🙏 Shri Krishna is waiting to bless you 🙏
+    </div>
+    
     <!-- Countdown Timer -->
     <div class="countdown" id="countdown"></div>
     
@@ -409,33 +457,90 @@ html_code = """
         <div class="burst-snow" style="top: 28%; left: 45%; font-size: 2.5em; animation-delay: 0.6s;">❄️</div>
     </div>
     
-    <!-- Audio for firecracker sound -->
-    <audio id="firecracker" preload="auto">
-        <source src="data:audio/wav;base64,UklGRnoGAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAZGF0YQoGAACBgoOEhYaHiImKi4yNjo+QkZKTlJWWl5iZmpucnZ6foKGio6SlpqeoqaqrrK2ur7CxsrO0tba3uLm6u7y9vr/AwcLDxMXGx8jJysvMzc7P0NHS09TV1tfY2drb3N3e3+Dh4uPk5ebn6Onq6+zt7u/w8fLz9PX29/j5+vv8/f7/AAECAwQFBgcICQoLDA0ODxAREhMUFRYXGBkaGxwdHh8gISIjJCUmJygpKissLS4vMDEyMzQ1Njc4OTo7PD0+P0BBQkNERUZHSElKS0xNTk9QUVJTVFVWV1hZWltcXV5fYGFiY2RlZmdoaWprbG1ub3BxcnN0dXZ3eHl6e3x9fn+AgYKDhIWGh4iJiouMjY6PkJGSk5SVlpeYmZqbnJ2en6ChoqOkpaanqKmqq6ytrq+wsbKztLW2t7i5uru8vb6/wMHCw8TFxsfIycrLzM3Oz9DR0tPU1dbX2Nna29zd3t/g4eLj5OXm5+jp6uvs7e7v8PHy8/T19vf4+fr7/P3+/" type="audio/wav">
+    <!-- Audio for celebration sound -->
+    <audio id="celebration" preload="auto">
+        <!-- Celebration sound using Web Audio API frequencies -->
     </audio>
     
     <script>
+        // Create celebration sound using Web Audio API
+        const AudioContext = window.AudioContext || window.webkitAudioContext;
+        let audioContext;
+        
+        function playBirthdaySound() {
+            try {
+                audioContext = new AudioContext();
+                
+                // Create a more pleasant celebration sound
+                const now = audioContext.currentTime;
+                
+                // Create multiple oscillators for a richer sound
+                for (let i = 0; i < 3; i++) {
+                    const oscillator = audioContext.createOscillator();
+                    const gainNode = audioContext.createGain();
+                    
+                    oscillator.connect(gainNode);
+                    gainNode.connect(audioContext.destination);
+                    
+                    // Different frequencies for harmony
+                    oscillator.frequency.setValueAtTime(523.25 * (i + 1), now); // C5, C6, C7
+                    oscillator.type = 'sine';
+                    
+                    // Envelope for natural sound
+                    gainNode.gain.setValueAtTime(0, now);
+                    gainNode.gain.linearRampToValueAtTime(0.3, now + 0.01);
+                    gainNode.gain.exponentialRampToValueAtTime(0.01, now + 1);
+                    
+                    oscillator.start(now + i * 0.1);
+                    oscillator.stop(now + 1 + i * 0.1);
+                }
+                
+                // Add white noise for "firework" effect
+                const bufferSize = audioContext.sampleRate * 0.5;
+                const buffer = audioContext.createBuffer(1, bufferSize, audioContext.sampleRate);
+                const data = buffer.getChannelData(0);
+                
+                for (let i = 0; i < bufferSize; i++) {
+                    data[i] = Math.random() * 2 - 1;
+                }
+                
+                const noise = audioContext.createBufferSource();
+                const noiseGain = audioContext.createGain();
+                noise.buffer = buffer;
+                noise.connect(noiseGain);
+                noiseGain.connect(audioContext.destination);
+                
+                noiseGain.gain.setValueAtTime(0.1, now);
+                noiseGain.gain.exponentialRampToValueAtTime(0.01, now + 0.5);
+                
+                noise.start(now);
+                
+            } catch (e) {
+                console.log('Audio context error:', e);
+            }
+        }
+        
         // Countdown animation with numbers
         const countdown = document.getElementById('countdown');
-        const firecracker = document.getElementById('firecracker');
         
+        // Start countdown at 13 seconds (77% of 17s) - after peacock reaches end
         setTimeout(() => {
-            // 3
+            // 3 - show slowly
             countdown.textContent = '3';
             setTimeout(() => {
-                // 2
+                // 2 - show slowly
                 countdown.textContent = '2';
                 setTimeout(() => {
-                    // 1
+                    // 1 - show slowly
                     countdown.textContent = '1';
                     setTimeout(() => {
-                        // Play firecracker sound
-                        firecracker.play().catch(e => console.log('Audio play failed:', e));
+                        // Play celebration sound and clear countdown
+                        playBirthdaySound();
                         countdown.textContent = '';
-                    }, 1000);
-                }, 1000);
-            }, 1000);
-        }, 8100); // Start at 8.1 seconds (85% of 9.5s)
+                    }, 2000); // 2 seconds for "1"
+                }, 2000); // 2 seconds for "2"
+            }, 2000); // 2 seconds for "3"
+        }, 13000); // Start at 13 seconds
     </script>
     
     <!-- Main Birthday Content -->
