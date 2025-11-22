@@ -19,14 +19,76 @@ html_code = """
         }
         
         body, html {
-            width: 100%;
-            height: 100%;
+            width: 100vw;
+            height: 100vh;
             overflow: hidden;
             font-family: 'Arial', sans-serif;
+            position: fixed;
+            top: 0;
+            left: 0;
         }
         
         body {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+        }
+        
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .welcome-banner h1 {
+                font-size: 3em !important;
+            }
+            .welcome-banner {
+                padding: 30px 50px !important;
+            }
+            .pet {
+                font-size: 6em !important;
+            }
+            .welcome-pets {
+                gap: 60px !important;
+            }
+            .peacock {
+                font-size: 12em !important;
+            }
+            .birthday-content {
+                padding: 30px 40px !important;
+                width: 90% !important;
+            }
+            .birthday-content h1 {
+                font-size: 2.5em !important;
+            }
+            .birthday-content p {
+                font-size: 1.1em !important;
+            }
+            .floating-animal {
+                font-size: 2.5em !important;
+            }
+            .snowflake, .confetti, .sparkle {
+                font-size: 1.5em !important;
+            }
+            .firework {
+                font-size: 2.5em !important;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .welcome-banner h1 {
+                font-size: 2em !important;
+            }
+            .welcome-banner {
+                padding: 20px 30px !important;
+            }
+            .pet {
+                font-size: 4em !important;
+            }
+            .peacock {
+                font-size: 8em !important;
+            }
+            .birthday-content h1 {
+                font-size: 1.8em !important;
+            }
+            .birthday-content p {
+                font-size: 0.9em !important;
+            }
         }
         
         /* Animations */
@@ -129,30 +191,27 @@ html_code = """
             align-items: center;
             z-index: 9999;
             background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-            animation: peacockSequence 13s ease-in-out forwards;
+            animation: peacockSequence 9s ease-in-out forwards;
         }
         
         @keyframes peacockSequence {
             0% { opacity: 0; visibility: hidden; pointer-events: none; }
-            46% { opacity: 0; visibility: hidden; pointer-events: none; }
-            50% { opacity: 1; visibility: visible; }
-            92% { opacity: 1; visibility: visible; }
-            100% { opacity: 0; visibility: hidden; pointer-events: none; }
+            66% { opacity: 0; visibility: hidden; pointer-events: none; }
+            67% { opacity: 1; visibility: visible; }
+            100% { opacity: 1; visibility: visible; }
         }
         
         .peacock {
             font-size: 20em;
             filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
-            animation: peacockFly 13s ease-out forwards;
+            animation: peacockFly 9s ease-out forwards;
         }
         
         @keyframes peacockFly {
-            0% { transform: translateX(150%) scale(0.3) rotate(0deg); }
-            46% { transform: translateX(150%) scale(0.3) rotate(0deg); }
-            54% { transform: translateX(50%) scale(1.8) rotate(10deg); }
-            69% { transform: translateX(50%) scale(1.5) rotate(0deg); }
-            92% { transform: translateX(50%) scale(1.5) rotate(0deg); }
-            100% { transform: translateX(-150%) scale(0.3) rotate(-20deg); }
+            0% { transform: translateX(0) scale(1.5); opacity: 0; }
+            66% { transform: translateX(0) scale(1.5); opacity: 0; }
+            67% { transform: translateX(-150%) scale(1.5); opacity: 1; }
+            100% { transform: translateX(150%) scale(1.5); opacity: 1; }
         }
         
         /* Main content */
@@ -169,12 +228,13 @@ html_code = """
             border-radius: 40px;
             box-shadow: 0 25px 100px rgba(0,0,0,0.4);
             border: 2px solid rgba(255,255,255,0.3);
-            animation: contentSequence 15s ease-in forwards;
+            animation: contentSequence 10s ease-in forwards;
+            max-width: 90%;
         }
         
         @keyframes contentSequence {
             0% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
-            86% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
+            89% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
             100% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
         }
         
@@ -314,8 +374,42 @@ html_code = """
 </html>
 """
 
-# Render the HTML using Streamlit components
-components.html(html_code, height=800, scrolling=False)
+# Hide Streamlit's default UI elements
+st.markdown("""
+<style>
+    #MainMenu {visibility: hidden;}
+    footer {visibility: hidden;}
+    header {visibility: hidden;}
+    .stApp > header {visibility: hidden;}
+    [data-testid="stHeader"] {display: none;}
+    [data-testid="stToolbar"] {display: none;}
+    .stDeployButton {display: none;}
+    
+    /* Remove all padding and margins */
+    .block-container {
+        padding: 0 !important;
+        max-width: 100% !important;
+    }
+    
+    .main .block-container {
+        padding-top: 0 !important;
+    }
+    
+    /* Remove iframe border */
+    iframe {
+        border: none !important;
+        display: block;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw !important;
+        height: 100vh !important;
+    }
+</style>
+""", unsafe_allow_html=True)
+
+# Render the HTML using Streamlit components - fullscreen, no border
+components.html(html_code, height=1000, scrolling=False)
 
 # Add Streamlit effects
 st.balloons()
