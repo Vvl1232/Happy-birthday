@@ -5,35 +5,37 @@ import streamlit.components.v1 as components
 
 st.set_page_config(page_title="🎉 Happy Birthday!", layout="wide", initial_sidebar_state="collapsed")
 
-# ---------- Inputs in main area (no sidebar) ----------
-name = st.text_input("Who are we celebrating today?", value="Friend", max_chars=60)
+# hard-coded name as requested
+name = "Friend"
+# birthday kept if you want to compute age later (not displayed by Streamlit input)
 birthday = datetime.strptime('13/11/2005', '%d/%m/%Y')
 
 today = datetime.today()
 age = today.year - birthday.year - ((today.month, today.day) <= (birthday.month, birthday.day)) + 1
 
-# top header
+# top header (static) — no input bar
 st.markdown(
     f"<div style='text-align:center; margin-top:8px'>"
-    f"<h1 style='margin:0; font-size:2.2rem;'>🎂 Happy Birthday, <span id='celebrant'>{name}</span>! 🎂</h1>"
+    f"<h1 style='margin:0; font-size:2.2rem;'>🎂 Happy Birthday, {name}! 🎂</h1>"
     f"<h3 style='margin:6px 0 18px 0; color:#FF4FA3'>🥳 {age} years young! 🥳</h3>"
     f"</div>",
     unsafe_allow_html=True
 )
 
-# Keep main area wide and occupy top area
+# placeholder container for the interactive stage
 st.markdown("<div id='appContainer' style='width:100%; height:calc(100vh - 150px);'></div>", unsafe_allow_html=True)
 
-# Replace kittyGif and puppyGif with preferred GIFs if you like.
+# GIFs for characters (swap if you want)
 kittyGif = "https://media.giphy.com/media/12PA1eI8FBqEBa/giphy.gif"
 puppyGif = "https://media.giphy.com/media/26FPqut4dLh8q6Jqg/giphy.gif"
 
-# Note: use placeholder tokens __NAME__, __KITTY__, __PUPPY__ inside the HTML to avoid Python f-string braces issues.
+# Use placeholder tokens to avoid Python f-string/JS braces conflicts
 html_template = """
 <!doctype html>
 <html>
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <style>
     :root {
       --bg1: #fff7fb;
@@ -49,7 +51,6 @@ html_template = """
       background: linear-gradient(125deg, var(--bg1) 0%, var(--bg2) 100%);
       overflow:hidden;
     }
-
     .greeting-card {
       position:absolute;
       left:50%;
@@ -57,7 +58,7 @@ html_template = """
       transform:translateX(-50%);
       z-index:40;
       width:min(980px,92%);
-      background: rgba(255,255,255,0.85);
+      background: rgba(255,255,255,0.9);
       border-radius:18px;
       padding:14px 20px;
       box-shadow:0 12px 36px rgba(0,0,0,0.12);
@@ -109,22 +110,18 @@ html_template = """
       transform:translateX(-50%);
       background:rgba(80,80,80,0.35);
     }
-
     @keyframes bob {
       0% { transform: translateY(0) rotate(-1deg); }
       50% { transform: translateY(-10px) rotate(1deg); }
       100% { transform: translateY(0) rotate(-1deg); }
     }
-
     @keyframes floatBalloon {
       0% { transform: translateY(0) translateX(0) rotate(0deg); }
       50% { transform: translateY(-8px) translateX(4px) rotate(2deg); }
       100% { transform: translateY(0) translateX(0) rotate(0deg); }
     }
-
     .char { animation: bob 0.85s ease-in-out infinite; }
     .runner:hover .balloon { transform: translateY(-12px) translateX(0); }
-
     .corner {
       position:absolute;
       z-index:45;
@@ -136,9 +133,6 @@ html_template = """
     }
     .corner.left { left:12px; }
     .corner.right { right:12px; }
-
-    .hidden-controls{display:none}
-
     @media(max-width:600px) {
       .greeting-card h2{font-size:1.2rem}
       .runner .char{width:64px;height:64px}
@@ -161,11 +155,11 @@ html_template = """
   </div>
 
   <script>
-    // High-level JS animation: spawns kitties and puppies that run horizontally
+    // High-level JS animation: spawns kitties and puppies that run horizontally across the stage
     const kittyGif = "__KITTY__";
     const puppyGif = "__PUPPY__";
-    const maxRunners = 12;
-    const spawnInterval = 900;
+    const maxRunners = 14; // number of simultaneous characters
+    const spawnInterval = 820; // ms between spawn attempts
     const stage = document.getElementById('stage');
 
     const nameSpan = document.getElementById('nameSpan');
@@ -177,6 +171,7 @@ html_template = """
       return cols[Math.floor(rnd(0, cols.length))];
     }
 
+    // Pooling for better performance
     const pool = [];
     const active = new Set();
 
@@ -198,11 +193,12 @@ html_template = """
       el.appendChild(char);
       el._meta = { vx:0, x:0, y:0, direction: 'right', speed:1, size:1, type:'kitty' };
       el.addEventListener('click', () => {
+        // playful pop animation on click
         char.animate([
           { transform: 'scale(1)' },
-          { transform: 'scale(1.15)' },
+          { transform: 'scale(1.18)' },
           { transform: 'scale(1)' }
-        ], {duration:350, easing:'cubic-bezier(.2,.8,.2,1)'});
+        ], {duration:300, easing:'cubic-bezier(.2,.8,.2,1)'});
       });
       el.style.pointerEvents = 'auto';
       return el;
@@ -218,23 +214,25 @@ html_template = """
       el._meta.type = type;
       const char = el.querySelector('.char');
       char.style.backgroundImage = `url(${type === 'kitty' ? kittyGif : puppyGif})`;
+      // random vertical lane
       const bounds = { w: stage.clientWidth, h: stage.clientHeight };
       const topArea = Math.max(120, bounds.h * 0.08);
       const bottomPad = 28;
       const y = rnd(topArea, bounds.h - 120 - bottomPad);
       const direction = Math.random() < 0.5 ? 'right' : 'left';
       el._meta.direction = direction;
-      const baseSpeed = rnd(0.06, 0.16);
+      const baseSpeed = rnd(0.06, 0.18);
       el._meta.speed = baseSpeed;
       const scaleClass = Math.random();
       el.classList.remove('small','tiny');
-      if (scaleClass < 0.15) { el.classList.add('tiny'); el._meta.size = 0.7; }
-      else if (scaleClass < 0.45) { el.classList.add('small'); el._meta.size = 0.85; }
+      if (scaleClass < 0.12) { el.classList.add('tiny'); el._meta.size = 0.66; }
+      else if (scaleClass < 0.44) { el.classList.add('small'); el._meta.size = 0.82; }
       else { el._meta.size = 1; }
+      // initial offscreen start
       if (direction === 'right') {
-        el._meta.x = -140 - rnd(0,200);
+        el._meta.x = -140 - rnd(0,280);
       } else {
-        el._meta.x = bounds.w + 140 + rnd(0,200);
+        el._meta.x = bounds.w + 140 + rnd(0,280);
       }
       el._meta.y = y;
       el.style.transform = `translate3d(${el._meta.x}px, ${el._meta.y}px, 0) scale(${el._meta.size})`;
@@ -247,11 +245,11 @@ html_template = """
       for (const el of Array.from(active)) {
         const meta = el._meta;
         const sign = meta.direction === 'right' ? 1 : -1;
-        const jitter = Math.sin((performance.now() + (el._jitter||0)) / (1200 + (meta.speed*1000))) * 0.02;
-        meta.x += sign * (meta.speed * (1 + jitter)) * 20;
+        const jitter = Math.sin((performance.now() + (el._jitter||0)) / (1200 + (meta.speed*1000))) * 0.03;
+        meta.x += sign * (meta.speed * (1 + jitter)) * 22;
         el.style.transform = `translate3d(${meta.x}px, ${meta.y}px, 0) scale(${meta.size})`;
         const bounds = { w: stage.clientWidth, h: stage.clientHeight };
-        if ((meta.direction === 'right' && meta.x > bounds.w + 200) || (meta.direction === 'left' && meta.x < -260)) {
+        if ((meta.direction === 'right' && meta.x > bounds.w + 240) || (meta.direction === 'left' && meta.x < -320)) {
           active.delete(el);
           try { stage.removeChild(el); } catch(e){}
           pool.push(el);
@@ -260,43 +258,32 @@ html_template = """
 
       if (!step._lastSpawn) step._lastSpawn = performance.now();
       if (performance.now() - step._lastSpawn > spawnInterval) {
-        const toSpawn = Math.random() < 0.2 ? 2 : 1;
+        const toSpawn = Math.random() < 0.28 ? 2 : 1;
         for (let i=0;i<toSpawn;i++) spawnRunner();
-        step._lastSpawn = performance.now() + rnd(-120, 120);
+        step._lastSpawn = performance.now() + rnd(-120, 160);
       }
 
       requestAnimationFrame(step);
     }
 
-    for (let i=0;i<4;i++) setTimeout(spawnRunner, i*220);
+    // initial warm-up spawns staggered
+    for (let i=0;i<5;i++) setTimeout(spawnRunner, i*160);
     requestAnimationFrame(step);
 
-    function syncNameFromDOM() {
-      const streamlitName = document.querySelector('#root .stTextInput [role="textbox"]');
-      if (streamlitName && streamlitName.value !== undefined) {
-        const val = streamlitName.value.trim() || "__NAME__";
-        nameSpan.textContent = val;
-        const ageText = document.getElementById('ageText');
-        if (ageText) ageText.textContent = `Make a wish for ${val} — kitties and puppies are running with balloons!`;
-      }
-    }
-    setInterval(syncNameFromDOM, 700);
+    // Put the static name in place (already hard-coded server-side), but keep element for possible future updates
+    nameSpan.textContent = "__NAME__";
+    const ageText = document.getElementById('ageText');
+    if (ageText) ageText.textContent = `Make a wish for __NAME__ — kitties and puppies are running with balloons!`;
 
-    window.addEventListener('resize', () => {});
+    // Resize handler (simple)
+    window.addEventListener('resize', () => { /* active elements continue to animate; pool will spawn based on new bounds */ });
   </script>
 </body>
 </html>
 """
 
-# Inject actual runtime values by simple replace (avoids Python interpreting JS braces)
-html = html_template.replace("__NAME__", name).replace("__KITTY__", kittyGif).replace("__PUPPY__", puppyGif)
+# inject values safely
+html = html_template.replace("__KITTY__", kittyGif).replace("__PUPPY__", puppyGif).replace("__NAME__", name)
 
-components.html(html, height=820, scrolling=False)
-
-# No footer, no extra controls (user requested removal of sidebar & footer)
-st.markdown(
-    "<div style='text-align:center; margin-top:10px; color:#6b2a6f; font-size:0.95rem;'>"
-    "Tip: change the character GIFs inside <code>app.py</code> (kittyGif / puppyGif) to use your preferred sprites."
-    "</div>",
-    unsafe_allow_html=True,
-)
+# render the interactive stage (height chosen to fill most screens)
+components.html(html, height=900, scrolling=False)
