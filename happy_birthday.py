@@ -31,7 +31,6 @@ st.balloons()
 st.snow()
 
 # Add an image for extra energy (replace with a valid image URL)
-st.markdown(
 st.markdown("""
 <div style='text-align:center;'>
     <p style='font-size:1.2em; color:#FF1493;'>
@@ -49,4 +48,5 @@ st.markdown("""
 """,
     unsafe_allow_html=True
 )
+
 
