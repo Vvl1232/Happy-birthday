@@ -1,7 +1,6 @@
 import streamlit as st
 import streamlit.components.v1 as components
 
-# Page config
 st.set_page_config(page_title="Happy Birthday!", page_icon="🎂", layout="wide")
 
 html_code = r"""
@@ -12,218 +11,75 @@ html_code = r"""
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Happy Birthday!</title>
   <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-
-    body, html {
-      width: 100vw;
-      height: 100vh;
-      overflow: hidden;
-      font-family: 'Arial', sans-serif;
-      position: fixed;
-      top: 0;
-      left: 0;
-    }
-
-    body {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { width: 100vw; height: 100vh; overflow: hidden; font-family: 'Arial', sans-serif; position: fixed; top: 0; left: 0; }
+    body { background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%); }
 
     /* Mobile responsive */
     @media (max-width: 768px) {
-      .welcome-banner h1 {
-          font-size: 2.5em !important;
-      }
-      .welcome-banner {
-          padding: 25px 40px !important;
-      }
-      .pet {
-          font-size: 6em !important;
-      }
-      .welcome-pets {
-          gap: 60px !important;
-      }
-      .peacock {
-          font-size: 12em !important;
-      }
-      .krishna-image {
-          width: 150px !important;
-          height: 150px !important;
-      }
-      .countdown {
-          font-size: 10em !important;
-      }
-      .birthday-content {
-          padding: 25px 30px !important;
-          width: 90% !important;
-          max-width: 90% !important;
-      }
-      .birthday-content h1 {
-          font-size: 2em !important;
-      }
-      .birthday-content p {
-          font-size: 1em !important;
-          margin: 10px 0 !important;
-      }
-      .floating-animal {
-          font-size: 2.5em !important;
-      }
-      .snowflake, .confetti, .sparkle {
-          font-size: 1.5em !important;
-      }
-      .firework {
-          font-size: 2.5em !important;
-      }
+      .welcome-banner h1 { font-size: 2.5em !important; }
+      .welcome-banner { padding: 25px 40px !important; }
+      .pet { font-size: 6em !important; }
+      .welcome-pets { gap: 60px !important; }
+      .peacock { font-size: 12em !important; }
+      .krishna-image { width: 150px !important; height: 150px !important; }
+      .countdown { font-size: 10em !important; }
+      .birthday-content { padding: 25px 30px !important; width: 90% !important; max-width: 90% !important; }
+      .birthday-content h1 { font-size: 2em !important; }
+      .birthday-content p { font-size: 1em !important; margin: 10px 0 !important; }
+      .floating-animal { font-size: 2.5em !important; }
+      .snowflake, .confetti, .sparkle { font-size: 1.5em !important; }
+      .firework { font-size: 2.5em !important; }
     }
 
     @media (max-width: 480px) {
-      .welcome-banner h1 {
-          font-size: 1.8em !important;
-      }
-      .welcome-banner {
-          padding: 20px 30px !important;
-      }
-      .pet {
-          font-size: 4em !important;
-      }
-      .peacock {
-          font-size: 8em !important;
-      }
-      .krishna-image {
-          width: 120px !important;
-          height: 120px !important;
-      }
-      .countdown {
-          font-size: 8em !important;
-      }
-      .birthday-content {
-          padding: 20px 25px !important;
-      }
-      .birthday-content h1 {
-          font-size: 1.5em !important;
-      }
-      .birthday-content p {
-          font-size: 0.85em !important;
-          margin: 8px 0 !important;
-      }
+      .welcome-banner h1 { font-size: 1.8em !important; }
+      .welcome-banner { padding: 20px 30px !important; }
+      .pet { font-size: 4em !important; }
+      .peacock { font-size: 8em !important; }
+      .krishna-image { width: 120px !important; height: 120px !important; }
+      .countdown { font-size: 8em !important; }
+      .birthday-content { padding: 20px 25px !important; }
+      .birthday-content h1 { font-size: 1.5em !important; }
+      .birthday-content p { font-size: 0.85em !important; margin: 8px 0 !important; }
     }
 
     /* Animations */
-    @keyframes float {
-      0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-30px) rotate(5deg); }
-    }
-
-    @keyframes bounce {
-      0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-40px) scale(1.05); }
-    }
-
-    @keyframes slideIn {
-      from { transform: translateX(-100%); opacity: 0; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    @keyframes sparkle {
-      0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
-      50% { opacity: 0.3; transform: scale(1.5) rotate(180deg); }
-    }
-
-    @keyframes fall {
-      0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(360deg); opacity: 0.5; }
-    }
-
-    @keyframes firework {
-      0% { transform: scale(0); opacity: 1; }
-      50% { transform: scale(1.2); opacity: 1; }
-      100% { transform: scale(2); opacity: 0; }
-    }
-
-    @keyframes flutePlay {
-      0%, 100% { transform: rotate(-5deg); }
-      50% { transform: rotate(5deg); }
-    }
-
-    @keyframes glow {
-      0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); }
-      50% { filter: drop-shadow(0 0 40px rgba(255, 215, 0, 1)); }
-    }
+    @keyframes float { 0%, 100% { transform: translateY(0px) rotate(0deg); } 50% { transform: translateY(-30px) rotate(5deg); } }
+    @keyframes bounce { 0%, 100% { transform: translateY(0) scale(1); } 50% { transform: translateY(-40px) scale(1.05); } }
+    @keyframes slideIn { from { transform: translateX(-100%); opacity: 0; } to { transform: translateX(0); opacity: 1; } }
+    @keyframes sparkle { 0%,100%{opacity:1; transform:scale(1) rotate(0deg);} 50%{opacity:0.3; transform:scale(1.5) rotate(180deg);} }
+    @keyframes fall { 0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; } 100% { transform: translateY(100vh) rotate(360deg); opacity: 0.5; } }
+    @keyframes firework { 0% { transform: scale(0); opacity: 1; } 50% { transform: scale(1.2); opacity: 1; } 100% { transform: scale(2); opacity: 0; } }
+    @keyframes flutePlay { 0%, 100% { transform: rotate(-5deg); } 50% { transform: rotate(5deg); } }
+    @keyframes glow { 0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); } 50% { filter: drop-shadow(0 0 40px rgba(255, 215, 0, 1)); } }
 
     /* Welcome screen */
     .welcome-screen {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      z-index: 10000;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      display:flex; flex-direction:column; align-items:center; justify-content:center;
+      z-index:10000; background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
       animation: welcomeSequence 6s ease-in-out forwards;
     }
-
-    @keyframes welcomeSequence {
-      0% { opacity: 1; visibility: visible; }
-      83% { opacity: 1; visibility: visible; }
-      100% { opacity: 0; visibility: hidden; pointer-events: none; }
-    }
+    @keyframes welcomeSequence { 0%{opacity:1;visibility:visible} 83%{opacity:1;visibility:visible} 100%{opacity:0;visibility:hidden;pointer-events:none} }
 
     .welcome-banner {
       background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
-      padding: 40px 80px;
-      border-radius: 50px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-      animation: bounce 2s ease-in-out infinite;
-      margin-bottom: 50px;
+      padding: 40px 80px; border-radius:50px; box-shadow:0 20px 60px rgba(0,0,0,0.4); animation:bounce 2s ease-in-out infinite; margin-bottom:50px;
     }
+    .welcome-banner h1 { color:white; font-size:5em; text-align:center; margin:0; text-shadow:4px 4px 8px rgba(0,0,0,0.4); font-weight:bold; }
 
-    .welcome-banner h1 {
-      color: white;
-      font-size: 5em;
-      text-align: center;
-      margin: 0;
-      text-shadow: 4px 4px 8px rgba(0,0,0,0.4);
-      font-weight: bold;
-    }
-
-    .welcome-pets {
-      display: flex;
-      gap: 120px;
-      animation: slideIn 1.5s ease-out;
-    }
-
-    .pet {
-      font-size: 10em;
-      animation: bounce 1.5s ease-in-out infinite;
-      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
-    }
-
-    .pet:nth-child(2) {
-      animation-delay: 0.3s;
-    }
+    .welcome-pets { display:flex; gap:120px; animation: slideIn 1.5s ease-out; }
+    .pet { font-size:10em; animation:bounce 1.5s ease-in-out infinite; filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3)); }
+    .pet:nth-child(2) { animation-delay:0.3s; }
 
     /* Peacock animation */
     .peacock-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
+      position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+      display:flex; justify-content:center; align-items:center; z-index:9999;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
       animation: peacockSequence 17s ease-in-out forwards;
     }
-
     @keyframes peacockSequence {
       0% { opacity: 0; visibility: hidden; pointer-events: none; }
       35% { opacity: 0; visibility: hidden; pointer-events: none; }
@@ -232,12 +88,7 @@ html_code = r"""
       100% { opacity: 0; visibility: hidden; pointer-events: none; }
     }
 
-    .peacock {
-      font-size: 20em;
-      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
-      animation: peacockFlyStop 17s ease-out forwards;
-    }
-
+    .peacock { font-size:20em; filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5)); animation: peacockFlyStop 17s ease-out forwards; }
     @keyframes peacockFlyStop {
       0% { transform: translateX(0) scale(1.5); opacity: 0; }
       35% { transform: translateX(0) scale(1.5); opacity: 0; }
@@ -247,145 +98,68 @@ html_code = r"""
       100% { transform: translateX(35%) scale(1.5); opacity: 0; }
     }
 
-    /* Countdown Timer */
-    .countdown {
-      position: fixed;
-      top: 50%;
+    /* peacock message - appears along with peacock */
+    .peacock-message {
+      position: absolute;
+      bottom: 18%;
       left: 50%;
-      transform: translate(-50%, -50%);
-      font-size: 15em;
-      font-weight: bold;
-      color: #ff6b6b;
-      text-shadow: 0 0 30px rgba(255, 107, 107, 0.8), 0 0 60px rgba(255, 107, 107, 0.6);
+      transform: translateX(-50%);
       z-index: 10001;
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      font-size: 1.4em;
+      color: #fff;
+      text-shadow: 0 6px 18px rgba(0,0,0,0.35);
+      background: rgba(0,0,0,0.18);
+      padding: 12px 18px;
+      border-radius: 18px;
+      opacity: 0;
+      transition: opacity 0.6s ease, transform 0.7s ease;
+      pointer-events: none;
+      backdrop-filter: blur(6px);
     }
+    /* Make it visible during peacockSequence window (36%..88%) by timing via keyframes */
+    @keyframes peacockMessageIn {
+      0% { opacity: 0; transform: translateX(-50%) translateY(20px) scale(0.98); }
+      36% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+      88% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1); }
+      100% { opacity: 0; transform: translateX(-50%) translateY(-20px) scale(0.98); }
+    }
+    .peacock-container .peacock-message { animation: peacockMessageIn 17s ease-in-out forwards; }
 
-    .countdown.show {
-      animation: countdownNumber 1s ease-in-out;
-    }
-
-    @keyframes countdownSequence {
-      0% { opacity: 1; visibility: visible; }
-      100% { opacity: 1; visibility: visible; }
-    }
-
-    @keyframes countdownNumber {
-      0% { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
-      15% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
-      25% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-      85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
-      100% { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
-    }
+    /* Countdown Timer */
+    .countdown { position: fixed; top:50%; left:50%; transform: translate(-50%, -50%); font-size:15em; font-weight:bold; color:#ff6b6b; text-shadow:0 0 30px rgba(255,107,107,0.8), 0 0 60px rgba(255,107,107,0.6); z-index:10001; transition: opacity 0.5s ease, transform 0.5s ease; }
+    .countdown.show { animation: countdownNumber 1s ease-in-out; }
+    @keyframes countdownNumber { 0% { opacity:0; transform: translate(-50%, -50%) scale(0.7);} 15%{opacity:1; transform:translate(-50%,-50%) scale(1.1);} 25%{opacity:1; transform:translate(-50%,-50%) scale(1);} 85%{opacity:1;} 100%{opacity:0; transform:translate(-50%,-50%) scale(0.7);} }
 
     /* Main content */
     .birthday-content {
-      position: fixed;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      text-align: center;
-      z-index: 10000;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(15px);
-      padding: 40px 50px;
-      border-radius: 30px;
-      box-shadow: 0 25px 100px rgba(0,0,0,0.4);
-      border: 2px solid rgba(255,255,255,0.3);
-      animation: contentSequence 17s ease-in forwards;
-      max-width: 85%;
-      max-height: 85vh;
-      overflow-y: auto;
+      position: fixed; top:50%; left:50%; transform:translate(-50%,-50%); text-align:center; z-index:10000;
+      background: rgba(255,255,255,0.15); backdrop-filter: blur(15px);
+      padding: 40px 50px; border-radius:30px; box-shadow: 0 25px 100px rgba(0,0,0,0.4);
+      border: 2px solid rgba(255,255,255,0.3); animation: contentSequence 17s ease-in forwards;
+      max-width:85%; max-height:85vh; overflow-y:auto;
     }
-
-    @keyframes contentSequence {
-      0% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
-      99% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
-      100% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
-    }
-
-    /* Celebration burst effects */
-    .celebration-burst {
-      position: fixed;
-      width: 100vw;
-      height: 100vh;
-      top: 0;
-      left: 0;
-      z-index: 9999;
-      pointer-events: none;
-      animation: burstSequence 17s linear forwards;
-    }
-
-    @keyframes burstSequence {
-      0% { opacity: 0; }
-      99% { opacity: 0; }
-      100% { opacity: 1; }
-    }
-
-    .burst-confetti, .burst-balloon, .burst-snow, .burst-firework {
-      position: absolute;
-      animation: burstEffect 1s ease-out;
-    }
-
-    @keyframes burstEffect {
-      0% { transform: scale(0) translateY(0); opacity: 0; }
-      50% { transform: scale(1.5) translateY(-20px); opacity: 1; }
-      100% { transform: scale(1) translateY(0); opacity: 1; }
-    }
-
     .birthday-content h1 {
-      font-size: 3em;
-      background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      margin-bottom: 20px;
-      animation: bounce 3s ease-in-out infinite;
-      font-weight: bold;
+      font-size:3em; background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom:20px;
+      animation:bounce 3s ease-in-out infinite; font-weight:bold;
     }
+    .birthday-content p { font-size:1.3em; color:white; text-shadow:2px 2px 4px rgba(0,0,0,0.5); margin:15px 0; line-height:1.6; font-weight:500; }
 
-    .birthday-content p {
-      font-size: 1.3em;
-      color: white;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-      margin: 15px 0;
-      line-height: 1.6;
-      font-weight: 500;
-    }
+    /* list style inside birthday content */
+    .celebration-list { margin-top: 10px; font-size: 1.05em; color: #fff; display: inline-block; text-align: left; padding-left: 18px; }
+    .celebration-list li { margin: 6px 0; }
+
+    @keyframes contentSequence { 0% { opacity: 0; visibility: hidden; transform: translate(-50%,-50%) scale(0.5); } 99% { opacity: 0; visibility: hidden; transform: translate(-50%,-50%) scale(0.5); } 100% { opacity: 1; visibility: visible; transform: translate(-50%,-50%) scale(1); } }
 
     /* Floating animals */
-    .floating-animal {
-      position: fixed;
-      font-size: 4em;
-      animation: float 4s ease-in-out infinite;
-      z-index: 50;
-      filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
-    }
+    .floating-animal { position: fixed; font-size:4em; animation: float 4s ease-in-out infinite; z-index:50; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3)); }
 
     /* Effects */
-    .snowflake, .confetti, .firework, .sparkle {
-      position: fixed;
-      font-size: 2em;
-      z-index: 10;
-    }
-
-    .snowflake {
-      animation: fall linear infinite;
-    }
-
-    .confetti {
-      animation: fall linear infinite;
-    }
-
-    .firework {
-      font-size: 4em;
-      animation: firework 2s ease-out infinite;
-    }
-
-    .sparkle {
-      font-size: 2.5em;
-      animation: sparkle 2s ease-in-out infinite;
-    }
+    .snowflake, .confetti, .firework, .sparkle { position: fixed; font-size:2em; z-index:10; }
+    .snowflake { animation: fall linear infinite; }
+    .confetti { animation: fall linear infinite; }
+    .firework { font-size:4em; animation: firework 2s ease-out infinite; }
+    .sparkle { font-size:2.5em; animation: sparkle 2s ease-in-out infinite; }
 
     @media (prefers-reduced-motion: reduce) {
       .welcome-banner, .pet, .peacock, .countdown, .floating-animal, .celebration-burst { animation: none !important; transition: none !important; }
@@ -404,9 +178,10 @@ html_code = r"""
       </div>
   </div>
 
-  <!-- Peacock Animation -->
+  <!-- Peacock Animation + message -->
   <div class="peacock-container">
       <div class="peacock">🦚</div>
+      <div class="peacock-message">may all ur wishes be fullfiled by supreme 🪈, always a well wisher..</div>
   </div>
 
   <!-- Countdown Timer -->
@@ -440,12 +215,21 @@ html_code = r"""
       <div class="burst-snow" style="top: 28%; left: 45%; font-size: 2.5em; animation-delay: 0.6s;">❄️</div>
   </div>
 
-  <!-- Main Birthday Content -->
+  <!-- Main Birthday Content (touched per your request) -->
   <div class="birthday-content">
       <h1>🎂🌹✨ Happy Birthday! ✨🌹🎂</h1>
       <p>🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟</p>
       <p>💖 Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires! 🧁</p>
-      <p>✨ May your Birthday be filled with the magic of love, joy, and all the things that make you happy! ✨</p>
+
+      <!-- NEW personalized lines you requested -->
+      <ul class="celebration-list">
+        <li>May your days overflow with <strong>kindness</strong> — to yourself and to others.</li>
+        <li>May there always be a warm cup of <strong>coffee</strong> to start bright mornings.</li>
+        <li>May <strong>cheesecakes</strong> and <strong>cupcakes</strong> sweeten the little celebrations.</li>
+        <li>May the love of <strong>animals</strong> bring you endless joy and gentle company.</li>
+      </ul>
+
+      <p style="margin-top:14px;">✨ Enjoy today, savour every bite, and keep being the beautiful soul who makes the world kinder. ✨</p>
   </div>
 
   <!-- Floating Animals -->
@@ -501,10 +285,9 @@ html_code = r"""
   <div class="sparkle" style="top: 45%; left: 8%; animation-delay: 2s;">⭐</div>
   <div class="sparkle" style="top: 50%; right: 10%; animation-delay: 2.5s;">✨</div>
 
-  <!-- Flute Happy Birthday: WebAudio script (autoplay attempt; falls back to first user gesture) -->
+  <!-- Improved flute WebAudio: clearer and more present (unchanged behavior) -->
   <script>
   (function(){
-    // Happy Birthday melody notes and durations
     const melodyNotes = [
       "G4","G4","A4","G4","C5","B4",
       "G4","G4","A4","G4","D5","C5",
@@ -517,7 +300,7 @@ html_code = r"""
       0.5,0.5,1,1,1,1,1,
       0.5,0.5,1,1,2,2
     ];
-    const tempo = 88; // BPM
+    const tempo = 88;
     const beatSec = 60 / tempo;
 
     let audioCtx = null;
@@ -525,7 +308,6 @@ html_code = r"""
     let isPlaying = false;
     let loopTimer = null;
 
-    // Convert note like "C#4" to frequency, A4 = 440Hz
     function noteToFreq(note){
       const re = /^([A-Ga-g])([#b]?)(\d+)$/;
       const m = re.exec(note);
@@ -541,161 +323,191 @@ html_code = r"""
       return 440 * Math.pow(2, semis / 12);
     }
 
+    function createReverbIR(ctx, duration = 1.05, decay = 2.2){
+      const sampleRate = ctx.sampleRate;
+      const length = Math.floor(sampleRate * duration);
+      const ir = ctx.createBuffer(2, length, sampleRate);
+      for(let ch = 0; ch < 2; ch++){
+        const data = ir.getChannelData(ch);
+        for(let i = 0; i < length; i++){
+          data[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / length, decay);
+        }
+      }
+      return ir;
+    }
+
     function ensureAudio(){
       if(audioCtx) return;
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
       masterGain = audioCtx.createGain();
-      masterGain.gain.value = 0.45; // background volume (adjust 0-1)
+      masterGain.gain.value = 0.42;
       masterGain.connect(audioCtx.destination);
+
+      // clarity processing
+      const highShelf = audioCtx.createBiquadFilter();
+      highShelf.type = 'highshelf';
+      highShelf.frequency.value = 3000;
+      highShelf.gain.value = 2.5;
+
+      const lowpass = audioCtx.createBiquadFilter();
+      lowpass.type = 'lowpass';
+      lowpass.frequency.value = 14000;
+
+      // reverb
+      const reverbNode = audioCtx.createConvolver();
+      reverbNode.buffer = createReverbIR(audioCtx, 1.05, 2.2);
+
+      const reverbLP = audioCtx.createBiquadFilter();
+      reverbLP.type = 'lowpass';
+      reverbLP.frequency.value = 8000;
+
+      const wetGain = audioCtx.createGain(); wetGain.gain.value = 0.12;
+      const dryGain = audioCtx.createGain(); dryGain.gain.value = 1.0;
+
+      // store routing handles
+      audioCtx._dry = dryGain;
+      audioCtx._wet = wetGain;
+      audioCtx._reverb = reverbNode;
+      audioCtx._reverbLP = reverbLP;
+      audioCtx._highShelf = highShelf;
+
+      // connect nodes to master path
+      dryGain.connect(highShelf);
+      wetGain.connect(reverbNode);
+      reverbNode.connect(reverbLP);
+      reverbLP.connect(highShelf);
+      highShelf.connect(lowpass);
+      lowpass.connect(masterGain);
     }
 
-    // Play a single flute-like note at given time
-    function playFlute(time, freq, duration){
-      const osc = audioCtx.createOscillator();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, time);
+    function playFluteNote(time, freq, dur){
+      const osc1 = audioCtx.createOscillator();
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(freq, time);
+      osc1.detune.value = 2;
 
-      // vibrato
-      const vib = audioCtx.createOscillator();
-      vib.type = 'sine';
-      vib.frequency.value = 5.0;
-      const vibGain = audioCtx.createGain();
-      vibGain.gain.value = freq * 0.0025;
+      const osc2 = audioCtx.createOscillator();
+      osc2.type = 'triangle';
+      osc2.frequency.setValueAtTime(freq * 2.0, time);
+      osc2.detune.value = -4;
+
+      const g1 = audioCtx.createGain(); g1.gain.value = 0.9;
+      const g2 = audioCtx.createGain(); g2.gain.value = 0.22;
+
+      const vib = audioCtx.createOscillator(); vib.type = 'sine'; vib.frequency.value = 5.1;
+      const vibGain = audioCtx.createGain(); vibGain.gain.value = freq * 0.0018;
+
+      const noiseBuf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.26, audioCtx.sampleRate);
+      const d = noiseBuf.getChannelData(0);
+      for(let i=0;i<d.length;i++){ d[i] = (Math.random()*2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.06)); }
+      const noiseSrc = audioCtx.createBufferSource(); noiseSrc.buffer = noiseBuf;
+      const noiseGain = audioCtx.createGain(); noiseGain.gain.value = 0.0;
+
+      const bp = audioCtx.createBiquadFilter(); bp.type = 'bandpass'; bp.frequency.value = Math.max(600, freq * 1.9); bp.Q.value = 7;
+      const lp = audioCtx.createBiquadFilter(); lp.type = 'lowpass'; lp.frequency.value = Math.min(12000, freq * 6 + 2000);
+
+      const env = audioCtx.createGain(); env.gain.setValueAtTime(0.0001, time);
+
+      osc1.connect(g1); g1.connect(bp);
+      osc2.connect(g2); g2.connect(bp);
+      noiseSrc.connect(noiseGain); noiseGain.connect(bp);
+      bp.connect(lp); lp.connect(env);
+      env.connect(audioCtx._dry);
+      env.connect(audioCtx._wet);
+
       vib.connect(vibGain);
-      vibGain.connect(osc.frequency);
+      vibGain.connect(osc1.frequency);
+      vibGain.connect(osc2.frequency);
 
-      // breath noise
-      const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.3, audioCtx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for(let i=0;i<data.length;i++){
-        data[i] = (Math.random()*2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.08));
-      }
-      const noise = audioCtx.createBufferSource();
-      noise.buffer = buffer;
+      const attack = Math.min(0.10, dur * 0.28);
+      const release = Math.min(0.28, dur * 0.44);
+      const sustainLevel = 0.95;
 
-      const noiseGain = audioCtx.createGain();
-      noiseGain.gain.value = 0.0;
+      env.gain.exponentialRampToValueAtTime(0.085 * sustainLevel, time + attack);
+      env.gain.setValueAtTime(0.085 * sustainLevel, time + attack);
+      env.gain.linearRampToValueAtTime(0.0001, time + dur + release);
 
-      const bp = audioCtx.createBiquadFilter();
-      bp.type = 'bandpass';
-      bp.frequency.value = freq * 2.2;
-      bp.Q.value = 8;
-
-      const env = audioCtx.createGain();
-      env.gain.setValueAtTime(0.0001, time);
-
-      osc.connect(env);
-      noise.connect(noiseGain);
-      noiseGain.connect(bp);
-      bp.connect(env);
-      env.connect(masterGain);
-
-      const attack = Math.min(0.12, duration * 0.35);
-      const release = Math.min(0.28, duration * 0.45);
-      const sustain = 0.9;
-
-      env.gain.exponentialRampToValueAtTime(0.1 * sustain, time + attack);
-      env.gain.setValueAtTime(0.1 * sustain, time + attack);
-      env.gain.linearRampToValueAtTime(0.0001, time + duration + release);
-
-      noiseGain.gain.linearRampToValueAtTime(0.035, time + attack * 0.9);
-      noiseGain.gain.linearRampToValueAtTime(0.0, time + duration + release * 0.6);
+      noiseGain.gain.linearRampToValueAtTime(0.036, time + attack * 0.9);
+      noiseGain.gain.linearRampToValueAtTime(0.0, time + dur + release * 0.5);
 
       vib.start(time);
-      osc.start(time);
-      noise.start(time);
+      osc1.start(time);
+      osc2.start(time);
+      noiseSrc.start(time);
 
-      const stopTime = time + duration + release + 0.05;
-      osc.stop(stopTime);
-      noise.stop(stopTime);
+      const stopTime = time + dur + release + 0.04;
+      osc1.stop(stopTime);
+      osc2.stop(stopTime);
+      noiseSrc.stop(stopTime);
       vib.stop(stopTime + 0.02);
     }
 
     function scheduleMelody(startTime){
-      let cursor = startTime;
+      let t = startTime;
       for(let i=0;i<melodyNotes.length;i++){
         const note = melodyNotes[i];
-        const durBeats = melodyDurations[i] || 1;
-        const durSec = durBeats * beatSec;
+        const beats = melodyDurations[i] || 1;
+        const dur = beats * beatSec;
         const freq = noteToFreq(note);
-        playFlute(cursor, freq, durSec * 0.95);
-        cursor += durSec;
+        playFluteNote(t, freq, dur * 0.95);
+        t += dur;
       }
-      return cursor - startTime;
+      return t - startTime;
     }
 
-    function startLoopingMelody(){
+    function startLoop(){
       if(isPlaying) return;
       ensureAudio();
-      // try to resume context (browsers may require user gesture)
-      audioCtx.resume().catch(()=>{}).finally(()=>{
-        const now = audioCtx.currentTime + 0.08;
-        const total = scheduleMelody(now);
-        loopTimer = setInterval(()=>{
-          const s = audioCtx.currentTime + 0.06;
-          scheduleMelody(s);
-        }, Math.max(100, (total * 1000) - 40));
-        isPlaying = true;
-      });
+      try { audioCtx.resume(); } catch(e){}
+      const now = audioCtx.currentTime + 0.06;
+      const total = scheduleMelody(now);
+      loopTimer = setInterval(()=>{
+        const s = audioCtx.currentTime + 0.05;
+        scheduleMelody(s);
+      }, Math.max(120, (total * 1000) - 30));
+      isPlaying = true;
     }
 
-    function stopLoopingMelody(){
-      if(loopTimer){ clearInterval(loopTimer); loopTimer = null; }
-      isPlaying = false;
-      if(masterGain && audioCtx){
-        const t = audioCtx.currentTime;
-        masterGain.gain.cancelScheduledValues(t);
-        masterGain.gain.setValueAtTime(masterGain.gain.value, t);
-        masterGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.8);
-        setTimeout(()=> { if(masterGain) masterGain.gain.value = 0.0; }, 900);
-      }
+    function tryStartOnGesture(){
+      ensureAudio();
+      audioCtx.resume().then(()=> { startLoop(); }).catch(()=>{});
+      window.removeEventListener('pointerdown', tryStartOnGesture);
+      window.removeEventListener('touchstart', tryStartOnGesture);
+      window.removeEventListener('keydown', tryStartOnGesture);
     }
-
-    // Try autoplay; if blocked, start on first user gesture
+    // Try autoplay; otherwise start on user gesture
     try {
       ensureAudio();
-      startLoopingMelody();
-    } catch (e) {
-      // ignore; we'll handle via gesture listeners
+      startLoop();
+    } catch(e){
+      // fallback
+      window.addEventListener('pointerdown', tryStartOnGesture, {passive:true});
+      window.addEventListener('touchstart', tryStartOnGesture, {passive:true});
+      window.addEventListener('keydown', tryStartOnGesture, {passive:true});
     }
 
-    function userStartHandler(){
-      try {
-        ensureAudio();
-        audioCtx.resume().then(()=> {
-          startLoopingMelody();
-        }).catch(()=>{});
-      } catch(e){}
-      window.removeEventListener('pointerdown', userStartHandler);
-      window.removeEventListener('keydown', userStartHandler);
-      window.removeEventListener('touchstart', userStartHandler);
-    }
-
-    window.addEventListener('pointerdown', userStartHandler, {passive:true});
-    window.addEventListener('keydown', userStartHandler, {passive:true});
-    window.addEventListener('touchstart', userStartHandler, {passive:true});
-
-    // small click chime for interactivity (subtle)
+    // small click chime
     window.addEventListener('pointerdown', function(){
       if(!audioCtx || audioCtx.state !== 'running') return;
       const now = audioCtx.currentTime;
-      const osc = audioCtx.createOscillator(); osc.type = 'sine';
+      const o = audioCtx.createOscillator(); o.type = 'sine';
       const g = audioCtx.createGain(); g.gain.value = 0.0001;
-      osc.frequency.setValueAtTime(880, now);
-      osc.frequency.exponentialRampToValueAtTime(1500, now + 0.05);
-      g.gain.exponentialRampToValueAtTime(0.10, now + 0.02);
+      o.frequency.setValueAtTime(880, now);
+      o.frequency.exponentialRampToValueAtTime(1500, now + 0.05);
+      g.gain.exponentialRampToValueAtTime(0.12, now + 0.02);
       g.gain.exponentialRampToValueAtTime(0.0001, now + 0.22);
-      osc.connect(g).connect(masterGain);
-      osc.start(now); osc.stop(now + 0.24);
+      o.connect(g).connect(masterGain);
+      o.start(now); o.stop(now + 0.24);
     }, {passive:true});
 
   })();
   </script>
+
 </body>
 </html>
 """
 
-# Hide Streamlit chrome so the page is fullscreen and immersive
+# Hide Streamlit chrome so page looks full-screen and immersive
 st.markdown("""
 <style>
   #MainMenu {visibility: hidden;}
@@ -710,9 +522,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Render full-screen HTML
 components.html(html_code, height=1000, scrolling=False)
 
-# Optional visual effects from Streamlit (keeps fun)
+# keep the visual confetti/balloons for fun
 st.balloons()
 st.snow()
