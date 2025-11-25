@@ -476,38 +476,230 @@ html_code = """
         <div class="burst-snow" style="top: 28%; left: 45%; font-size: 2.5em; animation-delay: 0.6s;">❄️</div>
     </div>
     
-    <!-- Audio for celebration sound -->
-    <audio id="celebration" preload="auto">
-        <!-- Celebration sound using Web Audio API frequencies -->
-    </audio>
-    
     <script>
-        // Countdown animation with smooth transitions
-        const countdown = document.getElementById('countdown');
-        
-        function showNumber(number, delay) {
-            setTimeout(() => {
-                countdown.textContent = number;
-                countdown.classList.remove('show');
-                // Force reflow to restart animation
-                void countdown.offsetWidth;
-                countdown.classList.add('show');
-            }, delay);
-        }
-        
-        // Start countdown at 13 seconds after peacock animation
-        showNumber('3', 13000); // Show 3 at 13s
-        showNumber('2', 14000); // Show 2 at 14s (1s later)
-        showNumber('1', 15000); // Show 1 at 15s (1s later)
-        
-        // Clear countdown at 16s (after 1 finishes showing)
-        setTimeout(() => {
-            countdown.style.opacity = '0';
-            setTimeout(() => {
-                countdown.textContent = '';
-            }, 500); // Wait for fade out
-        }, 16000);
-    </script>
+/* Flute background music module
+   - Use: paste into your HTML where the previous WebAudio code was.
+   - Controls expected (already present in your page): 
+       #soundToggle (Enable Sound / Sound On), #muteBtn (Mute/Unmute), #vol (0-100)
+   - Tweak: tempo, scale, phraseNotes below.
+*/
+
+(function(){
+  const prefersReduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const toggleBtn = document.getElementById('soundToggle');
+  const muteBtn = document.getElementById('muteBtn');
+  const volRange = document.getElementById('vol');
+
+  if(prefersReduced){ 
+    // hide controls if user requests reduced motion/sound
+    const sc = document.getElementById('soundControls');
+    if(sc) sc.style.display = 'none';
+    return; 
+  }
+
+  let audioCtx = null;
+  let masterGain = null;
+  let isPlaying = false;
+  let isMuted = false;
+
+  // FLUTE SYNTH params
+  const tempo = 72; // BPM — change for faster/slower
+  const beatDuration = 60 / tempo; // seconds per quarter note
+  const scaleRoot = 440.0; // A4 = 440Hz reference; change root if you want a different key center
+  // A simple phrase in scale degrees (relative semitone offsets)
+  // Example phrase: A4 -> C#5 -> E5 -> A5 -> (arpeggio/hold)
+  // We use semitone offsets from A4 (0)
+  const phraseIntervals = [0, 4, 7, 12, 7, 4, 0]; // A major arpeggio-ish
+  const phraseDurations = [1, 0.5, 0.5, 1.5, 0.5, 0.5, 2]; // in beats (quarter note units)
+
+  // utility: convert semitone steps to frequency
+  function semitoneToFreq(rootFreq, semitoneOffset){
+    return rootFreq * Math.pow(2, semitoneOffset / 12);
+  }
+
+  // create context & master gain
+  function ensureCtx(){
+    if(audioCtx) return;
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = audioCtx.createGain();
+    masterGain.gain.value = volRange ? (Number(volRange.value) / 100) : 0.48;
+    masterGain.connect(audioCtx.destination);
+  }
+
+  // flute voice: returns stop function. Uses oscillator + breath noise + filter
+  function playFluteNote(time, freq, dur){
+    // components
+    const osc = audioCtx.createOscillator();
+    const breath = audioCtx.createBufferSource();
+    const noiseBuf = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.5, audioCtx.sampleRate);
+    const data = noiseBuf.getChannelData(0);
+    // fill with white noise shaped
+    for(let i=0;i<data.length;i++){
+      data[i] = (Math.random()*2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.15)); // quick decay
+    }
+    breath.buffer = noiseBuf;
+    breath.loop = false;
+
+    // small vibrato LFO
+    const vibrato = audioCtx.createOscillator();
+    vibrato.frequency.value = 5.2; // 5.2 Hz subtle vibrato
+    const vibratoGain = audioCtx.createGain();
+    vibratoGain.gain.value = 0.8; // cents-ish via freq modulation multiplier
+
+    // main oscillator (sine or triangle gives flute-ish tone)
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, time);
+
+    // Filter to shape flute body
+    const bp = audioCtx.createBiquadFilter();
+    bp.type = 'bandpass';
+    bp.frequency.value = freq * 2.2; // focus slightly higher for harmonics
+    bp.Q.value = 8; // narrower Q for flute-like tone
+
+    // envelope for amplitude (soft attack)
+    const amp = audioCtx.createGain();
+    amp.gain.setValueAtTime(0.0001, time);
+
+    // breath gain (controls noise -> filter -> amp for "air")
+    const breathGain = audioCtx.createGain();
+    breathGain.gain.setValueAtTime(0.0, time);
+
+    // combine nodes: oscillator -> bp -> amp -> master
+    // breath noise -> breathGain -> bp (adds airy noise into harmonics)
+    vibrato.connect(vibratoGain);
+    vibratoGain.connect(osc.frequency);
+
+    osc.connect(bp);
+    breath.connect(breathGain);
+    breathGain.connect(bp);
+    bp.connect(amp);
+    amp.connect(masterGain);
+
+    // scheduling envelope
+    const attack = Math.min(0.15, dur * 0.4);
+    const release = Math.min(0.35, dur * 0.45);
+    const sustainLevel = 0.65;
+
+    amp.gain.exponentialRampToValueAtTime(0.12 * sustainLevel, time + attack);
+    amp.gain.setValueAtTime(0.12 * sustainLevel, time + attack);
+    amp.gain.linearRampToValueAtTime(0.0001, time + (dur) + release); // fade out past note end
+
+    // breath envelope (shorter attack for breathiness)
+    breathGain.gain.linearRampToValueAtTime(0.035, time + attack * 0.9);
+    breathGain.gain.linearRampToValueAtTime(0.0, time + (dur) + release * 0.6);
+
+    // vibrato start
+    vibrato.start(time);
+    osc.start(time);
+    breath.start(time);
+
+    // stop everything after finish
+    const stopTime = time + dur + release + 0.05;
+    osc.stop(stopTime);
+    breath.stop(stopTime);
+    vibrato.stop(stopTime + 0.02);
+
+    // cleanup (no explicit disconnect required; GC collects nodes)
+  }
+
+  // schedule an entire phrase looped (scheduling ahead for stability)
+  let loopInterval = null;
+  function startFluteLoop(){
+    if(!audioCtx) ensureCtx();
+    if(isPlaying) return;
+    isPlaying = true;
+    if(audioCtx.state === 'suspended') audioCtx.resume();
+
+    // schedule repeating phrase using audioContext scheduling
+    const now = audioCtx.currentTime + 0.12; // small lead time
+    let cursor = now;
+    // schedule first iteration
+    for(let i=0;i<phraseIntervals.length;i++){
+      const semis = phraseIntervals[i];
+      const beats = phraseDurations[i] || 1;
+      const dur = beats * beatDuration * 0.95; // slight legato
+      const freq = semitoneToFreq(scaleRoot, semis);
+      playFluteNote(cursor, freq, dur);
+      cursor += beats * beatDuration;
+    }
+    // compute phrase length in seconds
+    const phraseLength = phraseDurations.reduce((a,b)=>a+b,0) * beatDuration;
+
+    // schedule repeating: we re-schedule slightly ahead every phraseLength/2 seconds to keep continuous play
+    loopInterval = setInterval(()=>{
+      let startAt = audioCtx.currentTime + 0.12;
+      let c = startAt;
+      for(let i=0;i<phraseIntervals.length;i++){
+        const semis = phraseIntervals[i];
+        const beats = phraseDurations[i] || 1;
+        const dur = beats * beatDuration * 0.95;
+        const freq = semitoneToFreq(scaleRoot, semis);
+        playFluteNote(c, freq, dur);
+        c += beats * beatDuration;
+      }
+    }, Math.max(200, (phraseLength * 1000) * 0.92)); // schedule each ~phraseLength ms
+  }
+
+  function stopFluteLoop(){
+    if(!isPlaying) return;
+    isPlaying = false;
+    if(loopInterval){ clearInterval(loopInterval); loopInterval = null; }
+    // gently ramp master gain down (optional)
+    if(masterGain && audioCtx){
+      const now = audioCtx.currentTime;
+      masterGain.gain.cancelScheduledValues(now);
+      masterGain.gain.setValueAtTime(masterGain.gain.value, now);
+      masterGain.gain.exponentialRampToValueAtTime(0.0001, now + 0.8);
+      // after fade out, reset gain to current volume setting
+      setTimeout(()=>{
+        if(masterGain) masterGain.gain.value = isMuted ? 0 : (Number(volRange.value) / 100);
+      }, 900);
+    }
+  }
+
+  // UI bindings
+  function setMute(v){
+    isMuted = v;
+    if(!masterGain) return;
+    masterGain.gain.value = v ? 0 : Number(volRange.value)/100;
+    muteBtn.textContent = v ? 'Unmute' : 'Mute';
+  }
+
+  toggleBtn.addEventListener('click', function(){
+    ensureCtx();
+    if(!isPlaying){
+      // start the flute background
+      startFluteLoop();
+      toggleBtn.textContent = 'Sound On';
+    } else {
+      stopFluteLoop();
+      toggleBtn.textContent = 'Enable Sound';
+    }
+  });
+
+  muteBtn.addEventListener('click', function(){
+    setMute(!isMuted);
+  });
+
+  volRange.addEventListener('input', function(e){
+    const v = Number(e.target.value)/100;
+    if(masterGain) masterGain.gain.value = isMuted ? 0 : v;
+  });
+
+  // Optional: play a gentle flourish when user first interacts (if they enabled)
+  window.addEventListener('pointerdown', function(){
+    try {
+      if(!audioCtx) ensureCtx();
+      // if sound already started (via toggle), do nothing; else we can play a single chime if user prefers
+      // we won't auto-start the loop on pointerdown to respect explicit toggle UI
+    } catch (e){}
+  }, {passive:true});
+
+  // init: create ctx but do not auto-start the loop (browsers block autoplay with sound)
+  // we prepare the audio context ready for quick start when user presses the toggle
+})();
+</script>
+
     
     <!-- Main Birthday Content -->
     <div class="birthday-content">
@@ -818,3 +1010,4 @@ components.html(html_code, height=1000, scrolling=False)
 # Add Streamlit effects
 st.balloons()
 st.snow()
+
