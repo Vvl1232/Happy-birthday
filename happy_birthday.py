@@ -210,43 +210,6 @@ html_code = r"""
       animation-delay: 0.3s;
     }
 
-    /* Peacock animation */
-    .peacock-container {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100vw;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      z-index: 9999;
-      animation: peacockSequence 17s ease-in-out forwards;
-    }
-
-    @keyframes peacockSequence {
-      0% { opacity: 0; visibility: hidden; pointer-events: none; }
-      35% { opacity: 0; visibility: hidden; pointer-events: none; }
-      36% { opacity: 1; visibility: visible; }
-      88% { opacity: 1; visibility: visible; }
-      100% { opacity: 0; visibility: hidden; pointer-events: none; }
-    }
-
-    .peacock {
-      font-size: 18em;
-      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.05));
-      animation: peacockFlyStop 17s ease-out forwards;
-    }
-
-    @keyframes peacockFlyStop {
-      0% { transform: translateX(0) scale(1.5); opacity: 0; }
-      35% { transform: translateX(0) scale(1.5); opacity: 0; }
-      36% { transform: translateX(-150%) scale(1.5); opacity: 1; }
-      76% { transform: translateX(35%) scale(1.5) rotate(5deg); opacity: 1; }
-      88% { transform: translateX(35%) scale(1.5) rotate(0deg); opacity: 1; }
-      100% { transform: translateX(35%) scale(1.5); opacity: 0; }
-    }
-
     /* Countdown Timer */
     .countdown {
       position: fixed;
@@ -362,7 +325,7 @@ html_code = r"""
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .welcome-banner, .pet, .peacock, .countdown, .floating-animal, .celebration-burst { animation: none !important; transition: none !important; }
+      .welcome-banner, .pet, .countdown, .floating-animal, .celebration-burst { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
@@ -376,12 +339,6 @@ html_code = r"""
           <div class="pet">🐱</div>
           <div class="pet">🐶</div>
       </div>
-  </div>
-
-  <!-- Peacock Animation -->
-  <div class="peacock-container">
-      <div class="peacock">🦚</div>
-      <div class="peacock-message" style="display:none;">may all ur wishes be fullfiled by supreme 🪈, always a well wisher..</div>
   </div>
 
   <!-- Countdown Timer -->
@@ -432,9 +389,10 @@ html_code = r"""
       <p style="margin-top:14px; color:#0b2b34;">✨ Enjoy today, savour every bite, and keep being the beautiful soul who makes the world kinder. ✨</p>
   </div>
 
-  <!-- Floating Animals -->
-  <div class="floating-animal" style="top: 8%; left: 5%; animation-delay: 0s; animation-duration: 3s;">🐶</div>
+  <!-- Floating Animals (added peacock emoji here) -->
+  <div class="floating-animal" style="top: 6%; left: 6%; animation-delay: 0s; animation-duration: 3s;">🐶</div>
   <div class="floating-animal" style="top: 12%; right: 8%; animation-delay: 0.5s; animation-duration: 3.5s;">🐱</div>
+  <div class="floating-animal" style="top: 18%; left: 18%; animation-delay: 0.8s; animation-duration: 3.8s;">🦚</div>
   <div class="floating-animal" style="top: 22%; left: 15%; animation-delay: 1s; animation-duration: 4s;">🐕</div>
   <div class="floating-animal" style="top: 28%; right: 20%; animation-delay: 1.5s; animation-duration: 3.2s;">🐈</div>
   <div class="floating-animal" style="top: 42%; left: 3%; animation-delay: 2s; animation-duration: 3.8s;">🐩</div>
