@@ -58,15 +58,15 @@ html_code = r"""
           font-size: 10em !important;
       }
       .birthday-content {
-          padding: 25px 30px !important;
-          width: 90% !important;
-          max-width: 90% !important;
+          padding: 20px 26px !important;
+          width: 92% !important;
+          max-width: 92% !important;
       }
       .birthday-content h1 {
-          font-size: 2em !important;
+          font-size: 1.9em !important;
       }
       .birthday-content p {
-          font-size: 1em !important;
+          font-size: 0.95em !important;
           margin: 10px 0 !important;
       }
       .floating-animal {
@@ -85,7 +85,7 @@ html_code = r"""
           font-size: 1.8em !important;
       }
       .welcome-banner {
-          padding: 20px 30px !important;
+          padding: 18px 24px !important;
       }
       .pet {
           font-size: 4em !important;
@@ -101,10 +101,10 @@ html_code = r"""
           font-size: 8em !important;
       }
       .birthday-content {
-          padding: 20px 25px !important;
+          padding: 16px 18px !important;
       }
       .birthday-content h1 {
-          font-size: 1.5em !important;
+          font-size: 1.4em !important;
       }
       .birthday-content p {
           font-size: 0.85em !important;
@@ -115,12 +115,12 @@ html_code = r"""
     /* Animations */
     @keyframes float {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-30px) rotate(5deg); }
+      50% { transform: translateY(-20px) rotate(4deg); }
     }
 
     @keyframes bounce {
       0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-40px) scale(1.05); }
+      50% { transform: translateY(-28px) scale(1.03); }
     }
 
     @keyframes slideIn {
@@ -140,8 +140,8 @@ html_code = r"""
 
     @keyframes firework {
       0% { transform: scale(0); opacity: 1; }
-      50% { transform: scale(1.2); opacity: 1; }
-      100% { transform: scale(2); opacity: 0; }
+      50% { transform: scale(1.1); opacity: 1; }
+      100% { transform: scale(1.8); opacity: 0; }
     }
 
     @keyframes flutePlay {
@@ -150,8 +150,8 @@ html_code = r"""
     }
 
     @keyframes glow {
-      0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); }
-      50% { filter: drop-shadow(0 0 40px rgba(255, 215, 0, 1)); }
+      0%, 100% { filter: drop-shadow(0 0 12px rgba(255, 215, 0, 0.7)); }
+      50% { filter: drop-shadow(0 0 28px rgba(255, 215, 0, 0.95)); }
     }
 
     /* Welcome screen */
@@ -167,43 +167,43 @@ html_code = r"""
       justify-content: center;
       z-index: 10000;
       background: linear-gradient(135deg, rgba(191,233,255,0.06) 0%, rgba(207,239,255,0.06) 50%, rgba(233,248,255,0.06) 100%);
-      animation: welcomeSequence 6s ease-in-out forwards;
+      animation: welcomeSequence 4s ease-in-out forwards;
     }
 
     @keyframes welcomeSequence {
       0% { opacity: 1; visibility: visible; }
-      83% { opacity: 1; visibility: visible; }
+      80% { opacity: 1; visibility: visible; }
       100% { opacity: 0; visibility: hidden; pointer-events: none; }
     }
 
     .welcome-banner {
       background: linear-gradient(45deg, #ffd7d7, #fff3c7, #d6f5ff, #ffe6fb);
-      padding: 40px 80px;
-      border-radius: 50px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.08);
+      padding: 36px 68px;
+      border-radius: 40px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.06);
       animation: bounce 2s ease-in-out infinite;
-      margin-bottom: 50px;
+      margin-bottom: 40px;
     }
 
     .welcome-banner h1 {
-      color: #1b3a4b;
-      font-size: 4.2em;
+      color: #0f3b4a;
+      font-size: 3.8em;
       text-align: center;
       margin: 0;
-      text-shadow: 2px 2px 6px rgba(0,0,0,0.08);
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.05);
       font-weight: 700;
     }
 
     .welcome-pets {
       display: flex;
-      gap: 120px;
-      animation: slideIn 1.5s ease-out;
+      gap: 80px;
+      animation: slideIn 1.2s ease-out;
     }
 
     .pet {
-      font-size: 8.5em;
+      font-size: 7.5em;
       animation: bounce 1.5s ease-in-out infinite;
-      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.06));
+      filter: drop-shadow(0 6px 14px rgba(0,0,0,0.05));
     }
 
     .pet:nth-child(2) {
@@ -216,10 +216,10 @@ html_code = r"""
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 12em;
+      font-size: 10em;
       font-weight: bold;
       color: #ff6b6b;
-      text-shadow: 0 0 24px rgba(255, 107, 107, 0.6);
+      text-shadow: 0 0 20px rgba(255, 107, 107, 0.6);
       z-index: 10001;
       transition: opacity 0.5s ease, transform 0.5s ease;
     }
@@ -236,7 +236,7 @@ html_code = r"""
       100% { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
     }
 
-    /* Main content */
+    /* Main content (more transparent + heavier blur) */
     .birthday-content {
       position: fixed;
       top: 50%;
@@ -244,14 +244,16 @@ html_code = r"""
       transform: translate(-50%, -50%);
       text-align: center;
       z-index: 10000;
-      background: rgba(255, 255, 255, 0.92);
-      padding: 36px 44px;
-      border-radius: 20px;
-      box-shadow: 0 18px 60px rgba(10,30,40,0.06);
-      border: 1px solid rgba(0,0,0,0.04);
-      animation: contentSequence 17s ease-in forwards;
-      max-width: 80%;
-      max-height: 80vh;
+      background: rgba(255, 255, 255, 0.06); /* more transparent */
+      backdrop-filter: blur(18px); /* stronger blur */
+      -webkit-backdrop-filter: blur(18px);
+      padding: 34px 42px;
+      border-radius: 18px;
+      box-shadow: 0 14px 40px rgba(10,30,40,0.05);
+      border: 1px solid rgba(255,255,255,0.12);
+      animation: contentSequence 12s ease-in forwards;
+      max-width: 78%;
+      max-height: 78vh;
       overflow-y: auto;
     }
 
@@ -262,23 +264,20 @@ html_code = r"""
     }
 
     .birthday-content h1 {
-      font-size: 2.4em;
-      color: #194055;
-      margin-bottom: 10px;
+      font-size: 2.2em;
+      color: #052a30;
+      margin-bottom: 8px;
       font-weight: 800;
+      text-shadow: 0 1px 0 rgba(255,255,255,0.02);
     }
 
     .birthday-content p {
-      font-size: 1.05em;
-      color: #153544;
-      margin: 10px 0;
+      font-size: 1.02em;
+      color: #06313a;
+      margin: 8px 0;
       line-height: 1.6;
       font-weight: 500;
     }
-
-    /* list style inside birthday content */
-    .celebration-list { margin-top: 10px; font-size: 1.02em; color: #0f2f3a; display: inline-block; text-align: left; padding-left: 18px; }
-    .celebration-list li { margin: 6px 0; }
 
     /* Floating animals */
     .floating-animal {
@@ -372,27 +371,19 @@ html_code = r"""
       <div class="burst-snow snowflake" style="top: 28%; left: 45%; font-size: 2.3em; animation-delay: 0.6s;">🍰</div>
   </div>
 
-  <!-- Main Birthday Content -->
-  <div class="birthday-content">
+  <!-- Main Birthday Content (list removed as requested) -->
+  <div class="birthday-content" role="main" aria-label="Birthday message">
       <h1>🎂🌹✨ Happy Birthday! ✨🌹🎂</h1>
       <p>🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟</p>
       <p>💖 Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires! 🧁</p>
       <p>✨ May your Birthday be filled with the magic of love, joy, and all the things that make you happy! ✨</p>
-
-      <ul class="celebration-list" aria-hidden="false">
-        <li>May your days overflow with <strong>kindness</strong> — to yourself and to others.</li>
-        <li>May there always be a warm cup of <strong>coffee</strong> to start bright mornings.</li>
-        <li>May <strong>cheesecakes</strong> and <strong>cupcakes</strong> sweeten the little celebrations.</li>
-        <li>May the love of <strong>animals</strong> bring you endless joy and gentle company.</li>
-      </ul>
-
-      <p style="margin-top:14px; color:#0b2b34;">✨ Enjoy today, savour every bite, and keep being the beautiful soul who makes the world kinder. ✨</p>
   </div>
 
-  <!-- Floating Animals (added peacock emoji here) -->
+  <!-- Floating Animals (peacock entrance made faster & more prominent) -->
   <div class="floating-animal" style="top: 6%; left: 6%; animation-delay: 0s; animation-duration: 3s;">🐶</div>
   <div class="floating-animal" style="top: 12%; right: 8%; animation-delay: 0.5s; animation-duration: 3.5s;">🐱</div>
-  <div class="floating-animal" style="top: 18%; left: 18%; animation-delay: 0.8s; animation-duration: 3.8s;">🦚</div>
+  <!-- Peacock emoji is now a floating animal with faster entrance -->
+  <div class="floating-animal" style="top: 18%; left: 18%; animation-delay: 0.2s; animation-duration: 2s; font-size: 6.2em;">🦚</div>
   <div class="floating-animal" style="top: 22%; left: 15%; animation-delay: 1s; animation-duration: 4s;">🐕</div>
   <div class="floating-animal" style="top: 28%; right: 20%; animation-delay: 1.5s; animation-duration: 3.2s;">🐈</div>
   <div class="floating-animal" style="top: 42%; left: 3%; animation-delay: 2s; animation-duration: 3.8s;">🐩</div>
@@ -569,7 +560,6 @@ html_code = r"""
     function startLoopingMelody(){
       if(isPlaying) return;
       ensureAudio();
-      // try to resume context (browsers may require user gesture)
       audioCtx.resume().catch(()=>{}).finally(()=>{
         const now = audioCtx.currentTime + 0.08;
         const total = scheduleMelody(now);
@@ -752,6 +742,6 @@ st.markdown("""
 # Render full-screen HTML
 components.html(html_code, height=1000, scrolling=False)
 
-# Optional visual effects from Streamlit (keeps fun) - replace st.snow() with custom flakes if you like
+# Optional visual effects from Streamlit (keeps fun)
 st.balloons()
 st.snow()
