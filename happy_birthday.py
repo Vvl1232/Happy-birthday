@@ -265,9 +265,9 @@ html_code = r"""
       100% { transform: translateX(-8%) scale(1.2); opacity: 0; }
     }
 
-    /* New: Peacock Poem box that enters with the same flow as the peacock.
-       Styled clean (no emojis) and given extended visible time (39s duration).
-       Smooth transitions added.
+    /* New: Peacock Poem card that enters with the same flow as the peacock.
+       Styled clean (emojis inline) and given extended visible time (39s duration).
+       Smooth transitions added and z-index raised so no overlap.
     */
     .peacock-poem {
       max-width: 560px;
@@ -306,7 +306,6 @@ html_code = r"""
 
     /* Make sure poem becomes fully opaque when peacockSequence shows it */
     .peacock-container .peacock-poem {
-      /* We'll rely on the peacockSequence timing; then force opacity visible after entry point using animation */
       opacity: 1;
     }
 
@@ -354,12 +353,12 @@ html_code = r"""
       transform: translate(-50%, -50%);
       text-align: center;
       z-index: 10000;
-      background: rgba(255, 255, 255, 0.14);
-      backdrop-filter: blur(14px);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(15px);
       padding: 40px 50px;
       border-radius: 30px;
-      box-shadow: 0 25px 100px rgba(0,0,0,0.38);
-      border: 2px solid rgba(255,255,255,0.28);
+      box-shadow: 0 25px 100px rgba(0,0,0,0.4);
+      border: 2px solid rgba(255,255,255,0.3);
       /* start later so content doesn't overlap peacock/poem */
       animation: contentSequence 42s cubic-bezier(.2,.9,.2,1) forwards;
       max-width: 85%;
@@ -371,8 +370,8 @@ html_code = r"""
     }
 
     @keyframes contentSequence {
-      0% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.75); }
-      99% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.75); }
+      0% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
+      99% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
       100% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
     }
 
@@ -480,17 +479,16 @@ html_code = r"""
   <div class="peacock-container" aria-hidden="true">
       <div class="peacock" role="img" aria-label="Peacock">🦚</div>
 
-      <!-- Poem card beside the peacock — emojis removed as requested -->
+      <!-- Poem card beside the peacock — emojis inline inside poem, heading removed -->
       <div class="peacock-poem" aria-hidden="true">
-        <p style="font-weight:700; font-size:1.12em; margin-bottom:8px; letter-spacing:0.4px;">A Little Birthday Poem</p>
-        <p>On your special day, let positivity shine bright,</p>
-        <p>With cheese cakes dancing in soft golden light.</p>
-        <p>A swirl of warm coffee makes everything sweet,</p>
-        <p>And tiny animals bring joy with their little heartbeat.</p>
-        <p>Songs float around you, inviting your spirit to sing along,</p>
-        <p>And happy little dances turn your moments into a cheerful song.</p>
-        <p>Wrapped in gentle kindness, your dreams glow true—</p>
-        <p>A day full of magic deserves someone like you.</p>
+        <p>☀️ On your special day, let positivity shine bright,</p>
+        <p>🍰 With cheese cakes dancing in soft golden light.</p>
+        <p>☕ A swirl of warm coffee makes everything sweet,</p>
+        <p>🐶 And tiny animals bring joy with their little heartbeat.</p>
+        <p>🎶 Songs float around you, inviting your spirit to sing along,</p>
+        <p>💃 And happy little dances turn your moments into a cheerful song.</p>
+        <p>😇 Wrapped in gentle kindness, your dreams glow true—</p>
+        <p>🔮 A day full of magic deserves someone like you.</p>
       </div>
   </div>
 
@@ -499,30 +497,30 @@ html_code = r"""
 
   <!-- Celebration Burst Effects -->
   <div class="celebration-burst">
-      <!-- Extra confetti burst -->
-      <div class="burst-confetti" style="top: 20%; left: 15%; font-size: 3em; animation-delay: 0s;">🎊</div>
-      <div class="burst-confetti" style="top: 25%; right: 20%; font-size: 3em; animation-delay: 0.1s;">🎉</div>
-      <div class="burst-confetti" style="top: 30%; left: 30%; font-size: 3em; animation-delay: 0.2s;">🎊</div>
-      <div class="burst-confetti" style="top: 35%; right: 35%; font-size: 3em; animation-delay: 0.3s;">🎉</div>
-      <div class="burst-confetti" style="bottom: 30%; left: 25%; font-size: 3em; animation-delay: 0.4s;">🎊</div>
-      <div class="burst-confetti" style="bottom: 35%; right: 30%; font-size: 3em; animation-delay: 0.5s;">🎉</div>
+      <!-- Decorative burst placeholders (removed emoji glyphs so they don't float over poem) -->
+      <div class="burst-confetti" style="top: 20%; left: 15%; font-size: 3em; animation-delay: 0s;"></div>
+      <div class="burst-confetti" style="top: 25%; right: 20%; font-size: 3em; animation-delay: 0.1s;"></div>
+      <div class="burst-confetti" style="top: 30%; left: 30%; font-size: 3em; animation-delay: 0.2s;"></div>
+      <div class="burst-confetti" style="top: 35%; right: 35%; font-size: 3em; animation-delay: 0.3s;"></div>
+      <div class="burst-confetti" style="bottom: 30%; left: 25%; font-size: 3em; animation-delay: 0.4s;"></div>
+      <div class="burst-confetti" style="bottom: 35%; right: 30%; font-size: 3em; animation-delay: 0.5s;"></div>
 
-      <!-- Balloons burst -->
-      <div class="burst-balloon" style="top: 40%; left: 20%; font-size: 3em; animation-delay: 0.2s;">🎈</div>
-      <div class="burst-balloon" style="top: 45%; right: 25%; font-size: 3em; animation-delay: 0.3s;">🎈</div>
-      <div class="burst-balloon" style="bottom: 40%; left: 30%; font-size: 3em; animation-delay: 0.4s;">🎈</div>
-      <div class="burst-balloon" style="bottom: 45%; right: 28%; font-size: 3em; animation-delay: 0.5s;">🎈</div>
+      <!-- Balloons burst placeholders -->
+      <div class="burst-balloon" style="top: 40%; left: 20%; font-size: 3em; animation-delay: 0.2s;"></div>
+      <div class="burst-balloon" style="top: 45%; right: 25%; font-size: 3em; animation-delay: 0.3s;"></div>
+      <div class="burst-balloon" style="bottom: 40%; left: 30%; font-size: 3em; animation-delay: 0.4s;"></div>
+      <div class="burst-balloon" style="bottom: 45%; right: 28%; font-size: 3em; animation-delay: 0.5s;"></div>
 
-      <!-- Fireworks burst -->
-      <div class="burst-firework" style="top: 15%; left: 40%; font-size: 4em; animation-delay: 0.1s;">💥</div>
-      <div class="burst-firework" style="top: 20%; right: 40%; font-size: 4em; animation-delay: 0.3s;">🎆</div>
-      <div class="burst-firework" style="bottom: 20%; left: 35%; font-size: 4em; animation-delay: 0.5s;">✨</div>
-      <div class="burst-firework" style="bottom: 25%; right: 38%; font-size: 4em; animation-delay: 0.6s;">💫</div>
+      <!-- Fireworks burst placeholders -->
+      <div class="burst-firework" style="top: 15%; left: 40%; font-size: 4em; animation-delay: 0.1s;"></div>
+      <div class="burst-firework" style="top: 20%; right: 40%; font-size: 4em; animation-delay: 0.3s;"></div>
+      <div class="burst-firework" style="bottom: 20%; left: 35%; font-size: 4em; animation-delay: 0.5s;"></div>
+      <div class="burst-firework" style="bottom: 25%; right: 38%; font-size: 4em; animation-delay: 0.6s;"></div>
 
-      <!-- Snowflakes burst -->
-      <div class="burst-snow" style="top: 10%; left: 50%; font-size: 2.5em; animation-delay: 0.2s;">❄</div>
-      <div class="burst-snow" style="top: 18%; right: 50%; font-size: 2.5em; animation-delay: 0.4s;">❄</div>
-      <div class="burst-snow" style="top: 28%; left: 45%; font-size: 2.5em; animation-delay: 0.6s;">❄</div>
+      <!-- Snowflakes burst placeholders -->
+      <div class="burst-snow" style="top: 10%; left: 50%; font-size: 2.5em; animation-delay: 0.2s;"></div>
+      <div class="burst-snow" style="top: 18%; right: 50%; font-size: 2.5em; animation-delay: 0.4s;"></div>
+      <div class="burst-snow" style="top: 28%; left: 45%; font-size: 2.5em; animation-delay: 0.6s;"></div>
   </div>
 
   <!-- Main Birthday Content -->
@@ -561,32 +559,32 @@ html_code = r"""
   <div class="snowflake" style="left: 90%; animation-duration: 10s; animation-delay: 3s;">❄</div>
 
   <!-- Confetti -->
-  <div class="confetti" style="left: 15%; animation-duration: 7s; animation-delay: 0s; color: #ff6b6b;">🎊</div>
-  <div class="confetti" style="left: 25%; animation-duration: 8s; animation-delay: 1s; color: #feca57;">🎉</div>
-  <div class="confetti" style="left: 35%; animation-duration: 6s; animation-delay: 2s; color: #48dbfb;">🎊</div>
-  <div class="confetti" style="left: 45%; animation-duration: 9s; animation-delay: 0.5s; color: #ff9ff3;">🎉</div>
-  <div class="confetti" style="left: 55%; animation-duration: 7.5s; animation-delay: 1.5s; color: #ff6b6b;">🎊</div>
-  <div class="confetti" style="left: 65%; animation-duration: 8.5s; animation-delay: 2.5s; color: #feca57;">🎉</div>
-  <div class="confetti" style="left: 75%; animation-duration: 6.5s; animation-delay: 0.8s; color: #48dbfb;">🎊</div>
-  <div class="confetti" style="left: 85%; animation-duration: 9.5s; animation-delay: 1.8s; color: #ff9ff3;">🎉</div>
+  <div class="confetti" style="left: 15%; animation-duration: 7s; animation-delay: 0s; color: #ff6b6b;"></div>
+  <div class="confetti" style="left: 25%; animation-duration: 8s; animation-delay: 1s; color: #feca57;"></div>
+  <div class="confetti" style="left: 35%; animation-duration: 6s; animation-delay: 2s; color: #48dbfb;"></div>
+  <div class="confetti" style="left: 45%; animation-duration: 9s; animation-delay: 0.5s; color: #ff9ff3;"></div>
+  <div class="confetti" style="left: 55%; animation-duration: 7.5s; animation-delay: 1.5s; color: #ff6b6b;"></div>
+  <div class="confetti" style="left: 65%; animation-duration: 8.5s; animation-delay: 2.5s; color: #feca57;"></div>
+  <div class="confetti" style="left: 75%; animation-duration: 6.5s; animation-delay: 0.8s; color: #48dbfb;"></div>
+  <div class="confetti" style="left: 85%; animation-duration: 9.5s; animation-delay: 1.8s; color: #ff9ff3;"></div>
 
   <!-- Fireworks -->
-  <div class="firework" style="top: 15%; left: 20%; animation-delay: 0s;">💥</div>
-  <div class="firework" style="top: 20%; right: 25%; animation-delay: 0.6s;">✨</div>
-  <div class="firework" style="top: 30%; left: 30%; animation-delay: 1.2s;">🎆</div>
-  <div class="firework" style="top: 35%; right: 35%; animation-delay: 1.8s;">💫</div>
-  <div class="firework" style="bottom: 30%; left: 25%; animation-delay: 0.4s;">🎇</div>
-  <div class="firework" style="bottom: 35%; right: 30%; animation-delay: 1s;">💥</div>
+  <div class="firework" style="top: 15%; left: 20%; animation-delay: 0s;"></div>
+  <div class="firework" style="top: 20%; right: 25%; animation-delay: 0.6s;"></div>
+  <div class="firework" style="top: 30%; left: 30%; animation-delay: 1.2s;"></div>
+  <div class="firework" style="top: 35%; right: 35%; animation-delay: 1.8s;"></div>
+  <div class="firework" style="bottom: 30%; left: 25%; animation-delay: 0.4s;"></div>
+  <div class="firework" style="bottom: 35%; right: 30%; animation-delay: 1s;"></div>
 
   <!-- Sparkles -->
-  <div class="sparkle" style="top: 12%; left: 40%; animation-delay: 0s;">⭐</div>
-  <div class="sparkle" style="top: 18%; right: 45%; animation-delay: 0.5s;">✨</div>
-  <div class="sparkle" style="top: 80%; left: 25%; animation-delay: 1s;">🌟</div>
-  <div class="sparkle" style="top: 85%; right: 28%; animation-delay: 1.5s;">💫</div>
-  <div class="sparkle" style="top: 45%; left: 8%; animation-delay: 2s;">⭐</div>
-  <div class="sparkle" style="top: 50%; right: 10%; animation-delay: 2.5s;">✨</div>
+  <div class="sparkle" style="top: 12%; left: 40%; animation-delay: 0s;"></div>
+  <div class="sparkle" style="top: 18%; right: 45%; animation-delay: 0.5s;"></div>
+  <div class="sparkle" style="top: 80%; left: 25%; animation-delay: 1s;"></div>
+  <div class="sparkle" style="top: 85%; right: 28%; animation-delay: 1.5s;"></div>
+  <div class="sparkle" style="top: 45%; left: 8%; animation-delay: 2s;"></div>
+  <div class="sparkle" style="top: 50%; right: 10%; animation-delay: 2.5s;"></div>
 
-  <!-- Flute Happy Birthday: WebAudio script (autoplay attempt; falls back to first user gesture) -->
+
 <!-- Flute Happy Birthday: WebAudio script (autoplay attempt; falls back to first user gesture) -->
 <script>
 (function(){
