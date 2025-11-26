@@ -175,7 +175,7 @@ html_code = r"""
       justify-content: center;
       z-index: 10000;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-      animation: welcomeSequence 6s cubic-bezier(.2,.9,.2,1) forwards;
+      animation: welcomeSequence 3s cubic-bezier(.2,.9,.2,1) forwards; /* reduced from 6s -> 3s */
       transition: opacity .8s cubic-bezier(.2,.9,.2,1), visibility .8s;
     }
 
@@ -221,7 +221,7 @@ html_code = r"""
     }
 
     /* Peacock animation
-       Increased duration so poem can be read: 26s -> 39s (50% longer)
+       Reduced duration by 30%: 39s -> 27s (approx)
        Smooth cubic-bezier easing, fade/transform transitions for gentle feel.
     */
     .peacock-container {
@@ -235,15 +235,15 @@ html_code = r"""
       align-items: center;
       z-index: 9999;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-      animation: peacockSequence 39s cubic-bezier(.2,.9,.2,1) forwards;
+      animation: peacockSequence 27s cubic-bezier(.2,.9,.2,1) forwards; /* reduced from 39s -> 27s */
       pointer-events: none;
-      transition: opacity 1.2s cubic-bezier(.2,.9,.2,1), transform 1.2s cubic-bezier(.2,.9,.2,1);
+      transition: opacity 1.0s cubic-bezier(.2,.9,.2,1), transform 1.0s cubic-bezier(.2,.9,.2,1);
     }
 
     @keyframes peacockSequence {
       0% { opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(0) scale(1); }
-      30% { opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(0) scale(1); }
-      31% { opacity: 1; visibility: visible; }
+      25% { opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(0) scale(1); }
+      26% { opacity: 1; visibility: visible; }
       86% { opacity: 1; visibility: visible; }
       100% { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-6px) scale(0.98); }
     }
@@ -251,45 +251,39 @@ html_code = r"""
     .peacock {
       font-size: 20em;
       filter: drop-shadow(0 20px 40px rgba(0,0,0,0.45));
-      animation: peacockFlyStop 39s cubic-bezier(.2,.9,.2,1) forwards;
+      animation: peacockFlyStop 27s cubic-bezier(.2,.9,.2,1) forwards; /* match 27s */
       margin-right: 18px;
-      transition: transform 1.2s cubic-bezier(.2,.9,.2,1), opacity 1s cubic-bezier(.2,.9,.2,1);
+      transition: transform 1.0s cubic-bezier(.2,.9,.2,1), opacity 0.9s cubic-bezier(.2,.9,.2,1);
     }
 
     @keyframes peacockFlyStop {
       0% { transform: translateX(0) scale(1.5); opacity: 0; }
-      30% { transform: translateX(0) scale(1.5); opacity: 0; }
-      31% { transform: translateX(-150%) scale(1.4); opacity: 1; }
-      66% { transform: translateX(-8%) scale(1.35) rotate(6deg); opacity: 1; }
+      25% { transform: translateX(0) scale(1.5); opacity: 0; }
+      26% { transform: translateX(-150%) scale(1.4); opacity: 1; }
+      60% { transform: translateX(-8%) scale(1.35) rotate(6deg); opacity: 1; }
       86% { transform: translateX(-8%) scale(1.25) rotate(0deg); opacity: 1; }
       100% { transform: translateX(-8%) scale(1.2); opacity: 0; }
     }
 
     /* New: Peacock Poem card that enters with the same flow as the peacock.
-       Styled clean (emojis inline) and given extended visible time (39s duration).
-       Smooth transitions added and z-index raised so no overlap.
+       emojis inline, extended visible time reduced to 27s, smoother transitions and higher z-index.
     */
     .peacock-poem {
       max-width: 560px;
       min-width: 320px;
       border-radius: 18px;
-      padding: 20px 26px;
+      padding: 18px 24px;
       backdrop-filter: blur(10px);
       background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
       border: 1px solid rgba(255,255,255,0.20);
       box-shadow: 0 14px 50px rgba(0,0,0,0.28);
       color: #fff;
       text-align: left;
-      font-size: 1.25em;
+      font-size: 1.12em;
       line-height: 1.55;
-      z-index: 10000;
-      animation: peacockSequence 39s cubic-bezier(.2,.9,.2,1) forwards;
-      /* smoother float while visible */
-      animation-name: peacockSequence, poemFloat;
-      animation-duration: 39s, 4.4s;
-      animation-fill-mode: forwards, both;
-      animation-iteration-count: 1, infinite;
-      animation-timing-function: cubic-bezier(.2,.9,.2,1), ease-in-out;
+      z-index: 10050; /* raised so nothing overlaps */
+      animation: peacockSequence 27s cubic-bezier(.2,.9,.2,1) forwards, poemFloat 3.6s ease-in-out infinite; /* poem float slightly faster */
+      animation-fill-mode: forwards;
       transform-origin: center;
       pointer-events: none;
       opacity: 0;
@@ -300,7 +294,7 @@ html_code = r"""
 
     @keyframes poemFloat {
       0% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-8px) rotate(0.8deg); }
+      50% { transform: translateY(-6px) rotate(0.6deg); }
       100% { transform: translateY(0) rotate(0deg); }
     }
 
@@ -343,7 +337,8 @@ html_code = r"""
     }
 
     /* Main content
-       Delayed so peacock+poem finish first — previously ~28s, now pushed to 42s to give buffer
+       Delayed so peacock+poem finish first — adjusted so main content appears after the 27s peacock/poem:
+       was 42s, now 30s to keep a short buffer.
        Smooth fade/scale in to feel like "more to come"
     */
     .birthday-content {
@@ -360,7 +355,7 @@ html_code = r"""
       box-shadow: 0 25px 100px rgba(0,0,0,0.4);
       border: 2px solid rgba(255,255,255,0.3);
       /* start later so content doesn't overlap peacock/poem */
-      animation: contentSequence 42s cubic-bezier(.2,.9,.2,1) forwards;
+      animation: contentSequence 30s cubic-bezier(.2,.9,.2,1) forwards; /* reduced from 42s -> 30s */
       max-width: 85%;
       max-height: 85vh;
       overflow-y: auto;
@@ -475,7 +470,7 @@ html_code = r"""
       </div>
   </div>
 
-  <!-- Peacock Animation + Poem (poem enters with the peacock, much longer visible time: 39s) -->
+  <!-- Peacock Animation + Poem (poem enters with the peacock, now 27s visible) -->
   <div class="peacock-container" aria-hidden="true">
       <div class="peacock" role="img" aria-label="Peacock">🦚</div>
 
@@ -717,15 +712,18 @@ html_code = r"""
       .then(()=> audioCtx.resume())
       .catch(()=>{})
       .finally(()=>{
+        // schedule first run if running
         if(audioCtx.state === 'running'){
           const now = audioCtx.currentTime + 0.08;
           const total = scheduleMelody(now);
-          // schedule periodic scheduling a touch before the end of melody
+          // schedule periodic scheduling slightly before the melody ends
           loopTimer = setInterval(()=>{
             const s = audioCtx.currentTime + 0.06;
             scheduleMelody(s);
           }, Math.max(100, (total * 1000) - 40));
           isPlaying = true;
+        } else {
+          // attempt again later when user interacts
         }
       });
   }
@@ -742,7 +740,7 @@ html_code = r"""
     }
   }
 
-  // Attempt autoplay on load
+  // Attempt autoplay on load and ensure loop continues
   window.addEventListener('load', () => {
     try {
       ensureAudio();
@@ -753,7 +751,6 @@ html_code = r"""
   });
 
   // Fallback: resume on first user gesture if autoplay was blocked.
-  // No click chime — just silently resume and start playback.
   function gestureStart(){
     try {
       ensureAudio();
@@ -770,12 +767,11 @@ html_code = r"""
   window.addEventListener('keydown', gestureStart, {passive:true});
   window.addEventListener('touchstart', gestureStart, {passive:true});
 
-  // Optional: stop when page hidden and restart when visible again (keeps resources tidy)
+  // Keep audio tidy: stop when page hidden, restart when visible again
   document.addEventListener('visibilitychange', () => {
     if(document.hidden){
       stopLoopingMelody();
     } else {
-      // try restarting quietly
       startLoopingMelody();
     }
   });
