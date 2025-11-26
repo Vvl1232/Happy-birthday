@@ -128,6 +128,28 @@ html_code = r"""
 
     .floating-animal { position: fixed; font-size:3.6rem; animation: float 4.4s cubic-bezier(.2,.9,.2,1) infinite; z-index:50; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3)); }
 
+    /* Audio hint at bottom (very small black text on light rounded background) */
+    .audio-hint {
+      position: fixed;
+      left: 50%;
+      bottom: 8px;
+      transform: translateX(-50%);
+      font-size: 11px;
+      color: #000;
+      background: rgba(255,255,255,0.92);
+      padding: 4px 8px;
+      border-radius: 8px;
+      box-shadow: 0 6px 18px rgba(0,0,0,0.12);
+      cursor: pointer;
+      z-index: 11000;
+      user-select: none;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    @media (max-width:420px){
+      .audio-hint { font-size:10px; padding:3px 6px; bottom:6px; }
+    }
+
     @media (prefers-reduced-motion: reduce) { .welcome-banner, .pet, .poem-container, .countdown, .floating-animal, .celebration-burst { animation:none !important; transition:none !important; } }
   </style>
 </head>
@@ -147,14 +169,14 @@ html_code = r"""
   <div class="poem-container" aria-hidden="true">
     <div class="poem-card" role="article" aria-label="Little Birthday Poem">
       <!-- emojis inline in poem lines as requested -->
-      <p>☀️ On your special day, let positivity shine bright,</p>
-      <p>🍰 With cheese cakes dancing in soft golden light.</p>
-      <p>☕ A swirl of warm coffee makes everything sweet,</p>
-      <p>🐶 And tiny animals bring joy with their little heartbeat.</p>
+      <p> On your special day, let positivity shine ☀️ bright,</p>
+      <p> With cheese cakes 🍰 dancing in soft golden light.</p>
+      <p> A swirl of warm coffee ☕ makes everything sweet,</p>
+      <p> And tiny animals 🐶 bring joy with their little 💙 heartbeat.</p>
       <p>🎶 Songs float around you, inviting your spirit to sing along,</p>
-      <p>💃 And happy little dances turn your moments into a cheerful song.</p>
-      <p>😇 Wrapped in gentle kindness, your dreams glow true—</p>
-      <p>🔮 A day full of magic deserves someone like you.</p>
+      <p> And happy little dances 💃 turn your moments into a cheerful song.</p>
+      <p> Wrapped in gentle kindness 😇, your dreams glow true—</p>
+      <p>🔮 A day full of magic 🪄 deserves someone like you.</p>
     </div>
   </div>
 
@@ -178,12 +200,13 @@ html_code = r"""
     <p>✨ May your Birthday be filled with the magic of love, joy, and all the things that make you happy! ✨</p>
   </div>
 
-  <!-- Floating animals kept -->
-  <div class="floating-animal" style="top:8%; left:5%; animation-delay:0s;">🐶</div>
-  <div class="floating-animal" style="top:12%; right:8%; animation-delay:0.5s;">🐱</div>
-
   <!-- Snowflakes minimal -->
   <div class="burst-snow" style="left:10%; top:6%;"></div>
+
+  <!-- Very small clickable hint to start/resume audio (mobile friendly) -->
+  <div id="audio-hint" class="audio-hint" role="button" aria-label="Play music" onclick="(window.startAudioInteractive && window.startAudioInteractive());">
+    Click once to play music
+  </div>
 
   <!-- Audio: same looping flute melody (keeps behavior from your original) -->
   <script>
@@ -199,7 +222,7 @@ html_code = r"""
       const name=m[1].toUpperCase(); const acc=m[2]; const octave=parseInt(m[3],10);
       const semitoneMap={ 'C':-9,'D':-7,'E':-5,'F':-4,'G':-2,'A':0,'B':2 };
       let semis=semitoneMap[name];
-      if(acc===' #') semis+=1;
+      if(acc==='#') semis+=1;
       if(acc==='b') semis-=1;
       semis += (octave-4)*12;
       return 440*Math.pow(2,semis/12);
@@ -266,6 +289,8 @@ html_code = r"""
           const total = scheduleMelody(now);
           loopTimer = setInterval(()=>{ const s = audioCtx.currentTime + 0.06; scheduleMelody(s); }, Math.max(100, (total*1000)-40));
           isPlaying = true;
+          // hide hint if present
+          try { const h = document.getElementById('audio-hint'); if(h) h.style.display = 'none'; } catch(e){}
         }
       });
     }
@@ -274,10 +299,41 @@ html_code = r"""
       if(masterGain && audioCtx){ const t=audioCtx.currentTime; masterGain.gain.cancelScheduledValues(t); masterGain.gain.setValueAtTime(masterGain.gain.value,t); masterGain.gain.exponentialRampToValueAtTime(0.0001,t+0.8); setTimeout(()=>{ if(masterGain) masterGain.gain.value=0.0; },900); }
     }
 
+    // Attempt autoplay on load and ensure loop continues
     window.addEventListener('load', ()=>{ try{ ensureAudio(); startLoopingMelody(); }catch(e){} });
-    function gestureStart(){ try{ ensureAudio(); audioCtx.resume().then(()=>{ startLoopingMelody(); }).catch(()=>{}); }catch(e){} window.removeEventListener('pointerdown',gestureStart); window.removeEventListener('keydown',gestureStart); window.removeEventListener('touchstart',gestureStart); }
-    window.addEventListener('pointerdown', gestureStart, {passive:true}); window.addEventListener('keydown', gestureStart, {passive:true}); window.addEventListener('touchstart', gestureStart, {passive:true});
-    document.addEventListener('visibilitychange', ()=>{ if(document.hidden) stopLoopingMelody(); else startLoopingMelody(); });
+
+    // Gesture start function (exposed globally so the bottom hint can call it)
+    function gestureStart(){
+      try {
+        ensureAudio();
+        audioCtx.resume().then(()=>{
+          startLoopingMelody();
+          // hide the hint once started by gesture
+          try { const h = document.getElementById('audio-hint'); if(h) h.style.display = 'none'; } catch(e){}
+        }).catch(()=>{});
+      } catch(e){}
+      window.removeEventListener('pointerdown', gestureStart);
+      window.removeEventListener('keydown', gestureStart);
+      window.removeEventListener('touchstart', gestureStart);
+    }
+
+    // expose globally for onclick handler in the hint
+    window.startAudioInteractive = gestureStart;
+
+    // attach as fallback listeners in case user interacts anywhere on page
+    window.addEventListener('pointerdown', gestureStart, {passive:true});
+    window.addEventListener('keydown', gestureStart, {passive:true});
+    window.addEventListener('touchstart', gestureStart, {passive:true});
+
+    // Keep audio tidy: stop when page hidden, restart when visible again
+    document.addEventListener('visibilitychange', () => {
+      if(document.hidden){
+        stopLoopingMelody();
+      } else {
+        startLoopingMelody();
+      }
+    });
+
   })();
   </script>
 </body>
