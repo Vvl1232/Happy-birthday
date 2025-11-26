@@ -497,27 +497,27 @@ html_code = r"""
   <!-- Countdown Timer -->
   <div class="countdown" id="countdown"></div>
 
-  <!-- Celebration Burst Effects -->
-  <div class="celebration-burst">
-      <!-- Extra confetti burst -->
-      <div class="burst-confetti" style="top: 20%; left: 15%; font-size: 3em; animation-delay: 0s;">🎊</div>
-      <div class="burst-confetti" style="top: 25%; right: 20%; font-size: 3em; animation-delay: 0.1s;">🎉</div>
-      <div class="burst-confetti" style="top: 30%; left: 30%; font-size: 3em; animation-delay: 0.2s;">🎊</div>
-      <div class="burst-confetti" style="top: 35%; right: 35%; font-size: 3em; animation-delay: 0.3s;">🎉</div>
-      <div class="burst-confetti" style="bottom: 30%; left: 25%; font-size: 3em; animation-delay: 0.4s;">🎊</div>
-      <div class="burst-confetti" style="bottom: 35%; right: 30%; font-size: 3em; animation-delay: 0.5s;">🎉</div>
+  # <!-- Celebration Burst Effects -->
+  # <div class="celebration-burst">
+  #     <!-- Extra confetti burst -->
+  #     <div class="burst-confetti" style="top: 20%; left: 15%; font-size: 3em; animation-delay: 0s;">🎊</div>
+  #     <div class="burst-confetti" style="top: 25%; right: 20%; font-size: 3em; animation-delay: 0.1s;">🎉</div>
+  #     <div class="burst-confetti" style="top: 30%; left: 30%; font-size: 3em; animation-delay: 0.2s;">🎊</div>
+  #     <div class="burst-confetti" style="top: 35%; right: 35%; font-size: 3em; animation-delay: 0.3s;">🎉</div>
+  #     <div class="burst-confetti" style="bottom: 30%; left: 25%; font-size: 3em; animation-delay: 0.4s;">🎊</div>
+  #     <div class="burst-confetti" style="bottom: 35%; right: 30%; font-size: 3em; animation-delay: 0.5s;">🎉</div>
 
-      <!-- Balloons burst -->
-      <div class="burst-balloon" style="top: 40%; left: 20%; font-size: 3em; animation-delay: 0.2s;">🎈</div>
-      <div class="burst-balloon" style="top: 45%; right: 25%; font-size: 3em; animation-delay: 0.3s;">🎈</div>
-      <div class="burst-balloon" style="bottom: 40%; left: 30%; font-size: 3em; animation-delay: 0.4s;">🎈</div>
-      <div class="burst-balloon" style="bottom: 45%; right: 28%; font-size: 3em; animation-delay: 0.5s;">🎈</div>
+  #     <!-- Balloons burst -->
+  #     <div class="burst-balloon" style="top: 40%; left: 20%; font-size: 3em; animation-delay: 0.2s;">🎈</div>
+  #     <div class="burst-balloon" style="top: 45%; right: 25%; font-size: 3em; animation-delay: 0.3s;">🎈</div>
+  #     <div class="burst-balloon" style="bottom: 40%; left: 30%; font-size: 3em; animation-delay: 0.4s;">🎈</div>
+  #     <div class="burst-balloon" style="bottom: 45%; right: 28%; font-size: 3em; animation-delay: 0.5s;">🎈</div>
 
-      <!-- Fireworks burst -->
-      <div class="burst-firework" style="top: 15%; left: 40%; font-size: 4em; animation-delay: 0.1s;">💥</div>
-      <div class="burst-firework" style="top: 20%; right: 40%; font-size: 4em; animation-delay: 0.3s;">🎆</div>
-      <div class="burst-firework" style="bottom: 20%; left: 35%; font-size: 4em; animation-delay: 0.5s;">✨</div>
-      <div class="burst-firework" style="bottom: 25%; right: 38%; font-size: 4em; animation-delay: 0.6s;">💫</div>
+  #     <!-- Fireworks burst -->
+  #     <div class="burst-firework" style="top: 15%; left: 40%; font-size: 4em; animation-delay: 0.1s;">💥</div>
+  #     <div class="burst-firework" style="top: 20%; right: 40%; font-size: 4em; animation-delay: 0.3s;">🎆</div>
+  #     <div class="burst-firework" style="bottom: 20%; left: 35%; font-size: 4em; animation-delay: 0.5s;">✨</div>
+  #     <div class="burst-firework" style="bottom: 25%; right: 38%; font-size: 4em; animation-delay: 0.6s;">💫</div>
 
       <!-- Snowflakes burst -->
       <div class="burst-snow" style="top: 10%; left: 50%; font-size: 2.5em; animation-delay: 0.2s;">❄</div>
@@ -801,3 +801,4 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects from Streamlit (keeps fun)
 st.balloons()
 st.snow()
+
