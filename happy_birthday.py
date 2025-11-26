@@ -47,19 +47,9 @@ html_code = r"""
       .welcome-pets {
           gap: 60px !important;
       }
-      .peacock {
-          font-size: 12em !important;
-      }
       .peacock-poem {
           font-size: 1.1em !important;
           padding: 12px 16px !important;
-      }
-      .krishna-image {
-          width: 150px !important;
-          height: 150px !important;
-      }
-      .countdown {
-          font-size: 10em !important;
       }
       .birthday-content {
           padding: 25px 30px !important;
@@ -94,19 +84,9 @@ html_code = r"""
       .pet {
           font-size: 4em !important;
       }
-      .peacock {
-          font-size: 8em !important;
-      }
       .peacock-poem {
           font-size: 0.95em !important;
           padding: 10px 12px !important;
-      }
-      .krishna-image {
-          width: 120px !important;
-          height: 120px !important;
-      }
-      .countdown {
-          font-size: 8em !important;
       }
       .birthday-content {
           padding: 20px 25px !important;
@@ -175,7 +155,7 @@ html_code = r"""
       justify-content: center;
       z-index: 10000;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-      animation: welcomeSequence 3s cubic-bezier(.2,.9,.2,1) forwards; /* reduced from 6s -> 3s */
+      animation: welcomeSequence 5s cubic-bezier(.2,.9,.2,1) forwards; /* reduced from 6s -> 3s */
       transition: opacity .8s cubic-bezier(.2,.9,.2,1), visibility .8s;
     }
 
@@ -803,3 +783,4 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects from Streamlit (keeps fun)
 st.balloons()
 st.snow()
+
