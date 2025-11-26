@@ -218,8 +218,8 @@ html_code = r"""
     }
 
     /* Peacock animation
-       Increased duration so poem can be read.
-       The peacock and the new poem share the same entry sequence.
+       Increased duration by 50% (26s -> 39s) so poem can be read comfortably.
+       The peacock and the poem share the same entry sequence.
     */
     .peacock-container {
       position: fixed;
@@ -232,12 +232,10 @@ html_code = r"""
       align-items: center;
       z-index: 9999;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-      /* extended duration from 17s -> 26s so user has reading time */
-      animation: peacockSequence 26s ease-in-out forwards;
+      animation: peacockSequence 39s ease-in-out forwards;
       pointer-events: none;
     }
 
-    /* peacockSequence kept but duration adjusted above */
     @keyframes peacockSequence {
       0% { opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(0) scale(1); }
       30% { opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(0) scale(1); }
@@ -249,8 +247,15 @@ html_code = r"""
     .peacock {
       font-size: 20em;
       filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
-      animation: peacockFlyStop 26s ease-out forwards;
+      animation: peacockFlyStop 39s ease-out forwards;
       margin-right: 18px;
+      font-weight: 900;
+      letter-spacing: 4px;
+      color: rgba(255,255,255,0.95);
+      -webkit-text-stroke: 1px rgba(0,0,0,0.15);
+      background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.65));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
     }
 
     @keyframes peacockFlyStop {
@@ -262,8 +267,9 @@ html_code = r"""
       100% { transform: translateX(-10%) scale(1.25); opacity: 0; }
     }
 
-    /* New: Peackock Poem box that enters with the same flow as the peacock.
+    /* Peackock Poem box that enters with the same flow as the peacock.
        Styled cute/playful and given ample visible time to read.
+       Removed all emojis from poem text (per request).
     */
     .peacock-poem {
       max-width: 520px;
@@ -279,10 +285,10 @@ html_code = r"""
       font-size: 1.25em;
       line-height: 1.45;
       z-index: 10000;
-      animation: peacockSequence 26s ease-in-out forwards;
-      /* subtle bounce while visible to feel playful */
+      animation: peacockSequence 39s ease-in-out forwards;
+      /* subtle float while visible to feel playful */
       animation-name: peacockSequence, poemFloat;
-      animation-duration: 26s, 3.6s;
+      animation-duration: 39s, 4.5s;
       animation-fill-mode: forwards, both;
       animation-iteration-count: 1, infinite;
       animation-timing-function: ease-in-out, ease-in-out;
@@ -292,7 +298,7 @@ html_code = r"""
 
     @keyframes poemFloat {
       0% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-6px) rotate(1deg); }
+      50% { transform: translateY(-6px) rotate(0.6deg); }
       100% { transform: translateY(0) rotate(0deg); }
     }
 
@@ -300,9 +306,11 @@ html_code = r"""
       margin: 8px 0;
     }
 
-    .peacock-poem .line-emoji {
-      margin-right: 8px;
-      font-size: 1.05em;
+    .peacock-poem .title {
+      font-weight:700;
+      font-size:1.15em;
+      margin-bottom:6px;
+      letter-spacing:0.6px;
     }
 
     /* Countdown Timer */
@@ -337,7 +345,8 @@ html_code = r"""
     }
 
     /* Main content
-       Delayed so peacock+poem finish first — increased from 17s -> 28s
+       Delayed so peacock+poem finish first — increased by 50% (28s -> 42s)
+       Removed emojis from birthday content (per request).
     */
     .birthday-content {
       position: fixed;
@@ -353,7 +362,7 @@ html_code = r"""
       box-shadow: 0 25px 100px rgba(0,0,0,0.4);
       border: 2px solid rgba(255,255,255,0.3);
       /* start later so content doesn't overlap peacock/poem */
-      animation: contentSequence 28s ease-in forwards;
+      animation: contentSequence 42s ease-in forwards;
       max-width: 85%;
       max-height: 85vh;
       overflow-y: auto;
@@ -467,19 +476,19 @@ html_code = r"""
 
   <!-- Peacock Animation + Poem (poem enters with the peacock, longer visible time) -->
   <div class="peacock-container" aria-hidden="true">
-      <div class="peacock" role="img" aria-label="Peacock">🦚</div>
+      <div class="peacock" role="img" aria-label="Peacock">PEACOCK</div>
 
-      <!-- New playful poem card placed beside the peacock; shares the peacockSequence animation -->
+      <!-- Poem card without any emojis -->
       <div class="peacock-poem" aria-hidden="true">
-        <p style="font-weight:700; font-size:1.15em; margin-bottom:6px; letter-spacing:0.6px;">🌈 A Little Birthday Poem</p>
-        <p><span class="line-emoji">☀️</span>On your special day, let positivity shine bright,</p>
-        <p><span class="line-emoji">🍰</span>With cheese cakes dancing in soft golden light.</p>
-        <p><span class="line-emoji">☕</span>A swirl of warm coffee makes everything sweet,</p>
-        <p><span class="line-emoji">🐶</span>And tiny animals bring joy with their little heartbeat.</p>
-        <p><span class="line-emoji">🎶</span>Songs float around you, inviting your spirit to sing along,</p>
-        <p><span class="line-emoji">💃</span>And happy little dances turn your moments into a cheerful song.</p>
-        <p><span class="line-emoji">😇</span>Wrapped in gentle kindness, your dreams glow true—</p>
-        <p><span class="line-emoji">🔮</span>A day full of magic deserves someone like you. ✨</p>
+        <p class="title">A Little Birthday Poem</p>
+        <p>On your special day, let positivity shine bright,</p>
+        <p>With cheesecakes dancing in soft golden light.</p>
+        <p>A swirl of warm coffee makes everything sweet,</p>
+        <p>And tiny animals bring joy with their little heartbeat.</p>
+        <p>Songs float around you, inviting your spirit to sing along,</p>
+        <p>And happy little dances turn your moments into a cheerful song.</p>
+        <p>Wrapped in gentle kindness, your dreams glow true—</p>
+        <p>A day full of magic deserves someone like you.</p>
       </div>
   </div>
 
@@ -514,15 +523,15 @@ html_code = r"""
       <div class="burst-snow" style="top: 28%; left: 45%; font-size: 2.5em; animation-delay: 0.6s;">❄</div>
   </div>
 
-  <!-- Main Birthday Content -->
+  <!-- Main Birthday Content (plain text, no emojis) -->
   <div class="birthday-content">
-      <h1>🎂🌹✨ Happy Birthday! ✨🌹🎂</h1>
-      <p>🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟</p>
-      <p>💖 Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires! 🧁</p>
-      <p>✨ May your Birthday be filled with the magic of love, joy, and all the things that make you happy! ✨</p>
+      <h1>Happy Birthday!</h1>
+      <p>May your birthday be as extraordinary and wonderful as you are!</p>
+      <p>Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires.</p>
+      <p>May your day be filled with the magic of love, joy, and all the things that make you happy.</p>
   </div>
 
-  <!-- Floating Animals -->
+  <!-- Floating Animals (left as-is) -->
   <div class="floating-animal" style="top: 8%; left: 5%; animation-delay: 0s; animation-duration: 3s;">🐶</div>
   <div class="floating-animal" style="top: 12%; right: 8%; animation-delay: 0.5s; animation-duration: 3.5s;">🐱</div>
   <div class="floating-animal" style="top: 22%; left: 15%; animation-delay: 1s; animation-duration: 4s;">🐕</div>
