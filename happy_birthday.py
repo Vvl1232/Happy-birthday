@@ -497,27 +497,27 @@ html_code = r"""
   <!-- Countdown Timer -->
   <div class="countdown" id="countdown"></div>
 
-  # <!-- Celebration Burst Effects -->
-  # <div class="celebration-burst">
-  #     <!-- Extra confetti burst -->
-  #     <div class="burst-confetti" style="top: 20%; left: 15%; font-size: 3em; animation-delay: 0s;">🎊</div>
-  #     <div class="burst-confetti" style="top: 25%; right: 20%; font-size: 3em; animation-delay: 0.1s;">🎉</div>
-  #     <div class="burst-confetti" style="top: 30%; left: 30%; font-size: 3em; animation-delay: 0.2s;">🎊</div>
-  #     <div class="burst-confetti" style="top: 35%; right: 35%; font-size: 3em; animation-delay: 0.3s;">🎉</div>
-  #     <div class="burst-confetti" style="bottom: 30%; left: 25%; font-size: 3em; animation-delay: 0.4s;">🎊</div>
-  #     <div class="burst-confetti" style="bottom: 35%; right: 30%; font-size: 3em; animation-delay: 0.5s;">🎉</div>
+  <!-- Celebration Burst Effects -->
+  <div class="celebration-burst">
+      <!-- Extra confetti burst -->
+      <div class="burst-confetti" style="top: 20%; left: 15%; font-size: 3em; animation-delay: 0s;">🎊</div>
+      <div class="burst-confetti" style="top: 25%; right: 20%; font-size: 3em; animation-delay: 0.1s;">🎉</div>
+      <div class="burst-confetti" style="top: 30%; left: 30%; font-size: 3em; animation-delay: 0.2s;">🎊</div>
+      <div class="burst-confetti" style="top: 35%; right: 35%; font-size: 3em; animation-delay: 0.3s;">🎉</div>
+      <div class="burst-confetti" style="bottom: 30%; left: 25%; font-size: 3em; animation-delay: 0.4s;">🎊</div>
+      <div class="burst-confetti" style="bottom: 35%; right: 30%; font-size: 3em; animation-delay: 0.5s;">🎉</div>
 
-  #     <!-- Balloons burst -->
-  #     <div class="burst-balloon" style="top: 40%; left: 20%; font-size: 3em; animation-delay: 0.2s;">🎈</div>
-  #     <div class="burst-balloon" style="top: 45%; right: 25%; font-size: 3em; animation-delay: 0.3s;">🎈</div>
-  #     <div class="burst-balloon" style="bottom: 40%; left: 30%; font-size: 3em; animation-delay: 0.4s;">🎈</div>
-  #     <div class="burst-balloon" style="bottom: 45%; right: 28%; font-size: 3em; animation-delay: 0.5s;">🎈</div>
+      <!-- Balloons burst -->
+      <div class="burst-balloon" style="top: 40%; left: 20%; font-size: 3em; animation-delay: 0.2s;">🎈</div>
+      <div class="burst-balloon" style="top: 45%; right: 25%; font-size: 3em; animation-delay: 0.3s;">🎈</div>
+      <div class="burst-balloon" style="bottom: 40%; left: 30%; font-size: 3em; animation-delay: 0.4s;">🎈</div>
+      <div class="burst-balloon" style="bottom: 45%; right: 28%; font-size: 3em; animation-delay: 0.5s;">🎈</div>
 
-  #     <!-- Fireworks burst -->
-  #     <div class="burst-firework" style="top: 15%; left: 40%; font-size: 4em; animation-delay: 0.1s;">💥</div>
-  #     <div class="burst-firework" style="top: 20%; right: 40%; font-size: 4em; animation-delay: 0.3s;">🎆</div>
-  #     <div class="burst-firework" style="bottom: 20%; left: 35%; font-size: 4em; animation-delay: 0.5s;">✨</div>
-  #     <div class="burst-firework" style="bottom: 25%; right: 38%; font-size: 4em; animation-delay: 0.6s;">💫</div>
+      <!-- Fireworks burst -->
+      <div class="burst-firework" style="top: 15%; left: 40%; font-size: 4em; animation-delay: 0.1s;">💥</div>
+      <div class="burst-firework" style="top: 20%; right: 40%; font-size: 4em; animation-delay: 0.3s;">🎆</div>
+      <div class="burst-firework" style="bottom: 20%; left: 35%; font-size: 4em; animation-delay: 0.5s;">✨</div>
+      <div class="burst-firework" style="bottom: 25%; right: 38%; font-size: 4em; animation-delay: 0.6s;">💫</div>
 
       <!-- Snowflakes burst -->
       <div class="burst-snow" style="top: 10%; left: 50%; font-size: 2.5em; animation-delay: 0.2s;">❄</div>
@@ -587,195 +587,203 @@ html_code = r"""
   <div class="sparkle" style="top: 50%; right: 10%; animation-delay: 2.5s;">✨</div>
 
   <!-- Flute Happy Birthday: WebAudio script (autoplay attempt; falls back to first user gesture) -->
-  <script>
-  (function(){
-    // Happy Birthday melody notes and durations
-    const melodyNotes = [
-      "G4","G4","A4","G4","C5","B4",
-      "G4","G4","A4","G4","D5","C5",
-      "G4","G4","G5","E5","C5","B4","A4",
-      "F5","F5","E5","C5","D5","C5"
-    ];
-    const melodyDurations = [
-      0.5,0.5,1,1,1,2,
-      0.5,0.5,1,1,1,2,
-      0.5,0.5,1,1,1,1,1,
-      0.5,0.5,1,1,2,2
-    ];
-    const tempo = 88; // BPM
-    const beatSec = 60 / tempo;
+<!-- Flute Happy Birthday: WebAudio script (autoplay attempt; falls back to first user gesture) -->
+<script>
+(function(){
+  // Happy Birthday melody notes and durations
+  const melodyNotes = [
+    "G4","G4","A4","G4","C5","B4",
+    "G4","G4","A4","G4","D5","C5",
+    "G4","G4","G5","E5","C5","B4","A4",
+    "F5","F5","E5","C5","D5","C5"
+  ];
+  const melodyDurations = [
+    0.5,0.5,1,1,1,2,
+    0.5,0.5,1,1,1,2,
+    0.5,0.5,1,1,1,1,1,
+    0.5,0.5,1,1,2,2
+  ];
+  const tempo = 88; // BPM
+  const beatSec = 60 / tempo;
 
-    let audioCtx = null;
-    let masterGain = null;
-    let isPlaying = false;
-    let loopTimer = null;
+  let audioCtx = null;
+  let masterGain = null;
+  let isPlaying = false;
+  let loopTimer = null;
 
-    // Convert note like "C#4" to frequency, A4 = 440Hz
-    function noteToFreq(note){
-      const re = /^([A-Ga-g])([#b]?)(\d+)$/;
-      const m = re.exec(note);
-      if(!m) return 440;
-      const name = m[1].toUpperCase();
-      const acc = m[2];
-      const octave = parseInt(m[3],10);
-      const semitoneMap = { 'C': -9, 'D': -7, 'E': -5, 'F': -4, 'G': -2, 'A': 0, 'B': 2 };
-      let semis = semitoneMap[name];
-      if(acc === '#') semis += 1;
-      if(acc === 'b') semis -= 1;
-      semis += (octave - 4) * 12;
-      return 440 * Math.pow(2, semis / 12);
+  // Convert note like "C#4" to frequency, A4 = 440Hz
+  function noteToFreq(note){
+    const re = /^([A-Ga-g])([#b]?)(\d+)$/;
+    const m = re.exec(note);
+    if(!m) return 440;
+    const name = m[1].toUpperCase();
+    const acc = m[2];
+    const octave = parseInt(m[3],10);
+    const semitoneMap = { 'C': -9, 'D': -7, 'E': -5, 'F': -4, 'G': -2, 'A': 0, 'B': 2 };
+    let semis = semitoneMap[name];
+    if(acc === '#') semis += 1;
+    if(acc === 'b') semis -= 1;
+    semis += (octave - 4) * 12;
+    return 440 * Math.pow(2, semis / 12);
+  }
+
+  function ensureAudio(){
+    if(audioCtx) return;
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    masterGain = audioCtx.createGain();
+    masterGain.gain.value = 0.45; // background volume (adjust 0-1)
+    masterGain.connect(audioCtx.destination);
+  }
+
+  // Play a single flute-like note at given time
+  function playFlute(time, freq, duration){
+    const osc = audioCtx.createOscillator();
+    osc.type = 'sine';
+    osc.frequency.setValueAtTime(freq, time);
+
+    // vibrato
+    const vib = audioCtx.createOscillator();
+    vib.type = 'sine';
+    vib.frequency.value = 5.0;
+    const vibGain = audioCtx.createGain();
+    vibGain.gain.value = freq * 0.0025;
+    vib.connect(vibGain);
+    vibGain.connect(osc.frequency);
+
+    // breath noise
+    const buffer = audioCtx.createBuffer(1, Math.floor(audioCtx.sampleRate * 0.3), audioCtx.sampleRate);
+    const data = buffer.getChannelData(0);
+    for(let i=0;i<data.length;i++){
+      data[i] = (Math.random()*2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.08));
     }
+    const noise = audioCtx.createBufferSource();
+    noise.buffer = buffer;
 
-    function ensureAudio(){
-      if(audioCtx) return;
-      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      masterGain = audioCtx.createGain();
-      masterGain.gain.value = 0.45; // background volume (adjust 0-1)
-      masterGain.connect(audioCtx.destination);
+    const noiseGain = audioCtx.createGain();
+    noiseGain.gain.value = 0.0;
+
+    const bp = audioCtx.createBiquadFilter();
+    bp.type = 'bandpass';
+    bp.frequency.value = freq * 2.2;
+    bp.Q.value = 8;
+
+    const env = audioCtx.createGain();
+    env.gain.setValueAtTime(0.0001, time);
+
+    osc.connect(env);
+    noise.connect(noiseGain);
+    noiseGain.connect(bp);
+    bp.connect(env);
+    env.connect(masterGain);
+
+    const attack = Math.min(0.12, duration * 0.35);
+    const release = Math.min(0.28, duration * 0.45);
+    const sustain = 0.9;
+
+    // small initial level then ramp to sustain
+    env.gain.exponentialRampToValueAtTime(0.1 * sustain, time + attack);
+    env.gain.setValueAtTime(0.1 * sustain, time + attack);
+    env.gain.linearRampToValueAtTime(0.0001, time + duration + release);
+
+    noiseGain.gain.linearRampToValueAtTime(0.035, time + attack * 0.9);
+    noiseGain.gain.linearRampToValueAtTime(0.0, time + duration + release * 0.6);
+
+    vib.start(time);
+    osc.start(time);
+    noise.start(time);
+
+    const stopTime = time + duration + release + 0.05;
+    osc.stop(stopTime);
+    noise.stop(stopTime);
+    vib.stop(stopTime + 0.02);
+  }
+
+  function scheduleMelody(startTime){
+    let cursor = startTime;
+    for(let i=0;i<melodyNotes.length;i++){
+      const note = melodyNotes[i];
+      const durBeats = melodyDurations[i] || 1;
+      const durSec = durBeats * beatSec;
+      const freq = noteToFreq(note);
+      playFlute(cursor, freq, durSec * 0.95);
+      cursor += durSec;
     }
+    return cursor - startTime;
+  }
 
-    // Play a single flute-like note at given time
-    function playFlute(time, freq, duration){
-      const osc = audioCtx.createOscillator();
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(freq, time);
-
-      // vibrato
-      const vib = audioCtx.createOscillator();
-      vib.type = 'sine';
-      vib.frequency.value = 5.0;
-      const vibGain = audioCtx.createGain();
-      vibGain.gain.value = freq * 0.0025;
-      vib.connect(vibGain);
-      vibGain.connect(osc.frequency);
-
-      // breath noise
-      const buffer = audioCtx.createBuffer(1, audioCtx.sampleRate * 0.3, audioCtx.sampleRate);
-      const data = buffer.getChannelData(0);
-      for(let i=0;i<data.length;i++){
-        data[i] = (Math.random()*2 - 1) * Math.exp(-i / (audioCtx.sampleRate * 0.08));
-      }
-      const noise = audioCtx.createBufferSource();
-      noise.buffer = buffer;
-
-      const noiseGain = audioCtx.createGain();
-      noiseGain.gain.value = 0.0;
-
-      const bp = audioCtx.createBiquadFilter();
-      bp.type = 'bandpass';
-      bp.frequency.value = freq * 2.2;
-      bp.Q.value = 8;
-
-      const env = audioCtx.createGain();
-      env.gain.setValueAtTime(0.0001, time);
-
-      osc.connect(env);
-      noise.connect(noiseGain);
-      noiseGain.connect(bp);
-      bp.connect(env);
-      env.connect(masterGain);
-
-      const attack = Math.min(0.12, duration * 0.35);
-      const release = Math.min(0.28, duration * 0.45);
-      const sustain = 0.9;
-
-      env.gain.exponentialRampToValueAtTime(0.1 * sustain, time + attack);
-      env.gain.setValueAtTime(0.1 * sustain, time + attack);
-      env.gain.linearRampToValueAtTime(0.0001, time + duration + release);
-
-      noiseGain.gain.linearRampToValueAtTime(0.035, time + attack * 0.9);
-      noiseGain.gain.linearRampToValueAtTime(0.0, time + duration + release * 0.6);
-
-      vib.start(time);
-      osc.start(time);
-      noise.start(time);
-
-      const stopTime = time + duration + release + 0.05;
-      osc.stop(stopTime);
-      noise.stop(stopTime);
-      vib.stop(stopTime + 0.02);
-    }
-
-    function scheduleMelody(startTime){
-      let cursor = startTime;
-      for(let i=0;i<melodyNotes.length;i++){
-        const note = melodyNotes[i];
-        const durBeats = melodyDurations[i] || 1;
-        const durSec = durBeats * beatSec;
-        const freq = noteToFreq(note);
-        playFlute(cursor, freq, durSec * 0.95);
-        cursor += durSec;
-      }
-      return cursor - startTime;
-    }
-
-    function startLoopingMelody(){
-      if(isPlaying) return;
-      ensureAudio();
-      // try to resume context (browsers may require user gesture)
-      audioCtx.resume().catch(()=>{}).finally(()=>{
-        const now = audioCtx.currentTime + 0.08;
-        const total = scheduleMelody(now);
-        loopTimer = setInterval(()=>{
-          const s = audioCtx.currentTime + 0.06;
-          scheduleMelody(s);
-        }, Math.max(100, (total * 1000) - 40));
-        isPlaying = true;
+  function startLoopingMelody(){
+    if(isPlaying) return;
+    ensureAudio();
+    // Attempt to resume (may require user gesture in some browsers)
+    Promise.resolve()
+      .then(()=> audioCtx.resume())
+      .catch(()=>{})
+      .finally(()=>{
+        if(audioCtx.state === 'running'){
+          const now = audioCtx.currentTime + 0.08;
+          const total = scheduleMelody(now);
+          // schedule periodic scheduling a touch before the end of melody
+          loopTimer = setInterval(()=>{
+            const s = audioCtx.currentTime + 0.06;
+            scheduleMelody(s);
+          }, Math.max(100, (total * 1000) - 40));
+          isPlaying = true;
+        }
       });
-    }
+  }
 
-    function stopLoopingMelody(){
-      if(loopTimer){ clearInterval(loopTimer); loopTimer = null; }
-      isPlaying = false;
-      if(masterGain && audioCtx){
-        const t = audioCtx.currentTime;
-        masterGain.gain.cancelScheduledValues(t);
-        masterGain.gain.setValueAtTime(masterGain.gain.value, t);
-        masterGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.8);
-        setTimeout(()=> { if(masterGain) masterGain.gain.value = 0.0; }, 900);
-      }
+  function stopLoopingMelody(){
+    if(loopTimer){ clearInterval(loopTimer); loopTimer = null; }
+    isPlaying = false;
+    if(masterGain && audioCtx){
+      const t = audioCtx.currentTime;
+      masterGain.gain.cancelScheduledValues(t);
+      masterGain.gain.setValueAtTime(masterGain.gain.value, t);
+      masterGain.gain.exponentialRampToValueAtTime(0.0001, t + 0.8);
+      setTimeout(()=> { if(masterGain) masterGain.gain.value = 0.0; }, 900);
     }
+  }
 
-    // Try autoplay; if blocked, start on first user gesture
+  // Attempt autoplay on load
+  window.addEventListener('load', () => {
     try {
       ensureAudio();
       startLoopingMelody();
     } catch (e) {
-      // ignore; we'll handle via gesture listeners
+      // ignore; gesture fallback will handle it
     }
+  });
 
-    function userStartHandler(){
-      try {
-        ensureAudio();
-        audioCtx.resume().then(()=> {
-          startLoopingMelody();
-        }).catch(()=>{});
-      } catch(e){}
-      window.removeEventListener('pointerdown', userStartHandler);
-      window.removeEventListener('keydown', userStartHandler);
-      window.removeEventListener('touchstart', userStartHandler);
+  // Fallback: resume on first user gesture if autoplay was blocked.
+  // No click chime — just silently resume and start playback.
+  function gestureStart(){
+    try {
+      ensureAudio();
+      audioCtx.resume().then(()=>{
+        startLoopingMelody();
+      }).catch(()=>{});
+    } catch(e){}
+    window.removeEventListener('pointerdown', gestureStart);
+    window.removeEventListener('keydown', gestureStart);
+    window.removeEventListener('touchstart', gestureStart);
+  }
+
+  window.addEventListener('pointerdown', gestureStart, {passive:true});
+  window.addEventListener('keydown', gestureStart, {passive:true});
+  window.addEventListener('touchstart', gestureStart, {passive:true});
+
+  // Optional: stop when page hidden and restart when visible again (keeps resources tidy)
+  document.addEventListener('visibilitychange', () => {
+    if(document.hidden){
+      stopLoopingMelody();
+    } else {
+      // try restarting quietly
+      startLoopingMelody();
     }
+  });
 
-    window.addEventListener('pointerdown', userStartHandler, {passive:true});
-    window.addEventListener('keydown', userStartHandler, {passive:true});
-    window.addEventListener('touchstart', userStartHandler, {passive:true});
-
-    // small click chime for interactivity (subtle)
-    window.addEventListener('pointerdown', function(){
-      if(!audioCtx || audioCtx.state !== 'running') return;
-      const now = audioCtx.currentTime;
-      const osc = audioCtx.createOscillator(); osc.type = 'sine';
-      const g = audioCtx.createGain(); g.gain.value = 0.0001;
-      osc.frequency.setValueAtTime(880, now);
-      osc.frequency.exponentialRampToValueAtTime(1500, now + 0.05);
-      g.gain.exponentialRampToValueAtTime(0.10, now + 0.02);
-      g.gain.exponentialRampToValueAtTime(0.0001, now + 0.22);
-      osc.connect(g).connect(masterGain);
-      osc.start(now); osc.stop(now + 0.24);
-    }, {passive:true});
-
-  })();
-  </script>
+})();
+</script>
 </body>
 </html>
 """
@@ -801,4 +809,3 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects from Streamlit (keeps fun)
 st.balloons()
 st.snow()
-
