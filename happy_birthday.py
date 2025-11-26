@@ -30,6 +30,7 @@ html_code = r"""
 
     body {
       background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+      transition: background 1.2s cubic-bezier(.2,.9,.2,1);
     }
 
     /* Mobile responsive */
@@ -119,36 +120,36 @@ html_code = r"""
       }
     }
 
-    /* Animations */
+    /* Animations (smoother easing and subtle transitions) */
     @keyframes float {
       0%, 100% { transform: translateY(0px) rotate(0deg); }
-      50% { transform: translateY(-30px) rotate(5deg); }
+      50% { transform: translateY(-24px) rotate(3deg); }
     }
 
     @keyframes bounce {
       0%, 100% { transform: translateY(0) scale(1); }
-      50% { transform: translateY(-40px) scale(1.05); }
+      50% { transform: translateY(-28px) scale(1.03); }
     }
 
     @keyframes slideIn {
-      from { transform: translateX(-100%); opacity: 0; }
+      from { transform: translateX(-110%); opacity: 0; }
       to { transform: translateX(0); opacity: 1; }
     }
 
     @keyframes sparkle {
       0%, 100% { opacity: 1; transform: scale(1) rotate(0deg); }
-      50% { opacity: 0.3; transform: scale(1.5) rotate(180deg); }
+      50% { opacity: 0.4; transform: scale(1.35) rotate(160deg); }
     }
 
     @keyframes fall {
-      0% { transform: translateY(-100vh) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(360deg); opacity: 0.5; }
+      0% { transform: translateY(-110vh) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0.45; }
     }
 
     @keyframes firework {
       0% { transform: scale(0); opacity: 1; }
-      50% { transform: scale(1.2); opacity: 1; }
-      100% { transform: scale(2); opacity: 0; }
+      50% { transform: scale(1); opacity: 1; }
+      100% { transform: scale(1.8); opacity: 0; }
     }
 
     @keyframes flutePlay {
@@ -157,8 +158,8 @@ html_code = r"""
     }
 
     @keyframes glow {
-      0%, 100% { filter: drop-shadow(0 0 20px rgba(255, 215, 0, 0.8)); }
-      50% { filter: drop-shadow(0 0 40px rgba(255, 215, 0, 1)); }
+      0%, 100% { filter: drop-shadow(0 0 18px rgba(255, 215, 0, 0.7)); }
+      50% { filter: drop-shadow(0 0 36px rgba(255, 215, 0, 1)); }
     }
 
     /* Welcome screen */
@@ -174,7 +175,8 @@ html_code = r"""
       justify-content: center;
       z-index: 10000;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-      animation: welcomeSequence 6s ease-in-out forwards;
+      animation: welcomeSequence 6s cubic-bezier(.2,.9,.2,1) forwards;
+      transition: opacity .8s cubic-bezier(.2,.9,.2,1), visibility .8s;
     }
 
     @keyframes welcomeSequence {
@@ -187,9 +189,10 @@ html_code = r"""
       background: linear-gradient(45deg, #ff6b6b, #feca57, #48dbfb, #ff9ff3);
       padding: 40px 80px;
       border-radius: 50px;
-      box-shadow: 0 20px 60px rgba(0,0,0,0.4);
-      animation: bounce 2s ease-in-out infinite;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.28);
+      animation: bounce 2.6s cubic-bezier(.25,.9,.35,1) infinite;
       margin-bottom: 50px;
+      transition: transform .9s cubic-bezier(.2,.9,.2,1);
     }
 
     .welcome-banner h1 {
@@ -197,20 +200,20 @@ html_code = r"""
       font-size: 5em;
       text-align: center;
       margin: 0;
-      text-shadow: 4px 4px 8px rgba(0,0,0,0.4);
+      text-shadow: 4px 4px 10px rgba(0,0,0,0.35);
       font-weight: bold;
     }
 
     .welcome-pets {
       display: flex;
       gap: 120px;
-      animation: slideIn 1.5s ease-out;
+      animation: slideIn 1.5s cubic-bezier(.2,.9,.2,1) ease-out;
     }
 
     .pet {
       font-size: 10em;
-      animation: bounce 1.5s ease-in-out infinite;
-      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.3));
+      animation: bounce 1.6s cubic-bezier(.25,.9,.35,1) infinite;
+      filter: drop-shadow(0 10px 20px rgba(0,0,0,0.28));
     }
 
     .pet:nth-child(2) {
@@ -218,8 +221,8 @@ html_code = r"""
     }
 
     /* Peacock animation
-       Increased duration by 50% (26s -> 39s) so poem can be read comfortably.
-       The peacock and the poem share the same entry sequence.
+       Increased duration so poem can be read: 26s -> 39s (50% longer)
+       Smooth cubic-bezier easing, fade/transform transitions for gentle feel.
     */
     .peacock-container {
       position: fixed;
@@ -232,85 +235,86 @@ html_code = r"""
       align-items: center;
       z-index: 9999;
       background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-      animation: peacockSequence 39s ease-in-out forwards;
+      animation: peacockSequence 39s cubic-bezier(.2,.9,.2,1) forwards;
       pointer-events: none;
+      transition: opacity 1.2s cubic-bezier(.2,.9,.2,1), transform 1.2s cubic-bezier(.2,.9,.2,1);
     }
 
     @keyframes peacockSequence {
       0% { opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(0) scale(1); }
       30% { opacity: 0; visibility: hidden; pointer-events: none; transform: translateX(0) scale(1); }
       31% { opacity: 1; visibility: visible; }
-      82% { opacity: 1; visibility: visible; }
-      100% { opacity: 0; visibility: hidden; pointer-events: none; }
+      86% { opacity: 1; visibility: visible; }
+      100% { opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-6px) scale(0.98); }
     }
 
     .peacock {
       font-size: 20em;
-      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.5));
-      animation: peacockFlyStop 39s ease-out forwards;
+      filter: drop-shadow(0 20px 40px rgba(0,0,0,0.45));
+      animation: peacockFlyStop 39s cubic-bezier(.2,.9,.2,1) forwards;
       margin-right: 18px;
-      font-weight: 900;
-      letter-spacing: 4px;
-      color: rgba(255,255,255,0.95);
-      -webkit-text-stroke: 1px rgba(0,0,0,0.15);
-      background: linear-gradient(90deg, rgba(255,255,255,0.9), rgba(255,255,255,0.65));
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
+      transition: transform 1.2s cubic-bezier(.2,.9,.2,1), opacity 1s cubic-bezier(.2,.9,.2,1);
     }
 
     @keyframes peacockFlyStop {
       0% { transform: translateX(0) scale(1.5); opacity: 0; }
       30% { transform: translateX(0) scale(1.5); opacity: 0; }
       31% { transform: translateX(-150%) scale(1.4); opacity: 1; }
-      66% { transform: translateX(-10%) scale(1.35) rotate(6deg); opacity: 1; }
-      82% { transform: translateX(-10%) scale(1.25) rotate(0deg); opacity: 1; }
-      100% { transform: translateX(-10%) scale(1.25); opacity: 0; }
+      66% { transform: translateX(-8%) scale(1.35) rotate(6deg); opacity: 1; }
+      86% { transform: translateX(-8%) scale(1.25) rotate(0deg); opacity: 1; }
+      100% { transform: translateX(-8%) scale(1.2); opacity: 0; }
     }
 
-    /* Peackock Poem box that enters with the same flow as the peacock.
-       Styled cute/playful and given ample visible time to read.
-       Removed all emojis from poem text (per request).
+    /* New: Peacock Poem box that enters with the same flow as the peacock.
+       Styled clean (no emojis) and given extended visible time (39s duration).
+       Smooth transitions added.
     */
     .peacock-poem {
-      max-width: 520px;
+      max-width: 560px;
       min-width: 320px;
       border-radius: 18px;
-      padding: 18px 22px;
-      backdrop-filter: blur(8px);
-      background: linear-gradient(135deg, rgba(255,255,255,0.12), rgba(255,255,255,0.06));
-      border: 1px solid rgba(255,255,255,0.22);
-      box-shadow: 0 12px 40px rgba(0,0,0,0.28);
+      padding: 20px 26px;
+      backdrop-filter: blur(10px);
+      background: linear-gradient(135deg, rgba(255,255,255,0.10), rgba(255,255,255,0.04));
+      border: 1px solid rgba(255,255,255,0.20);
+      box-shadow: 0 14px 50px rgba(0,0,0,0.28);
       color: #fff;
       text-align: left;
       font-size: 1.25em;
-      line-height: 1.45;
+      line-height: 1.55;
       z-index: 10000;
-      animation: peacockSequence 39s ease-in-out forwards;
-      /* subtle float while visible to feel playful */
+      animation: peacockSequence 39s cubic-bezier(.2,.9,.2,1) forwards;
+      /* smoother float while visible */
       animation-name: peacockSequence, poemFloat;
-      animation-duration: 39s, 4.5s;
+      animation-duration: 39s, 4.4s;
       animation-fill-mode: forwards, both;
       animation-iteration-count: 1, infinite;
-      animation-timing-function: ease-in-out, ease-in-out;
+      animation-timing-function: cubic-bezier(.2,.9,.2,1), ease-in-out;
       transform-origin: center;
       pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.9s cubic-bezier(.2,.9,.2,1), transform 0.9s cubic-bezier(.2,.9,.2,1);
+      will-change: transform, opacity;
+      border-left: 4px solid rgba(255,255,255,0.12);
     }
 
     @keyframes poemFloat {
       0% { transform: translateY(0) rotate(0deg); }
-      50% { transform: translateY(-6px) rotate(0.6deg); }
+      50% { transform: translateY(-8px) rotate(0.8deg); }
       100% { transform: translateY(0) rotate(0deg); }
+    }
+
+    /* Make sure poem becomes fully opaque when peacockSequence shows it */
+    .peacock-container .peacock-poem {
+      /* We'll rely on the peacockSequence timing; then force opacity visible after entry point using animation */
+      opacity: 1;
     }
 
     .peacock-poem p {
       margin: 8px 0;
-    }
-
-    .peacock-poem .title {
-      font-weight:700;
-      font-size:1.15em;
-      margin-bottom:6px;
-      letter-spacing:0.6px;
+      color: #ffffff;
+      text-shadow: 1px 1px 6px rgba(0,0,0,0.35);
+      font-weight: 500;
     }
 
     /* Countdown Timer */
@@ -324,29 +328,24 @@ html_code = r"""
       color: #ff6b6b;
       text-shadow: 0 0 30px rgba(255, 107, 107, 0.8), 0 0 60px rgba(255, 107, 107, 0.6);
       z-index: 10001;
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transition: opacity 0.6s cubic-bezier(.2,.9,.2,1), transform 0.6s cubic-bezier(.2,.9,.2,1);
     }
 
     .countdown.show {
       animation: countdownNumber 1s ease-in-out;
     }
 
-    @keyframes countdownSequence {
-      0% { opacity: 1; visibility: visible; }
-      100% { opacity: 1; visibility: visible; }
-    }
-
     @keyframes countdownNumber {
       0% { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
-      15% { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+      15% { opacity: 1; transform: translate(-50%, -50%) scale(1.06); }
       25% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
       85% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
       100% { opacity: 0; transform: translate(-50%, -50%) scale(0.7); }
     }
 
     /* Main content
-       Delayed so peacock+poem finish first — increased by 50% (28s -> 42s)
-       Removed emojis from birthday content (per request).
+       Delayed so peacock+poem finish first — previously ~28s, now pushed to 42s to give buffer
+       Smooth fade/scale in to feel like "more to come"
     */
     .birthday-content {
       position: fixed;
@@ -355,22 +354,25 @@ html_code = r"""
       transform: translate(-50%, -50%);
       text-align: center;
       z-index: 10000;
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(15px);
+      background: rgba(255, 255, 255, 0.14);
+      backdrop-filter: blur(14px);
       padding: 40px 50px;
       border-radius: 30px;
-      box-shadow: 0 25px 100px rgba(0,0,0,0.4);
-      border: 2px solid rgba(255,255,255,0.3);
+      box-shadow: 0 25px 100px rgba(0,0,0,0.38);
+      border: 2px solid rgba(255,255,255,0.28);
       /* start later so content doesn't overlap peacock/poem */
-      animation: contentSequence 42s ease-in forwards;
+      animation: contentSequence 42s cubic-bezier(.2,.9,.2,1) forwards;
       max-width: 85%;
       max-height: 85vh;
       overflow-y: auto;
+      opacity: 0;
+      transform-origin: center;
+      transition: opacity 1.1s cubic-bezier(.2,.9,.2,1), transform 1.1s cubic-bezier(.2,.9,.2,1);
     }
 
     @keyframes contentSequence {
-      0% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
-      98% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.5); }
+      0% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.75); }
+      99% { opacity: 0; visibility: hidden; transform: translate(-50%, -50%) scale(0.75); }
       100% { opacity: 1; visibility: visible; transform: translate(-50%, -50%) scale(1); }
     }
 
@@ -410,14 +412,14 @@ html_code = r"""
       -webkit-text-fill-color: transparent;
       background-clip: text;
       margin-bottom: 20px;
-      animation: bounce 3s ease-in-out infinite;
+      animation: bounce 3s cubic-bezier(.25,.9,.35,1) infinite;
       font-weight: bold;
     }
 
     .birthday-content p {
       font-size: 1.3em;
       color: white;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+      text-shadow: 2px 2px 6px rgba(0,0,0,0.45);
       margin: 15px 0;
       line-height: 1.6;
       font-weight: 500;
@@ -427,7 +429,7 @@ html_code = r"""
     .floating-animal {
       position: fixed;
       font-size: 4em;
-      animation: float 4s ease-in-out infinite;
+      animation: float 4.4s cubic-bezier(.2,.9,.2,1) infinite;
       z-index: 50;
       filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3));
     }
@@ -449,12 +451,12 @@ html_code = r"""
 
     .firework {
       font-size: 4em;
-      animation: firework 2s ease-out infinite;
+      animation: firework 2.2s cubic-bezier(.2,.9,.2,1) infinite;
     }
 
     .sparkle {
       font-size: 2.5em;
-      animation: sparkle 2s ease-in-out infinite;
+      animation: sparkle 2.2s cubic-bezier(.2,.9,.2,1) infinite;
     }
 
     @media (prefers-reduced-motion: reduce) {
@@ -474,15 +476,15 @@ html_code = r"""
       </div>
   </div>
 
-  <!-- Peacock Animation + Poem (poem enters with the peacock, longer visible time) -->
+  <!-- Peacock Animation + Poem (poem enters with the peacock, much longer visible time: 39s) -->
   <div class="peacock-container" aria-hidden="true">
-      <div class="peacock" role="img" aria-label="Peacock">PEACOCK</div>
+      <div class="peacock" role="img" aria-label="Peacock">🦚</div>
 
-      <!-- Poem card without any emojis -->
+      <!-- Poem card beside the peacock — emojis removed as requested -->
       <div class="peacock-poem" aria-hidden="true">
-        <p class="title">A Little Birthday Poem</p>
+        <p style="font-weight:700; font-size:1.12em; margin-bottom:8px; letter-spacing:0.4px;">A Little Birthday Poem</p>
         <p>On your special day, let positivity shine bright,</p>
-        <p>With cheesecakes dancing in soft golden light.</p>
+        <p>With cheese cakes dancing in soft golden light.</p>
         <p>A swirl of warm coffee makes everything sweet,</p>
         <p>And tiny animals bring joy with their little heartbeat.</p>
         <p>Songs float around you, inviting your spirit to sing along,</p>
@@ -523,15 +525,15 @@ html_code = r"""
       <div class="burst-snow" style="top: 28%; left: 45%; font-size: 2.5em; animation-delay: 0.6s;">❄</div>
   </div>
 
-  <!-- Main Birthday Content (plain text, no emojis) -->
+  <!-- Main Birthday Content -->
   <div class="birthday-content">
-      <h1>Happy Birthday!</h1>
-      <p>May your birthday be as extraordinary and wonderful as you are!</p>
-      <p>Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires.</p>
-      <p>May your day be filled with the magic of love, joy, and all the things that make you happy.</p>
+      <h1>🎂🌹✨ Happy Birthday! ✨🌹🎂</h1>
+      <p>🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟</p>
+      <p>💖 Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires! 🧁</p>
+      <p>✨ May your Birthday be filled with the magic of love, joy, and all the things that make you happy! ✨</p>
   </div>
 
-  <!-- Floating Animals (left as-is) -->
+  <!-- Floating Animals -->
   <div class="floating-animal" style="top: 8%; left: 5%; animation-delay: 0s; animation-duration: 3s;">🐶</div>
   <div class="floating-animal" style="top: 12%; right: 8%; animation-delay: 0.5s; animation-duration: 3.5s;">🐱</div>
   <div class="floating-animal" style="top: 22%; left: 15%; animation-delay: 1s; animation-duration: 4s;">🐕</div>
