@@ -111,17 +111,17 @@ html_code = r"""
       background: rgba(255,255,255,0.14); backdrop-filter: blur(14px);
       padding: 36px 44px; border-radius: 26px; border:1.6px solid rgba(255,255,255,0.24);
       box-shadow: 0 22px 90px rgba(0,0,0,0.36);
-      animation: contentSequence 50s cubic-bezier(.2,.9,.2,1) forwards;
+      animation: contentSequence 40s cubic-bezier(.2,.9,.2,1) forwards;
       opacity:0;
       max-width: 90%;
     }
 
     @keyframes contentSequence {
-  0% { opacity: 0; visibility:hidden; }
-  96% { opacity: 0; visibility:hidden; }
-  97% { opacity: 0.3; visibility:visible; } /* Start appearing BEFORE poem fades */
-  100% { opacity: 1; visibility:visible; }
+  0% { opacity:0; visibility:hidden; }
+  97% { opacity:0; visibility:hidden; } /* stays hidden until 40s */
+  100% { opacity:1; visibility:visible; }
 }
+
 
 
 
@@ -396,6 +396,7 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects from Streamlit (keeps fun)
 st.balloons()
 st.snow()
+
 
 
 
