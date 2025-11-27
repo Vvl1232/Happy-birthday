@@ -59,19 +59,12 @@ html_code = r"""
     }
 
     @keyframes poemSequence {
-  0% { opacity:0; visibility:hidden; }
-
-  /* Appear immediately when Welcome ends (~5s) */
-  14% { opacity:0; visibility:hidden; }
-  15% { opacity:1; visibility:visible; }
-
-  /* Keep poem visible for long duration */
-  94% { opacity:1; visibility:visible; }
-
-  /* Fade out smoothly right before Main starts */
-  100% { opacity:0; visibility:hidden; }
+  0% { opacity: 0; visibility: hidden; }
+  14% { opacity: 0; visibility: hidden; }
+  15% { opacity: 1; visibility: visible; } /* poem appears */
+  98% { opacity: 1; visibility: visible; } /* stays visible */
+  100% { opacity: 0; visibility: hidden; } /* fades only at last moment */
 }
-
 
     .poem-card {
       width: 100%;
@@ -124,11 +117,10 @@ html_code = r"""
 
     @keyframes contentSequence {
   0% { opacity:0; visibility:hidden; }
-
-  /* Main appears right when poem fades */
-  99% { opacity:0; visibility:hidden; }
+  96% { opacity:0; visibility:hidden; } /* start earlier */
   100% { opacity:1; visibility:visible; }
 }
+
 
 
     /* CLEAR, HIGH-CONTRAST HAPPY BIRTHDAY HEADING */
@@ -401,4 +393,5 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects from Streamlit (keeps fun)
 st.balloons()
 st.snow()
+
 
