@@ -111,7 +111,7 @@ html_code = r"""
       background: rgba(255,255,255,0.14); backdrop-filter: blur(14px);
       padding: 36px 44px; border-radius: 26px; border:1.6px solid rgba(255,255,255,0.24);
       box-shadow: 0 22px 90px rgba(0,0,0,0.36);
-      animation: contentSequence 35s cubic-bezier(.2,.9,.2,1) forwards;
+      animation: contentSequence 38s cubic-bezier(.2,.9,.2,1) forwards;
       opacity:0;
       max-width: 90%;
     }
@@ -396,6 +396,7 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects from Streamlit (keeps fun)
 st.balloons()
 st.snow()
+
 
 
 
