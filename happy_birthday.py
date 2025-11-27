@@ -59,12 +59,19 @@ html_code = r"""
     }
 
     @keyframes poemSequence {
-      0% { opacity: 0; transform: translate(-50%,-52%) scale(0.92); visibility:hidden; }
-      26% { opacity: 0; visibility:hidden; transform: translate(-50%,-52%) scale(0.92); } /* appears after welcome */
-      28% { opacity: 1; visibility:visible; transform: translate(-50%,-50%) scale(1); }
-      86% { opacity: 1; visibility:visible; transform: translate(-50%,-50%) scale(1); }
-      100% { opacity: 0; visibility:hidden; transform: translate(-50%,-52%) scale(0.98); }
-    }
+  0% { opacity:0; visibility:hidden; }
+
+  /* Appear immediately when Welcome ends (~5s) */
+  14% { opacity:0; visibility:hidden; }
+  15% { opacity:1; visibility:visible; }
+
+  /* Keep poem visible for long duration */
+  94% { opacity:1; visibility:visible; }
+
+  /* Fade out smoothly right before Main starts */
+  100% { opacity:0; visibility:hidden; }
+}
+
 
     .poem-card {
       width: 100%;
@@ -116,10 +123,13 @@ html_code = r"""
     }
 
     @keyframes contentSequence {
-      0% { opacity:0; transform:translate(-50%,-50%) scale(.9); visibility:hidden; }
-      99% { opacity:0; visibility:hidden; }
-      100% { opacity:1; visibility:visible; transform:translate(-50%,-50%) scale(1); }
-    }
+  0% { opacity:0; visibility:hidden; }
+
+  /* Main appears right when poem fades */
+  99% { opacity:0; visibility:hidden; }
+  100% { opacity:1; visibility:visible; }
+}
+
 
     /* CLEAR, HIGH-CONTRAST HAPPY BIRTHDAY HEADING */
     .birthday-content h1 {
@@ -391,3 +401,4 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects from Streamlit (keeps fun)
 st.balloons()
 st.snow()
+
