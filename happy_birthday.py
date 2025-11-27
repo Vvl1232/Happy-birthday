@@ -26,7 +26,7 @@ html_code = r"""
       position: fixed; top:0; left:0; width:100vw; height:100vh;
       display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:10000;
       background: linear-gradient(135deg, #b3e5fc 0%, #81d4fa 50%, #4fc3f7 100%);
-      animation: welcomeSequence 3s cubic-bezier(.2,.9,.2,1) forwards; /* shorter hold */
+      animation: welcomeSequence 5s cubic-bezier(.2,.9,.2,1) forwards; /* shorter hold */
     }
 
     @keyframes welcomeSequence {
@@ -56,7 +56,7 @@ html_code = r"""
       z-index: 10050; pointer-events: none;
       display: flex; align-items: center; justify-content: center;
       width: 92vw; max-width: 720px;
-      animation: poemSequence 27s cubic-bezier(.2,.9,.2,1) forwards; /* visible window; adjust as needed */
+      animation: poemSequence 35s cubic-bezier(.2,.9,.2,1) forwards; /* visible window; adjust as needed */
     }
 
     @keyframes poemSequence {
@@ -111,7 +111,7 @@ html_code = r"""
       background: rgba(255,255,255,0.14); backdrop-filter: blur(14px);
       padding: 36px 44px; border-radius: 26px; border:1.6px solid rgba(255,255,255,0.24);
       box-shadow: 0 22px 90px rgba(0,0,0,0.36);
-      animation: contentSequence 30s cubic-bezier(.2,.9,.2,1) forwards;
+      animation: contentSequence 50s cubic-bezier(.2,.9,.2,1) forwards;
       opacity:0;
       max-width: 90%;
     }
@@ -362,4 +362,5 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects from Streamlit (keeps fun)
 st.balloons()
 st.snow()
+
 
