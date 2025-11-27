@@ -15,11 +15,10 @@ html_code = r"""
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { width:100vw; height:100vh; overflow:hidden; font-family: 'Arial', sans-serif; position:fixed; top:0; left:0; }
 
-  body {
-    background: linear-gradient(135deg, #b3e5fc 0%, #81d4fa 50%, #4fc3f7 100%);
-    transition: background 1.2s cubic-bezier(.2,.9,.2,1);
-  }
-
+    body {
+      background: linear-gradient(135deg, #b3e5fc 0%, #81d4fa 50%, #4fc3f7 100%);
+      transition: background 1.2s cubic-bezier(.2,.9,.2,1);
+    }
 
     /* -- Responsive: poem-first, mobile-friendly -- */
     .welcome-screen {
@@ -115,13 +114,31 @@ html_code = r"""
       opacity:0;
       max-width: 90%;
     }
+
     @keyframes contentSequence {
       0% { opacity:0; transform:translate(-50%,-50%) scale(.9); visibility:hidden; }
       99% { opacity:0; visibility:hidden; }
       100% { opacity:1; visibility:visible; transform:translate(-50%,-50%) scale(1); }
     }
-    .birthday-content h1 { font-size:2.4rem; background: linear-gradient(45deg,#ff6b6b,#feca57,#48dbfb,#ff9ff3); -webkit-background-clip:text; -webkit-text-fill-color:transparent; margin-bottom:12px; font-weight:800; }
-    .birthday-content p { color:#fff; font-size:1rem; margin:10px 0; text-shadow:1px 1px 6px rgba(0,0,0,0.35); }
+
+    /* CLEAR, HIGH-CONTRAST HAPPY BIRTHDAY HEADING */
+    .birthday-content h1 {
+      font-size: 2.6rem;
+      margin-bottom: 14px;
+      font-weight: 900;
+      color: #ffffff; /* strong contrast */
+      text-shadow:
+        0 0 10px rgba(0, 0, 0, 0.55),
+        0 0 20px rgba(0, 0, 0, 0.40),
+        0 4px 14px rgba(0, 0, 0, 0.55);
+    }
+
+    .birthday-content p {
+      color:#fff;
+      font-size:1rem;
+      margin:10px 0;
+      text-shadow:1px 1px 6px rgba(0,0,0,0.35);
+    }
 
     /* Keep decorative visuals but ensure they don't overlap poem (lower z-index) */
     .celebration-burst { position: fixed; width:100vw; height:100vh; top:0; left:0; z-index:9990; pointer-events:none; }
@@ -151,7 +168,11 @@ html_code = r"""
       .audio-hint { font-size:10px; padding:3px 6px; bottom:6px; }
     }
 
-    @media (prefers-reduced-motion: reduce) { .welcome-banner, .pet, .poem-container, .countdown, .floating-animal, .celebration-burst { animation:none !important; transition:none !important; } }
+    @media (prefers-reduced-motion: reduce) {
+      .welcome-banner, .pet, .poem-container, .countdown, .floating-animal, .celebration-burst {
+        animation:none !important; transition:none !important;
+      }
+    }
   </style>
 </head>
 <body>
@@ -296,8 +317,16 @@ html_code = r"""
       });
     }
 
-    function stopLoopingMelody(){ if(loopTimer){ clearInterval(loopTimer); loopTimer=null; } isPlaying=false;
-      if(masterGain && audioCtx){ const t=audioCtx.currentTime; masterGain.gain.cancelScheduledValues(t); masterGain.gain.setValueAtTime(masterGain.gain.value,t); masterGain.gain.exponentialRampToValueAtTime(0.0001,t+0.8); setTimeout(()=>{ if(masterGain) masterGain.gain.value=0.0; },900); }
+    function stopLoopingMelody(){
+      if(loopTimer){ clearInterval(loopTimer); loopTimer=null; }
+      isPlaying=false;
+      if(masterGain && audioCtx){
+        const t=audioCtx.currentTime;
+        masterGain.gain.cancelScheduledValues(t);
+        masterGain.gain.setValueAtTime(masterGain.gain.value,t);
+        masterGain.gain.exponentialRampToValueAtTime(0.0001,t+0.8);
+        setTimeout(()=>{ if(masterGain) masterGain.gain.value=0.0; },900);
+      }
     }
 
     // Attempt autoplay on load and ensure loop continues
@@ -362,5 +391,3 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects from Streamlit (keeps fun)
 st.balloons()
 st.snow()
-
-
