@@ -59,12 +59,13 @@ html_code = r"""
     }
 
     @keyframes poemSequence {
-  0% { opacity: 0; visibility: hidden; }
-  14% { opacity: 0; visibility: hidden; }
-  15% { opacity: 1; visibility: visible; } /* poem appears */
-  98% { opacity: 1; visibility: visible; } /* stays visible */
-  100% { opacity: 0; visibility: hidden; } /* fades only at last moment */
+  0% { opacity: 0; }
+  14% { opacity: 0; }    /* poem waits while welcome shows */
+  15% { opacity: 1; }    /* poem fully visible immediately after welcome */
+  98% { opacity: 1; }    /* poem stays visible for long */
+  100% { opacity: 0; }   /* fades out ONLY opacity, NOT visibility */
 }
+
 
     .poem-card {
       width: 100%;
@@ -116,10 +117,12 @@ html_code = r"""
     }
 
     @keyframes contentSequence {
-  0% { opacity:0; visibility:hidden; }
-  96% { opacity:0; visibility:hidden; } /* start earlier */
-  100% { opacity:1; visibility:visible; }
+  0% { opacity: 0; visibility:hidden; }
+  96% { opacity: 0; visibility:hidden; }
+  97% { opacity: 0.3; visibility:visible; } /* Start appearing BEFORE poem fades */
+  100% { opacity: 1; visibility:visible; }
 }
+
 
 
 
@@ -393,5 +396,6 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects from Streamlit (keeps fun)
 st.balloons()
 st.snow()
+
 
 
