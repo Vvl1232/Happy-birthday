@@ -15,16 +15,17 @@ html_code = r"""
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body { width:100vw; height:100vh; overflow:hidden; font-family: 'Arial', sans-serif; position:fixed; top:0; left:0; }
 
-    body {
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
-      transition: background 1.2s cubic-bezier(.2,.9,.2,1);
-    }
+  body {
+    background: linear-gradient(135deg, #b3e5fc 0%, #81d4fa 50%, #4fc3f7 100%);
+    transition: background 1.2s cubic-bezier(.2,.9,.2,1);
+  }
+
 
     /* -- Responsive: poem-first, mobile-friendly -- */
     .welcome-screen {
       position: fixed; top:0; left:0; width:100vw; height:100vh;
       display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:10000;
-      background: linear-gradient(135deg,#667eea 0%,#764ba2 50%,#f093fb 100%);
+      background: linear-gradient(135deg, #b3e5fc 0%, #81d4fa 50%, #4fc3f7 100%);
       animation: welcomeSequence 3s cubic-bezier(.2,.9,.2,1) forwards; /* shorter hold */
     }
 
@@ -361,3 +362,4 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects from Streamlit (keeps fun)
 st.balloons()
 st.snow()
+
