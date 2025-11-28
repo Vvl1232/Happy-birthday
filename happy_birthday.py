@@ -224,7 +224,7 @@ html_code = r"""
     <h1>🎂🌹✨ Happy Birthday! ✨🌹🎂</h1>
     <p>🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟</p>
     <p>💖 Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires! 🧁</p>
-    <p>✨ May your Birthday be filled with the magic of love, joy, and all the things that make you happy! ✨</p>
+    <p>✨ May your Birthday be filled with the magic of love, joy, and all the things that makes you happy! ✨</p>
   </div>
 
   <!-- Snowflakes minimal -->
@@ -396,3 +396,4 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects from Streamlit (keeps fun)
 st.balloons()
 st.snow()
+
