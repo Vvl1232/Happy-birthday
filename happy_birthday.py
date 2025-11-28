@@ -25,7 +25,7 @@ html_code = r"""
       position: fixed; top:0; left:0; width:100vw; height:100vh;
       display:flex; flex-direction:column; align-items:center; justify-content:center; z-index:10000;
       background: linear-gradient(135deg, #b3e5fc 0%, #81d4fa 50%, #4fc3f7 100%);
-      animation: welcomeSequence 5s cubic-bezier(.2,.9,.2,1) forwards; /* shorter hold */
+      animation: welcomeSequence 5s cubic-bezier(.2,.9,.2,1) forwards;
     }
 
     @keyframes welcomeSequence {
@@ -49,23 +49,22 @@ html_code = r"""
     @keyframes bounce { 0%,100%{transform:translateY(0) scale(1)}50%{transform:translateY(-22px) scale(1.02)} }
     @keyframes slideIn { from{transform:translateX(-110%);opacity:0} to{transform:translateX(0);opacity:1} }
 
-    /* POEM card (replaces peacock) */
+    /* POEM card */
     .poem-container {
       position: fixed; top: 50%; left: 50%; transform: translate(-50%,-50%);
       z-index: 10050; pointer-events: none;
       display: flex; align-items: center; justify-content: center;
       width: 92vw; max-width: 720px;
-      animation: poemSequence 35s cubic-bezier(.2,.9,.2,1) forwards; /* visible window; adjust as needed */
+      animation: poemSequence 35s cubic-bezier(.2,.9,.2,1) forwards;
     }
 
     @keyframes poemSequence {
-  0% { opacity: 0; }
-  14% { opacity: 0; }    /* poem waits while welcome shows */
-  15% { opacity: 1; }    /* poem fully visible immediately after welcome */
-  98% { opacity: 1; }    /* poem stays visible for long */
-  100% { opacity: 0; }   /* fades out ONLY opacity, NOT visibility */
-}
-
+      0% { opacity: 0; }
+      14% { opacity: 0; }
+      15% { opacity: 1; }
+      98% { opacity: 1; }
+      100% { opacity: 0; }
+    }
 
     .poem-card {
       width: 100%;
@@ -86,7 +85,78 @@ html_code = r"""
 
     .poem-card p { margin: 8px 0; font-size: 1.12rem; text-shadow: 1px 1px 6px rgba(0,0,0,0.35); }
 
-    /* Make poem look good on small screens */
+    /* Confetti for poem transition */
+    .confetti-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 10040;
+      animation: confettiTiming 35s linear forwards;
+      opacity: 0;
+    }
+
+    @keyframes confettiTiming {
+      0% { opacity: 0; }
+      14% { opacity: 0; }
+      15% { opacity: 1; }
+      25% { opacity: 1; }
+      30% { opacity: 0; }
+      100% { opacity: 0; }
+    }
+
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: #f0f;
+      animation: confettiFall 3s linear infinite;
+    }
+
+    @keyframes confettiFall {
+      to {
+        transform: translateY(100vh) rotate(360deg);
+      }
+    }
+
+    /* Color flakes for birthday content transition */
+    .flakes-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      pointer-events: none;
+      z-index: 9995;
+      animation: flakesTiming 38s linear forwards;
+      opacity: 0;
+    }
+
+    @keyframes flakesTiming {
+      0% { opacity: 0; }
+      96% { opacity: 0; }
+      97% { opacity: 1; }
+      100% { opacity: 1; }
+    }
+
+    .flake {
+      position: absolute;
+      width: 8px;
+      height: 8px;
+      background: #ff0;
+      border-radius: 50%;
+      animation: flakeFall 4s linear infinite;
+    }
+
+    @keyframes flakeFall {
+      to {
+        transform: translateY(100vh) rotate(180deg);
+        opacity: 0.3;
+      }
+    }
+
     @media (max-width: 768px) {
       .welcome-banner h1 { font-size: 2.2rem; padding: 14px 24px; }
       .pet { font-size: 4.2rem; }
@@ -101,10 +171,8 @@ html_code = r"""
       .pet { font-size: 3.4rem; }
     }
 
-    /* Countdown Timer kept */
     .countdown { position: fixed; top:50%; left:50%; transform:translate(-50%,-50%); font-size:12rem; font-weight:bold; color:#ff6b6b; text-shadow:0 0 30px rgba(255,107,107,0.8); z-index:10001; transition:opacity .6s, transform .6s; }
 
-    /* Main content shows after poem window */
     .birthday-content {
       position: fixed; top:50%; left:50%; transform:translate(-50%,-50%);
       z-index:10000; text-align:center;
@@ -117,21 +185,16 @@ html_code = r"""
     }
 
     @keyframes contentSequence {
-  0% { opacity:0; visibility:hidden; }
-  97% { opacity:0; visibility:hidden; } /* stays hidden until 40s */
-  100% { opacity:1; visibility:visible; }
-}
+      0% { opacity:0; visibility:hidden; }
+      97% { opacity:0; visibility:hidden; }
+      100% { opacity:1; visibility:visible; }
+    }
 
-
-
-
-
-    /* CLEAR, HIGH-CONTRAST HAPPY BIRTHDAY HEADING */
     .birthday-content h1 {
       font-size: 2.6rem;
       margin-bottom: 14px;
       font-weight: 900;
-      color: #ffffff; /* strong contrast */
+      color: #ffffff;
       text-shadow:
         0 0 10px rgba(0, 0, 0, 0.55),
         0 0 20px rgba(0, 0, 0, 0.40),
@@ -145,13 +208,11 @@ html_code = r"""
       text-shadow:1px 1px 6px rgba(0,0,0,0.35);
     }
 
-    /* Keep decorative visuals but ensure they don't overlap poem (lower z-index) */
     .celebration-burst { position: fixed; width:100vw; height:100vh; top:0; left:0; z-index:9990; pointer-events:none; }
     .burst-confetti, .burst-balloon, .burst-firework, .burst-snow { position:absolute; width:auto; height:auto; font-size:0; }
 
     .floating-animal { position: fixed; font-size:3.6rem; animation: float 4.4s cubic-bezier(.2,.9,.2,1) infinite; z-index:50; filter: drop-shadow(0 5px 10px rgba(0,0,0,0.3)); }
 
-    /* Audio hint at bottom (very small black text on light rounded background) */
     .audio-hint {
       position: fixed;
       left: 50%;
@@ -174,7 +235,7 @@ html_code = r"""
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .welcome-banner, .pet, .poem-container, .countdown, .floating-animal, .celebration-burst {
+      .welcome-banner, .pet, .poem-container, .countdown, .floating-animal, .celebration-burst, .confetti, .flake {
         animation:none !important; transition:none !important;
       }
     }
@@ -192,10 +253,15 @@ html_code = r"""
     </div>
   </div>
 
-  <!-- POEM ONLY (replaced peacock + poem) -->
+  <!-- Confetti for poem transition -->
+  <div class="confetti-container" id="confettiContainer"></div>
+
+  <!-- Color flakes for birthday content transition -->
+  <div class="flakes-container" id="flakesContainer"></div>
+
+  <!-- POEM ONLY -->
   <div class="poem-container" aria-hidden="true">
     <div class="poem-card" role="article" aria-label="Little Birthday Poem">
-      <!-- emojis inline in poem lines as requested -->
       <p> On your special day, let positivity shine ☀️ bright,</p>
       <p> With cheese cakes 🍰 dancing in soft golden light.</p>
       <p> A swirl of warm coffee ☕ makes everything sweet,</p>
@@ -210,7 +276,7 @@ html_code = r"""
   <!-- Countdown Timer -->
   <div class="countdown" id="countdown"></div>
 
-  <!-- Celebration Burst placeholders (no glyphs to avoid overlay) -->
+  <!-- Celebration Burst placeholders -->
   <div class="celebration-burst" aria-hidden="true">
     <div class="burst-confetti" style="top:20%; left:15%;"></div>
     <div class="burst-confetti" style="top:25%; right:20%;"></div>
@@ -230,13 +296,47 @@ html_code = r"""
   <!-- Snowflakes minimal -->
   <div class="burst-snow" style="left:10%; top:6%;"></div>
 
-  <!-- Very small clickable hint to start/resume audio (mobile friendly) -->
+  <!-- Audio hint -->
   <div id="audio-hint" class="audio-hint" role="button" aria-label="Play music" onclick="(window.startAudioInteractive && window.startAudioInteractive());">
     Click once to play music
   </div>
 
-  <!-- Audio: same looping flute melody (keeps behavior from your original) -->
   <script>
+  // Create confetti particles
+  (function(){
+    const confettiContainer = document.getElementById('confettiContainer');
+    const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#1dd1a1', '#f368e0'];
+    
+    for(let i = 0; i < 50; i++) {
+      const confetti = document.createElement('div');
+      confetti.className = 'confetti';
+      confetti.style.left = Math.random() * 100 + '%';
+      confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+      confetti.style.animationDelay = Math.random() * 3 + 's';
+      confetti.style.animationDuration = (Math.random() * 2 + 2) + 's';
+      confettiContainer.appendChild(confetti);
+    }
+  })();
+
+  // Create color flakes
+  (function(){
+    const flakesContainer = document.getElementById('flakesContainer');
+    const colors = ['#ff6b6b', '#feca57', '#48dbfb', '#ff9ff3', '#1dd1a1', '#f368e0', '#5f27cd'];
+    
+    for(let i = 0; i < 60; i++) {
+      const flake = document.createElement('div');
+      flake.className = 'flake';
+      flake.style.left = Math.random() * 100 + '%';
+      flake.style.background = colors[Math.floor(Math.random() * colors.length)];
+      flake.style.animationDelay = Math.random() * 4 + 's';
+      flake.style.animationDuration = (Math.random() * 3 + 3) + 's';
+      flake.style.width = (Math.random() * 6 + 6) + 'px';
+      flake.style.height = flake.style.width;
+      flakesContainer.appendChild(flake);
+    }
+  })();
+
+  // Audio code
   (function(){
     const melodyNotes = ["G4","G4","A4","G4","C5","B4","G4","G4","A4","G4","D5","C5","G4","G4","G5","E5","C5","B4","A4","F5","F5","E5","C5","D5","C5"];
     const melodyDurations = [0.5,0.5,1,1,1,2,0.5,0.5,1,1,1,2,0.5,0.5,1,1,1,1,1,0.5,0.5,1,1,2,2];
@@ -316,7 +416,6 @@ html_code = r"""
           const total = scheduleMelody(now);
           loopTimer = setInterval(()=>{ const s = audioCtx.currentTime + 0.06; scheduleMelody(s); }, Math.max(100, (total*1000)-40));
           isPlaying = true;
-          // hide hint if present
           try { const h = document.getElementById('audio-hint'); if(h) h.style.display = 'none'; } catch(e){}
         }
       });
@@ -334,16 +433,13 @@ html_code = r"""
       }
     }
 
-    // Attempt autoplay on load and ensure loop continues
     window.addEventListener('load', ()=>{ try{ ensureAudio(); startLoopingMelody(); }catch(e){} });
 
-    // Gesture start function (exposed globally so the bottom hint can call it)
     function gestureStart(){
       try {
         ensureAudio();
         audioCtx.resume().then(()=>{
           startLoopingMelody();
-          // hide the hint once started by gesture
           try { const h = document.getElementById('audio-hint'); if(h) h.style.display = 'none'; } catch(e){}
         }).catch(()=>{});
       } catch(e){}
@@ -352,15 +448,12 @@ html_code = r"""
       window.removeEventListener('touchstart', gestureStart);
     }
 
-    // expose globally for onclick handler in the hint
     window.startAudioInteractive = gestureStart;
 
-    // attach as fallback listeners in case user interacts anywhere on page
     window.addEventListener('pointerdown', gestureStart, {passive:true});
     window.addEventListener('keydown', gestureStart, {passive:true});
     window.addEventListener('touchstart', gestureStart, {passive:true});
 
-    // Keep audio tidy: stop when page hidden, restart when visible again
     document.addEventListener('visibilitychange', () => {
       if(document.hidden){
         stopLoopingMelody();
@@ -375,7 +468,7 @@ html_code = r"""
 </html>
 """
 
-# Hide Streamlit chrome so the page is fullscreen and immersive
+# Hide Streamlit chrome
 st.markdown("""
 <style>
   #MainMenu {visibility: hidden;}
@@ -393,7 +486,6 @@ st.markdown("""
 # Render full-screen HTML
 components.html(html_code, height=1000, scrolling=False)
 
-# Optional visual effects from Streamlit (keeps fun)
+# Optional visual effects
 st.balloons()
 st.snow()
-
