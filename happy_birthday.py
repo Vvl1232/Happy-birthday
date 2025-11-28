@@ -55,7 +55,7 @@ html_code = r"""
       z-index: 10050; pointer-events: none;
       display: flex; align-items: center; justify-content: center;
       width: 92vw; max-width: 720px;
-      animation: poemSequence 35s cubic-bezier(.2,.9,.2,1) forwards;
+      animation: poemSequence 42s cubic-bezier(.2,.9,.2,1) forwards;
     }
 
     @keyframes poemSequence {
@@ -513,3 +513,4 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects
 st.balloons()
 st.snow()
+
