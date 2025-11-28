@@ -61,8 +61,10 @@ html_code = r"""
     @keyframes poemSequence {
       0% { opacity: 0; }
       14% { opacity: 0; }
-      15% { opacity: 1; }
-      98% { opacity: 1; }
+      15% { opacity: 0; }
+      20% { opacity: 1; }
+      93% { opacity: 1; }
+      98% { opacity: 0; }
       100% { opacity: 0; }
     }
 
@@ -201,6 +203,7 @@ html_code = r"""
     @keyframes contentSequence {
       0% { opacity:0; visibility:hidden; }
       97% { opacity:0; visibility:hidden; }
+      98% { opacity:0; visibility:visible; }
       100% { opacity:1; visibility:visible; }
     }
 
