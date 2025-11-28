@@ -40,7 +40,7 @@ html_code = r"""
       animation: bounce 2.6s cubic-bezier(.25,.9,.35,1) infinite;
       margin-bottom: 34px;
     }
-    .welcome-banner h1 { color:white; font-size:3.2rem; text-align:center; text-shadow:4px 4px 10px rgba(0,0,0,0.35); font-weight:800; }
+    .welcome-banner h1 { color:white; font-size:3.2rem; text-align:center; text-shadow:2px 2px 5px rgba(0,0,0,0.175); font-weight:800; }
 
     .welcome-pets { display:flex; gap:80px; animation: slideIn 1.2s cubic-bezier(.2,.9,.2,1) ease-out; }
     .pet { font-size:6rem; animation:bounce 1.6s cubic-bezier(.25,.9,.35,1) infinite; filter:drop-shadow(0 10px 20px rgba(0,0,0,0.28)); }
@@ -88,10 +88,10 @@ html_code = r"""
       margin: 8px 0; 
       font-size: 1.12rem; 
       text-shadow: 
-        0 0 8px rgba(0,0,0,0.8),
-        0 0 12px rgba(0,0,0,0.6),
-        2px 2px 8px rgba(0,0,0,0.7),
-        0 4px 10px rgba(0,0,0,0.5);
+        0 0 4px rgba(0,0,0,0.4),
+        0 0 6px rgba(0,0,0,0.3),
+        1px 1px 4px rgba(0,0,0,0.35),
+        0 2px 5px rgba(0,0,0,0.25);
       font-weight: 600;
     }
 
@@ -184,7 +184,7 @@ html_code = r"""
       .pet { font-size: 3.4rem; }
     }
 
-    .countdown { position: fixed; top:50%; left:50%; transform:translate(-50%,-50%); font-size:12rem; font-weight:bold; color:#ff6b6b; text-shadow:0 0 30px rgba(255,107,107,0.8); z-index:10001; transition:opacity .6s, transform .6s; }
+    .countdown { position: fixed; top:50%; left:50%; transform:translate(-50%,-50%); font-size:12rem; font-weight:bold; color:#ff6b6b; text-shadow:0 0 15px rgba(255,107,107,0.4); z-index:10001; transition:opacity .6s, transform .6s; }
 
     .birthday-content {
       position: fixed; top:50%; left:50%; transform:translate(-50%,-50%);
@@ -210,11 +210,11 @@ html_code = r"""
       font-weight: 900;
       color: #ffffff;
       text-shadow:
-        0 0 15px rgba(0, 0, 0, 0.9),
-        0 0 25px rgba(0, 0, 0, 0.7),
-        0 2px 10px rgba(0, 0, 0, 0.8),
-        2px 2px 12px rgba(0, 0, 0, 0.75),
-        0 6px 18px rgba(0, 0, 0, 0.6);
+        0 0 7.5px rgba(0, 0, 0, 0.45),
+        0 0 12.5px rgba(0, 0, 0, 0.35),
+        0 1px 5px rgba(0, 0, 0, 0.4),
+        1px 1px 6px rgba(0, 0, 0, 0.375),
+        0 3px 9px rgba(0, 0, 0, 0.3);
     }
 
     .birthday-content p {
@@ -223,10 +223,10 @@ html_code = r"""
       margin:10px 0;
       font-weight: 600;
       text-shadow:
-        0 0 8px rgba(0,0,0,0.8),
-        0 0 12px rgba(0,0,0,0.6),
-        2px 2px 8px rgba(0,0,0,0.7),
-        0 4px 10px rgba(0,0,0,0.5);
+        0 0 4px rgba(0,0,0,0.4),
+        0 0 6px rgba(0,0,0,0.3),
+        1px 1px 4px rgba(0,0,0,0.35),
+        0 2px 5px rgba(0,0,0,0.25);
     }
 
     .celebration-burst { position: fixed; width:100vw; height:100vh; top:0; left:0; z-index:9990; pointer-events:none; }
