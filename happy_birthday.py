@@ -273,6 +273,7 @@ html_code = r"""
     </div>
     <div class="welcome-pets">
       <div class="pet">🐱</div>
+      <div class="pet">🦚</div>
       <div class="pet">🐶</div>
     </div>
   </div>
@@ -290,7 +291,7 @@ html_code = r"""
       <p> With cheese cakes 🍰 dancing in soft golden light.</p>
       <p> A swirl of warm coffee ☕ makes everything sweet,</p>
       <p> And tiny animals 🐶 bring joy with their little 💙 heartbeat.</p>
-      <p>🎶 Songs float around you, inviting your spirit to sing along,</p>
+      <p>🎶 Songs float around you, inviting your spirit to sing 🎤 along,</p>
       <p> And happy little dances 💃 turn your moments into a cheerful song.</p>
       <p> Wrapped in gentle kindness 😇, your dreams glow true—</p>
       <p>🔮 A day full of magic 🪄 deserves someone like you.</p>
@@ -513,5 +514,6 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects
 st.balloons()
 st.snow()
+
 
 
