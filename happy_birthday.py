@@ -70,9 +70,9 @@ html_code = r"""
       width: 100%;
       padding: 20px 28px;
       border-radius: 16px;
-      background: linear-gradient(135deg, rgba(255,255,255,0.25), rgba(255,255,255,0.15));
-      backdrop-filter: blur(16px);
-      border: 1.6px solid rgba(255,255,255,0.35);
+      background: rgba(255,255,255,0.14);
+      backdrop-filter: blur(14px);
+      border: 1.6px solid rgba(255,255,255,0.24);
       box-shadow: 0 14px 60px rgba(0,0,0,0.28);
       color: #fff;
       text-align: left;
