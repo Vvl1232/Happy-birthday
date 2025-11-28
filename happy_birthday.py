@@ -96,6 +96,7 @@ html_code = r"""
       z-index: 10045;
       animation: confettiTiming 35s linear forwards;
       opacity: 0;
+      filter: blur(2px);
     }
 
     @keyframes confettiTiming {
@@ -108,16 +109,16 @@ html_code = r"""
 
     .confetti {
       position: absolute;
-      width: 10px;
-      height: 10px;
+      width: 12px;
+      height: 12px;
       background: #f0f;
-      opacity: 0.35;
-      animation: confettiFall 3s linear infinite;
+      opacity: 0.25;
+      animation: confettiFall 4s linear infinite;
     }
 
     @keyframes confettiFall {
       to {
-        transform: translateY(100vh) rotate(360deg);
+        transform: translateY(120vh) rotate(360deg);
       }
     }
 
@@ -132,6 +133,7 @@ html_code = r"""
       z-index: 9995;
       animation: flakesTiming 38s linear forwards;
       opacity: 0;
+      filter: blur(2px);
     }
 
     @keyframes flakesTiming {
@@ -143,18 +145,18 @@ html_code = r"""
 
     .flake {
       position: absolute;
-      width: 8px;
-      height: 8px;
+      width: 10px;
+      height: 10px;
       background: #ff0;
       border-radius: 50%;
-      opacity: 0.4;
-      animation: flakeFall 4s linear infinite;
+      opacity: 0.3;
+      animation: flakeFall 5s linear infinite;
     }
 
     @keyframes flakeFall {
       to {
-        transform: translateY(100vh) rotate(180deg);
-        opacity: 0.15;
+        transform: translateY(120vh) rotate(180deg);
+        opacity: 0.1;
       }
     }
 
