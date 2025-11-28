@@ -85,7 +85,7 @@ html_code = r"""
 
     .poem-card p { margin: 8px 0; font-size: 1.12rem; text-shadow: 1px 1px 6px rgba(0,0,0,0.35); }
 
-    /* Confetti for poem transition */
+    /* Confetti for poem transition - BEHIND content */
     .confetti-container {
       position: fixed;
       top: 0;
@@ -93,7 +93,7 @@ html_code = r"""
       width: 100vw;
       height: 100vh;
       pointer-events: none;
-      z-index: 10040;
+      z-index: 10045;
       animation: confettiTiming 35s linear forwards;
       opacity: 0;
     }
@@ -102,8 +102,7 @@ html_code = r"""
       0% { opacity: 0; }
       14% { opacity: 0; }
       15% { opacity: 1; }
-      25% { opacity: 1; }
-      30% { opacity: 0; }
+      98% { opacity: 1; }
       100% { opacity: 0; }
     }
 
@@ -112,6 +111,7 @@ html_code = r"""
       width: 10px;
       height: 10px;
       background: #f0f;
+      opacity: 0.35;
       animation: confettiFall 3s linear infinite;
     }
 
@@ -121,7 +121,7 @@ html_code = r"""
       }
     }
 
-    /* Color flakes for birthday content transition */
+    /* Color flakes for birthday content transition - BEHIND content */
     .flakes-container {
       position: fixed;
       top: 0;
@@ -147,13 +147,14 @@ html_code = r"""
       height: 8px;
       background: #ff0;
       border-radius: 50%;
+      opacity: 0.4;
       animation: flakeFall 4s linear infinite;
     }
 
     @keyframes flakeFall {
       to {
         transform: translateY(100vh) rotate(180deg);
-        opacity: 0.3;
+        opacity: 0.15;
       }
     }
 
