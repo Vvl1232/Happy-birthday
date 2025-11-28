@@ -76,14 +76,24 @@ html_code = r"""
       box-shadow: 0 14px 60px rgba(0,0,0,0.28);
       color: #fff;
       text-align: left;
-      font-weight: 500;
+      font-weight: 600;
       line-height: 1.55;
       pointer-events: none;
       transform-origin: center;
       transition: transform .9s cubic-bezier(.2,.9,.2,1), opacity .9s ease;
+      overflow: hidden;
     }
 
-    .poem-card p { margin: 8px 0; font-size: 1.12rem; text-shadow: 1px 1px 6px rgba(0,0,0,0.35); }
+    .poem-card p { 
+      margin: 8px 0; 
+      font-size: 1.12rem; 
+      text-shadow: 
+        0 0 8px rgba(0,0,0,0.8),
+        0 0 12px rgba(0,0,0,0.6),
+        2px 2px 8px rgba(0,0,0,0.7),
+        0 4px 10px rgba(0,0,0,0.5);
+      font-weight: 600;
+    }
 
     /* Confetti for poem transition - BEHIND content */
     .confetti-container {
@@ -185,6 +195,7 @@ html_code = r"""
       animation: contentSequence 38s cubic-bezier(.2,.9,.2,1) forwards;
       opacity:0;
       max-width: 90%;
+      overflow: hidden;
     }
 
     @keyframes contentSequence {
@@ -199,16 +210,23 @@ html_code = r"""
       font-weight: 900;
       color: #ffffff;
       text-shadow:
-        0 0 10px rgba(0, 0, 0, 0.55),
-        0 0 20px rgba(0, 0, 0, 0.40),
-        0 4px 14px rgba(0, 0, 0, 0.55);
+        0 0 15px rgba(0, 0, 0, 0.9),
+        0 0 25px rgba(0, 0, 0, 0.7),
+        0 2px 10px rgba(0, 0, 0, 0.8),
+        2px 2px 12px rgba(0, 0, 0, 0.75),
+        0 6px 18px rgba(0, 0, 0, 0.6);
     }
 
     .birthday-content p {
       color:#fff;
       font-size:1rem;
       margin:10px 0;
-      text-shadow:1px 1px 6px rgba(0,0,0,0.35);
+      font-weight: 600;
+      text-shadow:
+        0 0 8px rgba(0,0,0,0.8),
+        0 0 12px rgba(0,0,0,0.6),
+        2px 2px 8px rgba(0,0,0,0.7),
+        0 4px 10px rgba(0,0,0,0.5);
     }
 
     .celebration-burst { position: fixed; width:100vw; height:100vh; top:0; left:0; z-index:9990; pointer-events:none; }
