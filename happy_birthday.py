@@ -81,6 +81,23 @@ html_code = r"""
       pointer-events: none;
       transform-origin: center;
       transition: transform .9s cubic-bezier(.2,.9,.2,1), opacity .9s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .poem-card::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: inherit;
+      backdrop-filter: inherit;
+      border-radius: inherit;
+      z-index: -1;
+      mask: linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0);
     }
 
     .poem-card p { margin: 8px 0; font-size: 1.12rem; text-shadow: 1px 1px 6px rgba(0,0,0,0.35); }
@@ -185,6 +202,23 @@ html_code = r"""
       animation: contentSequence 38s cubic-bezier(.2,.9,.2,1) forwards;
       opacity:0;
       max-width: 90%;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .birthday-content::before {
+      content: '';
+      position: absolute;
+      top: -10px;
+      left: -10px;
+      right: -10px;
+      bottom: -10px;
+      background: inherit;
+      backdrop-filter: inherit;
+      border-radius: inherit;
+      z-index: -1;
+      mask: linear-gradient(#fff 0 0);
+      -webkit-mask: linear-gradient(#fff 0 0);
     }
 
     @keyframes contentSequence {
