@@ -1,9 +1,28 @@
-import streamlit as st
-import streamlit.components.v1 as components
+"""Happy Birthday — Streamlit app with robust fallback
 
-# Page config
-st.set_page_config(page_title="Happy Birthday!", page_icon="🎂", layout="wide")
+This file attempts to run the interactive version using Streamlit when available.
+If Streamlit is not installed in the current environment (ModuleNotFoundError),
+it falls back to writing the same HTML into a static file at
+`/mnt/data/happy_birthday_fallback.html` and will try to open it using the
+system webbrowser (if permitted by the environment). This lets you preview
+and share the page even in sandboxed environments where installing packages
+isn't possible.
 
+To run the interactive Streamlit app (if you have Streamlit installed):
+    streamlit run this_file.py
+
+If you want to force the static output (even if Streamlit is installed):
+    python this_file.py --static
+
+"""
+
+from pathlib import Path
+import sys
+import textwrap
+import webbrowser
+import argparse
+
+# --- HTML content (kept as a single string) ---
 html_code = r"""
 <!DOCTYPE html>
 <html lang="en">
@@ -35,10 +54,9 @@ html_code = r"""
     }
 
     .welcome-banner {
-      background: linear-gradient(45deg,#ff6b6b,#feca57,#48dbfb,#ff9ff3);
-      padding: 30px 60px; border-radius: 48px; box-shadow: 0 18px 50px rgba(0,0,0,0.28);
-      animation: bounce 2.6s cubic-bezier(.25,.9,.35,1) infinite;
-      margin-bottom: 34px;
+      background: rgba(255,255,255,0.06); /* neutral, non-colorful banner */
+      padding: 18px 36px; border-radius: 28px; box-shadow: 0 10px 30px rgba(0,0,0,0.12);
+      margin-bottom: 18px;
     }
     .welcome-banner h1 { color:white; font-size:3.2rem; text-align:center; text-shadow:2px 2px 5px rgba(0,0,0,0.175); font-weight:800; }
 
@@ -119,21 +137,6 @@ html_code = r"""
       100% { opacity: 0; }
     }
 
-    .confetti {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      background: #f0f;
-      opacity: 0.25;
-      animation: confettiFall 4s linear infinite;
-    }
-
-    @keyframes confettiFall {
-      to {
-        transform: translateY(120vh) rotate(360deg);
-      }
-    }
-
     /* Color flakes for birthday content transition - BEHIND content */
     .flakes-container {
       position: fixed;
@@ -155,21 +158,36 @@ html_code = r"""
       100% { opacity: 1; }
     }
 
-    .flake {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: #ff0;
-      border-radius: 50%;
-      opacity: 0.3;
-      animation: flakeFall 5s linear infinite;
+    .crown-image {
+      font-size: 80px;
+      margin: 0 auto 20px;
+      display: block;
+      text-align: center;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+      animation: crownFloat 3s ease-in-out infinite;
     }
 
-    @keyframes flakeFall {
-      to {
-        transform: translateY(120vh) rotate(180deg);
-        opacity: 0.1;
-      }
+    /* NEW: Static crown inside the birthday card only */
+    .crown-float {
+      position: absolute; /* positioned inside the birthday-content */
+      top: -82px; /* sits above the card */
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140px;
+      height: auto;
+      z-index: 10052; /* above card content */
+      pointer-events: none;
+      opacity: 0;
+      transform-origin: center bottom;
+      /* static: subtle fade-in timed with the birthday card */
+      animation: crownFadeIn 700ms ease-in-out 0.98s forwards;
+      filter: drop-shadow(0 14px 30px rgba(0,0,0,0.28));
+      transition: opacity .6s ease, transform .6s ease;
+    }
+
+    @keyframes crownFadeIn {
+      0% { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(0.98); }
+      100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1.0); }
     }
 
     @media (max-width: 768px) {
@@ -177,6 +195,7 @@ html_code = r"""
       .pet { font-size: 4.2rem; }
       .poem-card { padding: 16px 18px; border-radius: 14px; }
       .poem-card p { font-size: 1rem; }
+      .crown-float { width: 110px; top: calc(50% - 170px); }
     }
 
     @media (max-width: 420px) {
@@ -184,20 +203,23 @@ html_code = r"""
       .poem-card p { font-size: 0.95rem; line-height: 1.45; }
       .welcome-banner h1 { font-size: 1.6rem; padding: 10px 18px; }
       .pet { font-size: 3.4rem; }
+      .crown-image { font-size: 50px; margin-bottom: 14px; }
+      .crown-float { width: 86px; top: calc(50% - 140px); }
     }
 
     .countdown { position: fixed; top:50%; left:50%; transform:translate(-50%,-50%); font-size:12rem; font-weight:bold; color:#ff6b6b; text-shadow:0 0 15px rgba(255,107,107,0.4); z-index:10001; transition:opacity .6s, transform .6s; }
 
     .birthday-content {
       position: fixed; top:50%; left:50%; transform:translate(-50%,-50%);
-      z-index:10000; text-align:center;
+      z-index:10050; text-align:center;
       background: rgba(255,255,255,0.14); backdrop-filter: blur(14px);
-      padding: 36px 44px; border-radius: 26px; border:1.6px solid rgba(255,255,255,0.24);
+      padding: 56px 44px 36px; /* extra top padding so crown has room */
+      border-radius: 26px; border:1.6px solid rgba(255,255,255,0.24);
       box-shadow: 0 22px 90px rgba(0,0,0,0.36);
       animation: contentSequence 42s cubic-bezier(.2,.9,.2,1) forwards;
       opacity:0;
       max-width: 90%;
-      overflow: hidden;
+      overflow: visible; /* allow crown to be visible above the card */
     }
 
     @keyframes contentSequence {
@@ -210,6 +232,7 @@ html_code = r"""
     .birthday-content h1 {
       font-size: 2.6rem;
       margin-bottom: 14px;
+      margin-top: 0;
       font-weight: 900;
       color: #ffffff;
       text-shadow:
@@ -259,7 +282,7 @@ html_code = r"""
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .welcome-banner, .pet, .poem-container, .countdown, .floating-animal, .celebration-burst, .confetti, .flake {
+      .welcome-banner, .pet, .poem-container, .countdown, .floating-animal, .celebration-burst, .confetti, .flake, .crown-image, .crown-float {
         animation:none !important; transition:none !important;
       }
     }
@@ -271,8 +294,7 @@ html_code = r"""
     <div class="welcome-banner">
       <h1>✨ SOMETHING MAGICAL AWAITS! ✨</h1>
     </div>
-    <div class="welcome-pets">
-      <div class="pet">🐱</div>
+    
       <div class="pet">🦚</div>
       <div class="pet">🐶</div>
     </div>
@@ -312,6 +334,7 @@ html_code = r"""
 
   <!-- Main Birthday Content -->
   <div class="birthday-content">
+    <img class="crown-float" src="file:///mnt/data/e22a807a-5f57-4c5f-80b9-ae286736fab2.png" alt="Crown" aria-hidden="true" />
     <h1>🎂🌹✨ Happy Birthday! ✨🌹🎂</h1>
     <p>🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟</p>
     <p>💖 Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires! 🧁</p>
@@ -493,24 +516,96 @@ html_code = r"""
 </html>
 """
 
-# Hide Streamlit chrome
-st.markdown("""
-<style>
-  #MainMenu {visibility: hidden;}
-  footer {visibility: hidden;}
-  header {visibility: hidden;}
-  .stApp > header {visibility: hidden;}
-  [data-testid="stHeader"] {display: none;}
-  [data-testid="stToolbar"] {display: none;}
-  .stDeployButton {display: none;}
-  .block-container { padding: 0 !important; max-width: 100% !important; }
-  iframe { border: none !important; display: block; position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh !important; }
-</style>
-""", unsafe_allow_html=True)
+# --- Utility functions ---
+FALLBACK_PATH = Path('/mnt/data/happy_birthday_fallback.html')
 
-# Render full-screen HTML
-components.html(html_code, height=1000, scrolling=False)
 
-# Optional visual effects
-st.balloons()
-st.snow()
+def run_streamlit_mode(html: str):
+    """Run the app via Streamlit. This function imports Streamlit lazily so the
+    file can be executed in environments without Streamlit installed (we catch
+    the ImportError in the caller)."""
+    import streamlit as st
+    import streamlit.components.v1 as components
+
+    st.set_page_config(page_title="Happy Birthday!", page_icon="🎂", layout="wide")
+
+    # Hide Streamlit chrome for a full-screen experience
+    st.markdown(
+        """
+        <style>
+          #MainMenu {visibility: hidden;}
+          footer {visibility: hidden;}
+          header {visibility: hidden;}
+          .stApp > header {visibility: hidden;}
+          [data-testid="stHeader"] {display: none;}
+          [data-testid="stToolbar"] {display: none;}
+          .stDeployButton {display: none;}
+          .block-container { padding: 0 !important; max-width: 100% !important; }
+          iframe { border: none !important; display: block; position: fixed; top: 0; left: 0; width: 100vw !important; height: 100vh !important; }
+        </style>
+        """,
+        unsafe_allow_html=True,
+    )
+
+    # The components.html call will render our full-screen HTML inside Streamlit.
+    components.html(html, height=9000, scrolling=False)
+
+    try:
+        # optional visual effects — will silently fail in environments where they
+        # are not supported. These are purely decorative.
+        st.balloons()
+        st.snow()
+    except Exception:
+        pass
+
+
+def run_fallback_static(html: str, open_in_browser: bool = True):
+    """Write the HTML to a fallback file and try to open it in the browser.
+    Returns the path to the written file."""
+    FALLBACK_PATH.write_text(html, encoding='utf-8')
+    print(f"Wrote fallback HTML to: {FALLBACK_PATH}")
+
+    if open_in_browser:
+        try:
+            webbrowser.open(FALLBACK_PATH.as_uri())
+            print("Attempted to open the fallback HTML in the system browser.")
+        except Exception as e:
+            print(f"Could not open browser automatically: {e}")
+
+    return FALLBACK_PATH
+
+
+# --- CLI and runtime selection ---
+
+def main(argv=None):
+    parser = argparse.ArgumentParser(description='Run the Happy Birthday page.')
+    parser.add_argument('--static', action='store_true', help='Always write static HTML and do not attempt Streamlit.')
+    parser.add_argument('--no-open', action='store_true', help="Don't attempt to open the fallback HTML in a browser.")
+    args = parser.parse_args(argv)
+
+    if args.static:
+        run_fallback_static(html_code, open_in_browser=not args.no_open)
+        return
+
+    # Try to import streamlit and run interactive mode — if Streamlit is not
+    # installed we'll gracefully fall back to the static HTML file.
+    try:
+        # Importing inside the try so ImportError can be handled here.
+        import streamlit  # type: ignore
+    except Exception as e:
+        print("Streamlit is not available in this environment. Falling back to static HTML.")
+        print(f"Import error: {e}")
+        run_fallback_static(html_code, open_in_browser=not args.no_open)
+        return
+
+    # If we get here, Streamlit is installed — run the Streamlit UI.
+    try:
+        run_streamlit_mode(html_code)
+    except Exception as e:
+        print("Failed to run Streamlit UI, falling back to static HTML.")
+        print(f"Error: {e}")
+        run_fallback_static(html_code, open_in_browser=not args.no_open)
+
+
+if __name__ == '__main__':
+    main()
