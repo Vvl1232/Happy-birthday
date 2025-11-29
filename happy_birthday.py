@@ -173,10 +173,10 @@ html_code = r"""
     }
 
     .crown-image {
-      width: 120px;
-      height: auto;
+      font-size: 80px;
       margin: 0 auto 20px;
       display: block;
+      text-align: center;
       filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
       animation: crownFloat 3s ease-in-out infinite;
     }
@@ -198,7 +198,7 @@ html_code = r"""
       .poem-card p { font-size: 0.95rem; line-height: 1.45; }
       .welcome-banner h1 { font-size: 1.6rem; padding: 10px 18px; }
       .pet { font-size: 3.4rem; }
-      .crown-image { width: 80px; margin-bottom: 14px; }
+      .crown-image { font-size: 50px; margin-bottom: 14px; }
     }
 
     .countdown { position: fixed; top:50%; left:50%; transform:translate(-50%,-50%); font-size:12rem; font-weight:bold; color:#ff6b6b; text-shadow:0 0 15px rgba(255,107,107,0.4); z-index:10001; transition:opacity .6s, transform .6s; }
@@ -328,10 +328,7 @@ html_code = r"""
 
   <!-- Main Birthday Content -->
   <div class="birthday-content">
-    <img src="https://raw.githubusercontent.com/user-attachments/assets/96347420.avif" 
-         alt="Crown" 
-         class="crown-image" 
-         onerror="this.style.display='none'" />
+    <div class="crown-image">👑</div>
     <h1>🎂🌹✨ Happy Birthday! ✨🌹🎂</h1>
     <p>🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟</p>
     <p>💖 Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires! 🧁</p>
