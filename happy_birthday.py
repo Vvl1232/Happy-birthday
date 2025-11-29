@@ -4,6 +4,9 @@ import streamlit.components.v1 as components
 # Page config
 st.set_page_config(page_title="Happy Birthday!", page_icon="🎂", layout="wide")
 
+# Updated HTML: added a floating crown image (transparent background) that appears above the birthday card
+# Image path (bundled in the environment): /mnt/data/96347420.avif
+
 html_code = r"""
 <!DOCTYPE html>
 <html lang="en">
@@ -119,21 +122,6 @@ html_code = r"""
       100% { opacity: 0; }
     }
 
-    .confetti {
-      position: absolute;
-      width: 12px;
-      height: 12px;
-      background: #f0f;
-      opacity: 0.25;
-      animation: confettiFall 4s linear infinite;
-    }
-
-    @keyframes confettiFall {
-      to {
-        transform: translateY(120vh) rotate(360deg);
-      }
-    }
-
     /* Color flakes for birthday content transition - BEHIND content */
     .flakes-container {
       position: fixed;
@@ -155,23 +143,6 @@ html_code = r"""
       100% { opacity: 1; }
     }
 
-    .flake {
-      position: absolute;
-      width: 10px;
-      height: 10px;
-      background: #ff0;
-      border-radius: 50%;
-      opacity: 0.3;
-      animation: flakeFall 5s linear infinite;
-    }
-
-    @keyframes flakeFall {
-      to {
-        transform: translateY(120vh) rotate(180deg);
-        opacity: 0.1;
-      }
-    }
-
     .crown-image {
       font-size: 80px;
       margin: 0 auto 20px;
@@ -181,9 +152,36 @@ html_code = r"""
       animation: crownFloat 3s ease-in-out infinite;
     }
 
+    /* NEW: Floating crown image (external asset) */
+    .crown-float {
+      position: fixed;
+      left: 50%;
+      /* place just above the birthday-content — adjust vertical offset for different screen sizes */
+      top: calc(50% - 190px);
+      transform: translateX(-50%) translateY(0);
+      width: 140px;
+      height: auto;
+      z-index: 10052; /* slightly above poem and birthday card */
+      pointer-events: none;
+      opacity: 0;
+      transform-origin: center bottom;
+      animation: crownFloatEntrance 3.2s cubic-bezier(.2,.9,.2,1) forwards, crownFloat 3.6s ease-in-out 0.9s infinite;
+      filter: drop-shadow(0 14px 30px rgba(0,0,0,0.28));
+      transition: opacity .9s ease, transform .9s ease;
+    }
+
     @keyframes crownFloat {
-      0%, 100% { transform: translateY(0px) rotate(-3deg); }
-      50% { transform: translateY(-10px) rotate(3deg); }
+      0% { transform: translateX(-50%) translateY(0) rotate(-4deg) scale(0.98); }
+      50% { transform: translateX(-50%) translateY(-12px) rotate(4deg) scale(1.02); }
+      100% { transform: translateX(-50%) translateY(0) rotate(-4deg) scale(0.98); }
+    }
+
+    /* Entrance animation timed to the birthday-content appearance (matches contentSequence timings) */
+    @keyframes crownFloatEntrance {
+      0% { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(0.88); }
+      92% { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(0.88); }
+      98% { opacity: 1; transform: translateX(-50%) translateY(-6px) scale(1.0); }
+      100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1.02); }
     }
 
     @media (max-width: 768px) {
@@ -191,6 +189,7 @@ html_code = r"""
       .pet { font-size: 4.2rem; }
       .poem-card { padding: 16px 18px; border-radius: 14px; }
       .poem-card p { font-size: 1rem; }
+      .crown-float { width: 110px; top: calc(50% - 170px); }
     }
 
     @media (max-width: 420px) {
@@ -199,13 +198,14 @@ html_code = r"""
       .welcome-banner h1 { font-size: 1.6rem; padding: 10px 18px; }
       .pet { font-size: 3.4rem; }
       .crown-image { font-size: 50px; margin-bottom: 14px; }
+      .crown-float { width: 86px; top: calc(50% - 140px); }
     }
 
     .countdown { position: fixed; top:50%; left:50%; transform:translate(-50%,-50%); font-size:12rem; font-weight:bold; color:#ff6b6b; text-shadow:0 0 15px rgba(255,107,107,0.4); z-index:10001; transition:opacity .6s, transform .6s; }
 
     .birthday-content {
       position: fixed; top:50%; left:50%; transform:translate(-50%,-50%);
-      z-index:10000; text-align:center;
+      z-index:10050; text-align:center;
       background: rgba(255,255,255,0.14); backdrop-filter: blur(14px);
       padding: 36px 44px; border-radius: 26px; border:1.6px solid rgba(255,255,255,0.24);
       box-shadow: 0 22px 90px rgba(0,0,0,0.36);
@@ -275,7 +275,7 @@ html_code = r"""
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .welcome-banner, .pet, .poem-container, .countdown, .floating-animal, .celebration-burst, .confetti, .flake, .crown-image {
+      .welcome-banner, .pet, .poem-container, .countdown, .floating-animal, .celebration-burst, .confetti, .flake, .crown-image, .crown-float {
         animation:none !important; transition:none !important;
       }
     }
@@ -325,6 +325,9 @@ html_code = r"""
     <div class="burst-firework" style="top:15%; left:40%;"></div>
     <div class="burst-snow" style="top:10%; left:50%;"></div>
   </div>
+
+  <!-- Floating crown image (transparent background) -->
+  <img class="crown-float" src="file:///mnt/data/96347420.avif" alt="Crown" aria-hidden="true" />
 
   <!-- Main Birthday Content -->
   <div class="birthday-content">
