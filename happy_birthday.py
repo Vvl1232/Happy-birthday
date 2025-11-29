@@ -4,6 +4,8 @@ import streamlit.components.v1 as components
 # Page config
 st.set_page_config(page_title="Happy Birthday!", page_icon="🎂", layout="wide")
 
+# Updated HTML: added a floating crown image (transparent background) that appears above the birthday card
+# Image path (bundled in the environment): /mnt/data/96347420.avif
 
 html_code = r"""
 <!DOCTYPE html>
@@ -141,6 +143,70 @@ html_code = r"""
       100% { opacity: 1; }
     }
 
+    .crown-image {
+      font-size: 80px;
+      margin: 0 auto 20px;
+      display: block;
+      text-align: center;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+      animation: crownFloat 3s ease-in-out infinite;
+    }
+
+    /* NEW: Floating crown image (external asset) */
+    .crown-float {
+      position: fixed;
+      left: 50%;
+      /* place just above the birthday-content — adjust vertical offset for different screen sizes */
+      top: calc(50% - 190px);
+      transform: translateX(-50%) translateY(0);
+      width: 140px;
+      height: auto;
+      z-index: 10052; /* slightly above poem and birthday card */
+      pointer-events: none;
+      opacity: 0;
+      transform-origin: center bottom;
+      animation: crownFloatEntrance 3.2s cubic-bezier(.2,.9,.2,1) forwards, crownFloat 3.6s ease-in-out 0.9s infinite;
+      filter: drop-shadow(0 14px 30px rgba(0,0,0,0.28));
+      transition: opacity .9s ease, transform .9s ease;
+    }
+
+    @keyframes crownFloat {
+      0% { transform: translateX(-50%) translateY(0) rotate(-4deg) scale(0.98); }
+      50% { transform: translateX(-50%) translateY(-12px) rotate(4deg) scale(1.02); }
+      100% { transform: translateX(-50%) translateY(0) rotate(-4deg) scale(0.98); }
+    }
+
+    /* Entrance animation timed to the birthday-content appearance (matches contentSequence timings) */
+    @keyframes crownFloatEntrance {
+      0% { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(0.88); }
+      /* remain hidden while welcome and poem show (aligns with contentSequence) */
+      0% { opacity: 0; }
+      97% { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(0.88); }
+      98% { opacity: 1; transform: translateX(-50%) translateY(-6px) scale(1.0); }
+      100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1.02); }
+    }
+      92% { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(0.88); }
+      98% { opacity: 1; transform: translateX(-50%) translateY(-6px) scale(1.0); }
+      100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1.02); }
+    }
+
+    @media (max-width: 768px) {
+      .welcome-banner h1 { font-size: 2.2rem; padding: 14px 24px; }
+      .pet { font-size: 4.2rem; }
+      .poem-card { padding: 16px 18px; border-radius: 14px; }
+      .poem-card p { font-size: 1rem; }
+      .crown-float { width: 110px; top: calc(50% - 170px); }
+    }
+
+    @media (max-width: 420px) {
+      .poem-card { padding: 12px 14px; }
+      .poem-card p { font-size: 0.95rem; line-height: 1.45; }
+      .welcome-banner h1 { font-size: 1.6rem; padding: 10px 18px; }
+      .pet { font-size: 3.4rem; }
+      .crown-image { font-size: 50px; margin-bottom: 14px; }
+      .crown-float { width: 86px; top: calc(50% - 140px); }
+    }
+
     .countdown { position: fixed; top:50%; left:50%; transform:translate(-50%,-50%); font-size:12rem; font-weight:bold; color:#ff6b6b; text-shadow:0 0 15px rgba(255,107,107,0.4); z-index:10001; transition:opacity .6s, transform .6s; }
 
     .birthday-content {
@@ -215,7 +281,7 @@ html_code = r"""
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .welcome-banner, .pet, .poem-container, .countdown, .floating-animal, .celebration-burst, .confetti, .flake {
+      .welcome-banner, .pet, .poem-container, .countdown, .floating-animal, .celebration-burst, .confetti, .flake, .crown-image, .crown-float {
         animation:none !important; transition:none !important;
       }
     }
@@ -266,9 +332,12 @@ html_code = r"""
     <div class="burst-snow" style="top:10%; left:50%;"></div>
   </div>
 
+  <!-- Floating crown image (transparent background) -->
+  <img class="crown-float" src="file:///mnt/data/1.png" alt="Crown" aria-hidden="true" />
 
   <!-- Main Birthday Content -->
   <div class="birthday-content">
+    <div class="crown-image">👑</div>
     <h1>🎂🌹✨ Happy Birthday! ✨🌹🎂</h1>
     <p>🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟</p>
     <p>💖 Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires! 🧁</p>
@@ -471,5 +540,3 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects
 st.balloons()
 st.snow()
-
-
