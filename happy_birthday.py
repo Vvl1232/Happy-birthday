@@ -172,6 +172,20 @@ html_code = r"""
       }
     }
 
+    .crown-image {
+      width: 120px;
+      height: auto;
+      margin: 0 auto 20px;
+      display: block;
+      filter: drop-shadow(0 8px 16px rgba(0,0,0,0.3));
+      animation: crownFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes crownFloat {
+      0%, 100% { transform: translateY(0px) rotate(-3deg); }
+      50% { transform: translateY(-10px) rotate(3deg); }
+    }
+
     @media (max-width: 768px) {
       .welcome-banner h1 { font-size: 2.2rem; padding: 14px 24px; }
       .pet { font-size: 4.2rem; }
@@ -184,6 +198,7 @@ html_code = r"""
       .poem-card p { font-size: 0.95rem; line-height: 1.45; }
       .welcome-banner h1 { font-size: 1.6rem; padding: 10px 18px; }
       .pet { font-size: 3.4rem; }
+      .crown-image { width: 80px; margin-bottom: 14px; }
     }
 
     .countdown { position: fixed; top:50%; left:50%; transform:translate(-50%,-50%); font-size:12rem; font-weight:bold; color:#ff6b6b; text-shadow:0 0 15px rgba(255,107,107,0.4); z-index:10001; transition:opacity .6s, transform .6s; }
@@ -210,6 +225,7 @@ html_code = r"""
     .birthday-content h1 {
       font-size: 2.6rem;
       margin-bottom: 14px;
+      margin-top: 0;
       font-weight: 900;
       color: #ffffff;
       text-shadow:
@@ -259,7 +275,7 @@ html_code = r"""
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .welcome-banner, .pet, .poem-container, .countdown, .floating-animal, .celebration-burst, .confetti, .flake {
+      .welcome-banner, .pet, .poem-container, .countdown, .floating-animal, .celebration-burst, .confetti, .flake, .crown-image {
         animation:none !important; transition:none !important;
       }
     }
@@ -312,6 +328,10 @@ html_code = r"""
 
   <!-- Main Birthday Content -->
   <div class="birthday-content">
+    <img src="https://raw.githubusercontent.com/user-attachments/assets/96347420.avif" 
+         alt="Crown" 
+         class="crown-image" 
+         onerror="this.style.display='none'" />
     <h1>🎂🌹✨ Happy Birthday! ✨🌹🎂</h1>
     <p>🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟</p>
     <p>💖 Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires! 🧁</p>
@@ -514,6 +534,3 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects
 st.balloons()
 st.snow()
-
-
-
