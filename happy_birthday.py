@@ -4,8 +4,6 @@ import streamlit.components.v1 as components
 # Page config
 st.set_page_config(page_title="Happy Birthday!", page_icon="🎂", layout="wide")
 
-# Updated HTML: added a floating crown image (transparent background) that appears above the birthday card
-# Image path (bundled in the environment): /mnt/data/96347420.avif
 
 html_code = r"""
 <!DOCTYPE html>
@@ -217,7 +215,7 @@ html_code = r"""
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .welcome-banner, .pet, .poem-container, .countdown, .floating-animal, .celebration-burst, .confetti, .flake, .crown-image, .crown-float {
+      .welcome-banner, .pet, .poem-container, .countdown, .floating-animal, .celebration-burst, .confetti, .flake {
         animation:none !important; transition:none !important;
       }
     }
@@ -268,12 +266,9 @@ html_code = r"""
     <div class="burst-snow" style="top:10%; left:50%;"></div>
   </div>
 
-  <!-- Floating crown image (transparent background) -->
-  <img class="crown-float" src="file:///mnt/data/96347420.avif" alt="Crown" aria-hidden="true" />
 
   <!-- Main Birthday Content -->
   <div class="birthday-content">
-    <div class="crown-image">👑</div>
     <h1>🎂🌹✨ Happy Birthday! ✨🌹🎂</h1>
     <p>🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟</p>
     <p>💖 Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires! 🧁</p>
@@ -476,4 +471,5 @@ components.html(html_code, height=1000, scrolling=False)
 # Optional visual effects
 st.balloons()
 st.snow()
+
 
