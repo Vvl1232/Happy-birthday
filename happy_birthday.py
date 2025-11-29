@@ -154,24 +154,26 @@ html_code = r"""
 
     /* NEW: Floating crown image (external asset) */
     .crown-float {
-      position: fixed;
+      position: absolute; /* positioned inside the birthday-content */
+      top: -82px; /* sits above the card */
       left: 50%;
-      /* place just above the birthday-content — adjust vertical offset for different screen sizes */
-      top: calc(50% - 190px);
-      transform: translateX(-50%) translateY(0);
+      transform: translateX(-50%);
       width: 140px;
       height: auto;
-      z-index: 10052; /* slightly above poem and birthday card */
+      z-index: 10052; /* above card content */
       pointer-events: none;
       opacity: 0;
       transform-origin: center bottom;
-      animation: crownFloatEntrance 3.2s cubic-bezier(.2,.9,.2,1) forwards, crownFloat 3.6s ease-in-out 0.9s infinite;
+      /* no floating animation — static, realistic look */
+      animation: crownFadeIn 700ms ease-in-out 0.98s forwards;
       filter: drop-shadow(0 14px 30px rgba(0,0,0,0.28));
-      transition: opacity .9s ease, transform .9s ease;
+      transition: opacity .6s ease, transform .6s ease;
     }
 
-    @keyframes crownFloat {
-      0% { transform: translateX(-50%) translateY(0) rotate(-4deg) scale(0.98); }
+    @keyframes crownFadeIn {
+      0% { opacity: 0; transform: translateX(-50%) translateY(-8px) scale(0.98); }
+      100% { opacity: 1; transform: translateX(-50%) translateY(0) scale(1.0); }
+    }
       50% { transform: translateX(-50%) translateY(-12px) rotate(4deg) scale(1.02); }
       100% { transform: translateX(-50%) translateY(0) rotate(-4deg) scale(0.98); }
     }
@@ -333,11 +335,11 @@ html_code = r"""
   </div>
 
   <!-- Floating crown image (transparent background) -->
-  <img class="crown-float" src="file:///mnt/data/1.png" alt="Crown" aria-hidden="true" />
+  
 
   <!-- Main Birthday Content -->
   <div class="birthday-content">
-    <div class="crown-image">👑</div>
+    <img class="crown-float" src="file:///mnt/data/e22a807a-5f57-4c5f-80b9-ae286736fab2.png" alt="Crown" aria-hidden="true" />
     <h1>🎂🌹✨ Happy Birthday! ✨🌹🎂</h1>
     <p>🌟 May your birthday be as extraordinary and wonderful as you are! 🎉🌟</p>
     <p>💖 Wishing you a day filled with happiness, laughter and as many cupcakes as your heart desires! 🧁</p>
